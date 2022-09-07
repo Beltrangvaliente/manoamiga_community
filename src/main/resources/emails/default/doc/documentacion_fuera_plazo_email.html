@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/public/layouts/layout::layout( ~{::body} )">
+    
+    <body>
+        <div class="container">
+            <h3>Recordatorio de entrega de documentación</h3>
+
+            <p>Hola ${nombre}
+                con usuario ${email}
+                recuerde que debe enviar ${nombre_documento}
+                antes de la fecha ${fecha_documento}
+            </p>
+
+
+        </div>
+    </body>
+
+</html>

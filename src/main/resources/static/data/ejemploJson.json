@@ -1,0 +1,5 @@
+[
+    {"id":1, "referencia": "A1111", "nombreCurso": "Curso de Java", "fechaMatricula": "2020-12-12", "estado":"Pendiente"},
+    {"id":2, "referencia": "B1112", "nombreCurso": "Curso de Python", "fechaMatricula": "2020-11-12", "estado":"Pendiente"},
+    {"id":3, "referencia": "C1113", "nombreCurso": "Curso de HTML", "fechaMatricula": "2020-12-21", "estado":"Aceptada"}
+]

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <h3>Plantillas</h3>
+        <div class ="container">
+            <form action="guardar" method="post" th:object="${registro}" 
+                  class="was-validated" enctype="multipart/form-data">    
+                <input type="hidden" th:field="*{id}"/>
+
+
+
+                <div class="row">
+                    <div class=" col-12   mt-3">
+                        <label>Nombre</label>
+                        <input class="form-control " th:field="*{nombre}" >
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="row-2">
+                        <label>Imagen 1  </label> 
+                    </div>
+
+                    <div class="row-1">
+                        <input type="number" th:field="*{img1ColIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{img1ColFin}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{img1FilIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{img1FilFin}" class="form-control"/>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="row-2">
+                        <label>Imagen 2</label>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{img2ColIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{img2ColFin}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{img2FilIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{img2FilFin}" class="form-control"/>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="row-2">
+                        <label>Imagen 3</label>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{img3ColIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{img3ColFin}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{img3FilIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{img3FilFin}" class="form-control"/>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="row-2">
+                        <label>Texto 1</label>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto1ColIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto1ColFin}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto1FilIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto1FilFin}" class="form-control"/>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="row-2">
+                        <label>Texto 1</label>
+                    </div>
+                    <div class="row-1">
+
+                        <select class="form-control"  th:field="*{texto1LetraFamilia}" data-memory="2">
+                            <option style="font-family:ABeeZee" value="ABeeZee" >ABeeZee</option>
+                            <option style="font-family:Arvo" value="Arvo" >Arvo</option>
+                            <option style="font-family:Bitter" value="Bitter" >Bitter</option>
+                            <option style="font-family:Fredoka" value="Fredoka" >Fredoka</option>
+                            <option style="font-family:Josefin Sans" value="Josefin Sans" >Josefin Sans</option>
+                            <option style="font-family:Lora" value="Lora" >Lora</option>
+                            <option style="font-family:Poppins" value="Poppins" >Poppins</option>
+                            <option style="font-family:Sarabun" value="Sarabun" >Sarabun</option>
+                            <option style="font-family:Spectral" value="Spectral" >Spectral</option>
+                            <option style="font-family:Ubuntu" value="Ubuntu" >Ubuntu</option>
+                        </select>
+                    </div>
+
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto1LetraTamanyo}" class="form-control"/>
+                    </div>
+
+                    <div class="row-1">
+
+                        <input type="color"  th:field="*{texto1LetraColor}"/>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="row-2">
+                        <label>Texto 2</label>   
+                    </div>
+
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto2ColIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto2ColFin}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto2FilIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto2FilFin}" class="form-control"/>
+                    </div>
+
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="row-2">
+                        <label>Texto 2</label>
+                    </div>
+                    <div class="row-1">
+
+                        <select class="form-control"  th:field="*{texto2LetraFamilia}" data-memory="2">
+                            <option style="font-family:ABeeZee" value="ABeeZee" >ABeeZee</option>
+                            <option style="font-family:Arvo" value="Arvo" >Arvo</option>
+                            <option style="font-family:Bitter" value="Bitter" >Bitter</option>
+                            <option style="font-family:Fredoka" value="Fredoka" >Fredoka</option>
+                            <option style="font-family:Josefin Sans" value="Josefin Sans" >Josefin Sans</option>
+                            <option style="font-family:Lora" value="Lora" >Lora</option>
+                            <option style="font-family:Poppins" value="Poppins" >Poppins</option>
+                            <option style="font-family:Sarabun" value="Sarabun" >Sarabun</option>
+                            <option style="font-family:Spectral" value="Spectral" >Spectral</option>
+                            <option style="font-family:Ubuntu" value="Ubuntu" >Ubuntu</option>
+                        </select>
+                    </div>
+
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto2LetraTamanyo}" class="form-control"/>
+                    </div>
+
+                    <div class="row-1">
+
+                        <input type="color"  th:field="*{texto2LetraColor}"/>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="row-2">
+                        <label>Texto 3</label>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto3ColIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto3ColFin}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto3FilIni}" class="form-control"/>
+                    </div>
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto3FilFin}" class="form-control"/>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="row-2">
+                        <label>Texto 3</label>
+                    </div>
+                    <div class="row-1">
+
+                        <select class="form-control"  th:field="*{texto3LetraFamilia}" data-memory="2">
+                            <option style="font-family:ABeeZee" value="ABeeZee" >ABeeZee</option>
+                            <option style="font-family:Arvo" value="Arvo" >Arvo</option>
+                            <option style="font-family:Bitter" value="Bitter" >Bitter</option>
+                            <option style="font-family:Fredoka" value="Fredoka" >Fredoka</option>
+                            <option style="font-family:Josefin Sans" value="Josefin Sans" >Josefin Sans</option>
+                            <option style="font-family:Lora" value="Lora" >Lora</option>
+                            <option style="font-family:Poppins" value="Poppins" >Poppins</option>
+                            <option style="font-family:Sarabun" value="Sarabun" >Sarabun</option>
+                            <option style="font-family:Spectral" value="Spectral" >Spectral</option>
+                            <option style="font-family:Ubuntu" value="Ubuntu" >Ubuntu</option>
+                        </select>
+
+                    </div>
+
+                    <div class="row-1">
+                        <input type="number" th:field="*{texto3LetraTamanyo}" class="form-control"/>
+
+                    </div>
+
+                    <div class="row-1">
+                        <input type="color"  th:field="*{texto3LetraColor}"/>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-5 mb-5" >Guardar</button>
+
+            </form>
+        </div>
+    </body>
+
+
+</html>
+
+
+
+
+

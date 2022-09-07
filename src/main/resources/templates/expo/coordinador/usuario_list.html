@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>        
+        <h3>Listado de Usuarios</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nuevo</a>
+        <a class="ml-5" href="#" onclick="tecnara.ocultar('formulario')" data-memory="2">Ver filtros</a>
+        <form id="formulario" class="d-none">  <!-- Filtrar -->
+            <div class="row mt-3">
+
+                <div class="col-3">
+                    <label>Usuario</label>
+                    <input name="usuario" class="form-control" data-memory="2"/>
+                </div>
+
+                <div class="col-3">
+                    <label>Estado</label>
+                    <select name="estado" class="form-control" data-memory="2">
+                        <option value="Todos">(Todos)</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Pendiente de validacion">Pendiente de validación</option>
+                        <option value="Aceptado">Aceptado</option>
+                        <option value="Denegado">Denegado</option>
+                        <option value="Bloqueado">Bloqueado</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <label>Rol</label>
+                    <select name="rol" class="form-control" data-memory="2">
+                        <option value="Todos">(Todos)</option>
+                        <option value="ROLE_EXPO_Coordinador">Coordinador</option>
+                        <option value="ROLE_EXPO_Trabajador">Trabajador</option>
+                        
+                    </select>
+                </div>
+                
+                <script>
+                   tecnara.filtroTabla = function (params) {
+                params.estado = $("*[name='estado']").val();
+                params.usuario = $("*[name='usuario']").val();
+                params.rol = $("*[name='rol']").val();
+
+                return params;
+            }  
+                </script>
+                <div class="col-3">
+                    <label class="d-block">&nbsp;</label>  
+                    <button class="btn btn-primary " onclick="tecnara.refrescarTablas()">
+                        <i class="fas fa-search"></i>  Filtrar</button>
+                </div> 
+
+
+
+            </div>
+
+        </form>
+        <script>
+           
+            tecnara.tablaRol = function(valor,row,idx){
+                if (valor==null){
+                    return "Sin rol";
+                }
+                var vector=valor.split("_");
+                if (vector.length>=2){
+                    return vector[2];    
+                }else{
+                    return "Sin rol";
+                }
+            }
+        </script>
+
+        <table class="table table-striped" data-toggle="table"  data-url="list_data" 
+               data-mobile-responsive="true"
+               data-pagination="true" data-side-pagination="server"
+               data-query-params="tecnara.filtroTabla">
+            <thead>
+                <tr>
+                    <th data-field="id"  class="d-none">Id</th>
+                    <th data-field="usuario" >Usuario</th>
+                    <th data-field="estado" >Estado</th>
+                    <th data-field="rol" data-formatter="tecnara.tablaRol" >Rol</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones">Acciones</th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>
+

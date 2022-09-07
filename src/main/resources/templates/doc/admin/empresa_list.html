@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+ <html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+  
+    <body>
+        <div data-toggle="indice"></div>
+        <h3> Formulario Empresa</h3>
+        <button data-toggle='formboxsinmenu' class="btn btn-primary btn-sm">Nuevo</button>
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">  
+            <thead>
+                <tr>
+                    <th data-field="id" >Id</th>
+                    <th data-field="nombre" >Nombre</th>
+                    <th data-field="direccion" >Dirección</th>
+                    <th data-field="nif" >NIF</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones"></th>
+                </tr>    
+            </thead>  
+        </table>
+        <div class="text-right">
+            
+        <a href="help">Ir a la ayuda</a>
+        </div>
+    </body>
+</html>

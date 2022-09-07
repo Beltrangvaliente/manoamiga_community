@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/public/layouts/layout::layout( ~{::body} )">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>  <head>
+        <title>Zona publica</title>
+
+    </head>
+    <body>
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <!--- Eventos de hoy ---->
+                    <h1 class="mb-5 text-center">Eventos de hoy</h1>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="/img/public/actividad2.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h4> Representación teatral</h4>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        <p>Hoy a las 11:00h</p> 
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="..." class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h4> Visita del consejero de cultura</h4>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        <p>Hoy a las 13:00h</p> 
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="..." class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h4> Espalda sana para mayores</h4>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        <p>Hoy a las 12:00h</p> 
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <!--- Eventos de la semana ---->
+                    <h2 class="mb-5 text-center">Eventos de la semana</h2>
+                    
+                </div>
+                <div class="carousel-item">
+                    <!--- Eventos del mes ---->
+                    <h2 class="mb-5 text-center">Eventos del mes</h2>
+                </div>
+            </div>
+        </div>        
+    </body>
+</html>

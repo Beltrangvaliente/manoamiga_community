@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="indice"></div>        
+        <div class="container">
+            <h3>Trabajadores</h3>
+            <a href="form" class="btn btn-primary btn-sm">Nuevo</a>
+
+            <a class="ml-5" href="#" onclick="tecnara.ocultar('formulario')" data-memory="2">Ver filtros</a>
+
+            <form id="formulario" class="d-none mt-3"  >  
+                <div class="row">
+                    <div class="col-md-4 col-6">
+                        <input class="form-control" name="nombre" placeholder="Introduce un texto para buscar" data-memory="2"/>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <script>
+                            tecnara.refrescarTablas = function () {
+                                $("table[data-toggle='table']").bootstrapTable('refresh');
+                            }
+                        </script>
+                        <button type="button" class="btn btn-primary btn-block" 
+                                onclick="tecnara.refrescarTablas()"><i class="fas fa-search"></i>  Filtrar</button>
+                    </div> 
+                </div>
+                </br>
+            </form>
+
+            <script>
+                tecnara.filtroTabla = function (params) {
+                    params.filtro = $("*[name='nombre']").val();
+
+                    return params;
+                }
+            </script>
+            <div class="row mt-3 mb-3">
+                <div class="col-12">
+
+                    <table class="table table-striped mt-3" 
+                           data-show-export="true"   
+                           data-export-data-type="all"
+                           data-export-types="['excel','pdf','doc']"
+                           data-title="Listado de trabajadores"
+                           data-toggle="table" 
+                           data-mobile-responsive="true" 
+                           data-url="list_data" 
+                           data-pagination="true"
+                           data-side-pagination="server" 
+                           data-query-params="tecnara.filtroTabla"> 
+                        <thead>
+                            <tr>
+                                <th data-field="nombre" data sortable="true" name="nombre">Nombre</th>
+
+                                <th data-field="apellido1" data sortable="true" name="apellido1">Apellido1</th>
+
+                                <th data-field="apellido2" data sortable="true" name="apellido2">Apellido2</th>
+
+                                <th data-field="id" data-force-hide="true" data-formatter="tecnara.tablaBotones"></th>   
+
+                            </tr>  
+                        </thead>
+                    </table> 
+                </div>
+            </div>
+        </div>
+    </body>
+</html> 

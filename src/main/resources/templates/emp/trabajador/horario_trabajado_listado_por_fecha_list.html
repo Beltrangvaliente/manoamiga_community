@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/trabajador/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>
+        <h3>Tiempo trabajado</h3>  
+
+        <table class="table table-striped" data-toggle="table" 
+               data-mobile-responsive="true" 
+               data-url="list_data_fecha" 
+               data-pagination="true" 
+               data-side-pagination="server" 
+               data-query-params="tecnara.filtroTabla">
+            
+            <thead>
+                <tr>
+                    <th data-field="Fecha" data-formatter="tecnara.formatFecha">Fecha</th>
+                    <th data-field="Horas" data-formatter="tecnara.formatTiempo">Total horas</th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

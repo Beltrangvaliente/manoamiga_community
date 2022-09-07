@@ -1,0 +1,20 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h3>Listado de clases</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nuevo</a>
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="id">Id</th>
+                    <th data-field="idBeneficiario">IdBeneficiario</th>
+                    <th data-field="idProfesor">IdProfesor</th>
+                    <th data-field="asignatura">Asignatura</th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

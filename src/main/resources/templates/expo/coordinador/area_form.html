@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>Área Formulario</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div> 
+        <div data-field="id" data-formatter="tecnara.tablaBotones" data-width="200"></div>
+        <h3>Área Formulario</h3>
+        <form action="guardar" method="post" th:object="${registro}">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Área</label>
+                    <input class="form-control" th:field="*{area}" maxlength="200" />
+                </div>
+                <div class="col-md-3">
+                    <label>Color</label>
+                    <input type="color" class="form-control" th:field="*{color}" maxlength="200" />
+                </div>  
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+        </form>           
+    </body>
+</html>

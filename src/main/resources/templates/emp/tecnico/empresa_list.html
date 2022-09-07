@@ -1,0 +1,92 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <!DOCTYPE html>
+
+    <body>
+        <div data-toggle="indice"></div>        
+        <h3>Listado de Empresas</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nuevo</a>
+        <a class="ml-3" href="#" onclick="tecnara.ocultar('formulario')" data-memory="2" >Ver filtros</a>
+
+        <div  id="formulario" class="d-none" > 
+
+            <div class="row mt-3">
+                <div class="col-md-4 col-6">
+                     <label><b>Buscar por texto</b></label>
+                    <input class="form-control" type="text" name="filtro" id="buscador" data-memory="2" placeholder="Introduce un texto para buscar" onkeypress="tecnara.introRefrescarTablas()" autocomplete="off"/>
+                </div>
+                <div class="col-md-4 col-6">
+                     <label><b>Sector</b></label>
+                    <input type="text" class="form-control" data-toggle="buscador" data-url="../sector/buscador" name="idSector" data-memory="2" placeholder="Introduce nombre Sector" onkeypress="tecnara.introRefrescarTablas()" autocomplete="off"/>
+                </div>
+
+
+                <div class="col-md-4 col-6">
+                    <script>
+                        tecnara.refrescarTablas = function () {
+                            $("table[data-toggle='table']").bootstrapTable('refresh');
+                        }
+                    </script>
+                    
+                    <div class="col-md-4 col-6">
+                        <label>&nbsp;</label>
+                        <button type="button" class="btn btn-primary btn-block"  onclick="tecnara.refrescarTablas()"><i class="fas fa-search"></i> Filtrar</button>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            tecnara.filtroTabla = function (params) {
+                params.filtro = $("*[name='filtro']").val();
+                params.idSector = $("*[name='idSector']").val();
+                return params;
+            }
+
+
+        </script>
+        <table id="table" class="table table-striped mt-3" 
+               data-show-export="true"   
+               data-export-data-type="all"
+               data-export-types="['excel','pdf','doc']"
+               data-title="Listado de empresas"
+               data-toggle="table" 
+               data-url="list_data"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-query-params="tecnara.filtroTabla"
+               data-mobile-responsive="true" 
+               data-locale="es-ES"
+               data-controller="../empresa">
+            <thead>
+                <tr>
+
+                    <th data-field="Nombre" >Nombre de Empresa </th>
+                    <th data-field="Direccion"   >Dirección</th>
+                    <th data-field="Telefono"  >Teléfono</th>
+                    <th data-field="Email"  >Email</th>
+                    <th data-field="Responsable"  >Responsable</th>
+                    <th data-field="Cif"  >CIF</th>
+                    <th data-field="Socio"  >Socio</th>
+                    <th data-field="id" data-force-hide="true" data-width="200" data-formatter="tecnara.tablaBotones"></th>
+
+                </tr>   
+            </thead>    
+        </table> 
+        
+        <script>/*
+            //$(document).ready(function(){
+ 
+                $(function() {
+                    $('#table').bootstrapTable('destroy').bootstrapTable({
+                      exportDataType: "all",
+                      exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel', 'pdf']
+                    })
+                  }).trigger('change');
+            //})*/
+        </script>
+        
+
+    </body>
+</html>

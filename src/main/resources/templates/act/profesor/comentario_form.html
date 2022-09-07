@@ -1,0 +1,39 @@
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/profesor/layouts/layout::layout( ~{::body} )">
+    <body>
+        
+         <script>
+            tecnara.filtroIdBeneficiario = function (params){
+                params.idBeneficiario = $("#id").val();
+                return params;
+            }
+        </script>
+        
+        
+        
+        <h3>Comentario</h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+             <input type="hidden" th:field="*{idBeneficiario}" />
+            <div class="row">
+                <div class="col-3">
+                    <label>Fecha</label> 
+                    <input type="date" data-default="hoy" class="form-control" th:field="*{fechaComentario}"/>
+                </div> 
+                <div class="col-3">
+                    <label>Hora</label>
+                    <input type="time" data-default="ahora" class="form-control" th:field="*{horaComentario}"/>
+                </div>    
+                <div class="col-12">   
+                    <label>Texto</label>
+                    <textarea rows="10" class="form-control" th:field="*{texto}"></textarea>
+                </div>     
+            </div>
+            <p>
+                La información aquí publicada será visible por los padres/tutores del beneficiario.
+            </p>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+
+    </body>
+</html>

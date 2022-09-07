@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>
+        <h3>Matrículas en preinscripción</h3>
+        <button data-toggle='formboxsinmenu' class="btn btn-primary btn-sm">Nuevo</button>
+        <a class="ml-5" href="#" onclick="tecnara.ocultar('formulario')" data-memory="2">Ver filtros</a>
+        <div id="formulario" class="d-none">  <!-- Filtrar -->
+            <div class="row mt-3">
+                <div class="col-2">
+                    <label>Tipo de Actividad</label>
+                    <select class="form-control" data-memory="2">
+                        <option>(Todos)</option>
+                        <option value="formativa">Formativa</option>
+                        <option value="voluntariado">Voluntariado</option>
+                        <option value="recreativa">Recreativa</option>
+                    </select>
+                </div>
+                <div class="col-2">
+                    <label>Nombre</label>
+                    <input class="form-control" name="nombre" data-memory="2"/>
+                </div>
+                <div class="col-2">
+                    <label>Fecha desde</label>
+                    <input type="date" class="form-control" name="fechaDesde" data-memory="2"/>
+                </div>                
+                <div class="col-2">
+                    <label>Fecha hasta</label>
+                    <input type="date" class="form-control" name="fechaHasta" data-memory="2"/>
+                </div>  
+                <div class="col-2">
+                    <button class="btn btn-primary " onclick="tecnara.bootboxEnConstruccion()" ><i class="fas fa-search"></i>Filtrar</button>
+                </div>                     
+
+            </div>
+
+        </div>
+        <script>
+            tecnara.filtroNombre = function (params) {
+                params.filtro = $("input[name='nombre']").val();
+                return params;
+            }
+
+
+            tecnara.tablaBotonesAceptarRechazar = function (id, row, index) {
+                return "<button type='button' class='btn btn-success btn-sm' onclick='tecnara.bootboxEnConstruccion()' > Aceptar </button> " +
+                        "<button type='button' class='btn btn-danger btn-sm' onclick='tecnara.bootboxEnConstruccion()'> Rechazar </button> ";
+
+            }
+
+            tecnara.rechazarmatriculaSolicitudes = function (id) {
+                bootbox.confirm({
+                    message: "¿Desea rechazar la solicitud de matricula?",
+                    callback: function (res) {
+                        if (res) {
+                            document.location = "rechazar?id=" + id;
+                        }
+                    }
+                });
+            },
+                    tecnara.aceptarORechazar = function (id) {
+                        return  "<a onclick='tecnara.ejecutarAjax(this)' data-url='solicitar_documentacion?id=" + id + "' class='text-info'><i class='fas fa-sticky-note fa-2x'></i></a>     " +
+                                "<a  href='confirmar?id=" + id + "' class='text-success'><i class='fas fa-check-circle fa-2x'></i></a>     " +
+                                "<a onclick='tecnara.ejecutarAjax(this)'  data-url='rechazar?id=" + id + "' class='text-danger'><i class='fas fa-times-circle fa-2x'></i></a>";
+                    }
+
+        </script>
+
+
+
+        <table class="table table-striped mt-3" data-toggle="table" data-url="solicitudes_data">
+
+
+
+            <thead>
+                <tr>
+                    <th data-field="nombreAlumno"  >Alumno</th>
+                    <th data-field="nombreCurso" >Curso</th>
+                    <th data-field="estado">Estado</th>
+
+
+
+                    <th data-field="nombreCentro">Centro</th>
+                    <th data-field="fechaInscripcion"   data-formatter="tecnara.formatFecha">Fecha de inscripción</th> 
+                    <th data-field="id" data-formatter="tecnara.aceptarORechazar" data-width="200"></th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>
+
+
+
+

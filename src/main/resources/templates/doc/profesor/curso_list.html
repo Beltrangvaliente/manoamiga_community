@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/profesor/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>  
+        <h3>Listado de Cursos</h3>
+        <div class="row">
+            <div class="input-group col-md-5">
+                <input type="search" name="filtro" id="forml" class="form-control" placeholder="Búsqueda de cursos" title="Busca un curso"/>
+                <div class="input-group-append">
+                    <button type="button" onclick="tecnara.refrescarTablas()" class="btn btn-primary">
+                        <i class="fas fa-search "></i>
+                    </button>
+                </div>
+            </div>
+        </div>  
+
+        <script>
+            tecnara.filtroTabla = function (params) {
+                params.filtro = $("*[name='filtro']").val();
+                return params;
+            }
+        </script>
+
+        <table class="table table-striped mt-3" 
+               data-toggle="table" 
+               data-url="list_data"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-query-params="tecnara.filtroTabla">
+            <thead>
+                <tr>
+                    <th data-field="Curso">Curso</th>
+                    <th data-field="Centro"  data-formatter="tecnara.formatFecha">Centro</th>
+                    <!-- <th data-field="Curso">Horas</th> -->  
+                    <!--  <th data-field="Estado" data-formatter="tecnara.celdaEstado">Modalidad</th> --> 
+                    <th data-field="Localizacion">Localización</th>
+                    <th data-field="fechaInicio" data-formatter="tecnara.formatFecha">Fecha inicio</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotonConsulta">Información</th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

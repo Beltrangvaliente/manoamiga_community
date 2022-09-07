@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/public/layouts/layout::layout( ~{::body} )">
+   
+    <body>
+         <div class="container">
+            <h3>Recordatorio de inicio de curso</h3>
+
+            <p>Hola ${nombre}
+                con usuario ${email}
+                recuerde que el curso de ${nombre_curso}
+                dará comienzo el día ${fecha_curso} en ${nombre_centro} con horario de ${horario}
+            </p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <h3>Formulario Solicitud Evaluación</h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{idActividad}"/>
+
+
+            <div class="row">
+                <div class="col-6">
+                    <label>Fecha de Inicio</label>
+                    <input type="date" data-default="hoy" class="form-control" th:field="*{fechaInicio}">
+                </div>
+                <div class="col-6">
+                    <label>Fecha de Fin</label>
+                    <input type="date" data-default="hoy" class="form-control" th:field="*{fechaFin}">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+        </form>    
+
+    </body>
+</html>

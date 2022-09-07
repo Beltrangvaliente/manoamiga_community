@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+
+    <head>
+        <title>Registro de bajas</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div data-toggle="indice"></div>
+        <h3>Registro de Bajas</h3>
+
+
+        <div class="container">
+            <form action="bajas_guardar" method="post" class="was-validated" >
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Trabajador de baja</label>
+                        <input data-memory="2" onchange="tecnara.refrescarTablas()" class="form-control" data-url="../trabajador/buscador" data-toggle="buscador" name="idTrabajador" id="idTrabajador"  required/>
+                    </div>
+                     
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Fecha Inicio</label>
+                        <input type="Date" class="form-control" onchange="dif()" onblur="dif()" id="fechaInicio" name="fechaInicio" data-inputmask="'alias': 'yyyy/MM/dd'" data-mask  th:field="*{fechaInicio}" required/>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Fecha Fin</label>
+                        <input type="Date" class="form-control" onchange="dif()" onblur="dif()" id="fechaFin" name="fechaFin" data-inputmask="'alias': 'yyyy/mm/dd'" th:field="*{fechaFin}" required/>
+                    </div>
+
+                    <script>
+                        function enviarFormulario(){
+                            var form = $("form");
+                            var actionUrl = form.attr('action');
+                            $.ajax({
+                                type: "POST",
+                                url: actionUrl,
+                                data: form.serialize(), // serializes the form's elements.
+                                success: function(data)
+                                {
+                                        tecnara.refrescarTablas();
+                                        bootbox.alert(data);
+                                }
+                            });        
+                        }
+                        function dif() {
+                            var fechaInicio = new Date($("#fechaInicio").val());
+                            var fechaFin = new Date($("#fechaFin").val());
+                            var tiempo = fechaFin.getTime() - fechaInicio.getTime();
+                            tiempo = tiempo / 1000 / 60 / 60 / 24 + 1;
+                            if (tiempo > 0) {
+                                $("#Tiempo").val(tiempo + " dias");
+                            } else {
+                                $("#Tiempo").val("");
+                            }
+                        };
+
+                    </script>
+                    <div class="col-md-4">
+                        <label> Días registrados</label>
+                        <div data-invalid-text="Bajas_registrada">
+                            <input class="form-control" id="Tiempo" name="Tiempo" value="" disabled />
+                        </div>
+                    </div>
+                    <br/><br/>
+                    </br></br>
+                    <div class="col-md-12">
+                        <script>
+                            tecnara.actualizarDiaSemana = function () {
+                                $("#diaSemana").val("");
+                                $(".dia").each(function (x, item) {
+                                    if (item.checked) {
+                                        $("#diaSemana").val($("#diaSemana").val() + item.value);
+                                    }
+                                })
+                            }
+                        </script>
+                        <br/><br/>
+                        Días de la semana:<br/><br/>
+                        <input id="diaSemana" name="diaSemana" type="hidden" required="" value="2345671" />   
+                        <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="2" checked>Lunes</input> - 
+                        <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="3" checked>Martes</input> -
+                        <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="4" checked>Miercoles</input> -
+                        <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="5" checked>Jueves</input> -
+                        <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="6" checked>Viernes</input> -
+                        <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="7" checked>Sabado</input> -
+                        <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="1" checked>Domingo</input> 
+                    </div>
+                    <button onclick="enviarFormulario()" type="button" class="btn btn-primary mt-5">Registrar bajas</button>
+                </div>
+            </form>
+        </div>
+            <script>
+                tecnara.filtroTabla = function (params) {
+                    params.idTrabajador = $("#idTrabajador").val();
+                    return params;
+                }
+            </script>        
+        <h3 class="mt-3">Registro de Bajas </h3>
+        <table class="table table-striped mt-3" 
+               data-controller="../horario_trabajado"
+               data-show-export="true"   
+               data-export-data-type="all"
+               data-export-types="['excel','pdf','doc']"
+               data-title="Listado de Bajas"
+               data-toggle="table" 
+               data-mobile-responsive= "true" 
+               data-url="list_data_bajas"
+               data-side-pagination= "server"
+               data-pagination="true"
+               data-query-params="tecnara.filtroTabla">
+            <thead>
+                <tr>
+                    <th data-field="nombre" >Persona</th>
+                    <th data-field="diaSemana" >Dia</th>
+                    <th data-field="fecha"   data-formatter="tecnara.formatFecha">Fecha</th>
+                    <th data-field="id" data-force-hide="true" data-formatter="tecnara.tablaBotonesBorrar"></th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

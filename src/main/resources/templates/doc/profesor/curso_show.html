@@ -1,0 +1,49 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/profesor/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver"></div> 
+        <div class="container" >
+            <h3>Información del curso: <span th:text="${prof.get('nombreCurso')}"></span></h3>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <label><b>Modalidad:</b></label><p th:text="${prof.get('modalidad')}">Presencial</p><br/>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <label ><b>Referencia:</b></label><p th:text="${prof.get('referencia')}">4242523</p><br/>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <label ><b>Localidad:</b></label><p th:text="${prof.get('localidad')}"> Zaragoza</p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <label ><b>Número horas:</b></label> <p th:text="${prof.get('numeroHoras')}">2h</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <label ><b>Fecha inscripción:</b> </label> <p th:text="${prof.get('fechaLimiteInscripcion')}"> 10-12-2021</p><br/>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <label><b>Fecha inicio:</b> </label> <p th:text="${prof.get('fechaInicio')}">20-12-2021</p><br/>
+                </div>  
+                <div class="col-md-6">
+                    <label ><b>Título a obtener:</b> </label>  <p th:text="${prof.get('documentoTitulo')}">Primeros Auxilios</p><br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <label ><b>Precio:</b> </label><p th:text="${prof.get('precio')}">300Euros</p><br/>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <label ><b >Numero Alumnos:</b> </label><p th:text="${prof.get('numeroAlumnos')}">12</p><br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label ><b>Requisitos:</b></label> <p th:text="${prof.get('requisitos')}">Lorem ipsum</p><br/>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver"></div>
+        <h3>Formulario Tutor</h3>
+        <div class="container">
+            <form class="was-validated" action="guardar" method="post" th:object="${registro}">
+                <input type="hidden" class="form-control" th:field="*{id}"/>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Nombre</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">
+                                    <i class="fas fa-asterisk"></i>   
+                                </span>
+                            </div>
+                            <input class="form-control" required ="" th:field="*{nombre}" />
+                            <div class="invalid-feedback">
+                                Debes introducir un nombre
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Apellidos</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">
+                                    <i class="fas fa-asterisk"></i> 
+                                </span>
+                            </div>
+                            <input class="form-control" required ="" th:field="*{apellido}" />
+                            <div class="invalid-feedback">
+                                Debes Introducir el Primer Apellido
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Dirección</label>
+                        <input class="form-control" th:field="*{direccion}"/>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Teléfono</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">
+                                    <i class="fas fa-asterisk"></i>
+                                </span>
+                            </div>
+                            <input class="form-control" required ="" th:field="*{telefono}"/>
+                            <div class="invalid-feedback">
+                                Debes introducir un número de teléfono de contacto
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Usuario</label>
+                        <input class="form-control" data-params="idUsuario" data-toggle="buscador" data-url="buscador_tutor" th:field="*{idUsuario}"/>
+                    </div>
+                    <div class="col-md-3 col-sm-6 ">
+                        <label class="d-block">&nbsp;</label>
+                        <input type="hidden" id="rol" value="ROLE_ACT_Tutor"/>
+                        <button type="button" data-toggle="formbox" data-return="idUsuario" data-params="rol" data-url="../usuario/form" class="btn btn-primary"><i class="fas fa-plus"></i> Crear usuario nuevo</button>
+                    </div>                    
+                </div>
+                </br>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#divBeneficiarios" data-toggle="tab">Beneficiarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#divComentarios" data-toggle="tab" >Comentarios</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <script>
+                    tecnara.filtroIdTutor = function (params) {
+                        params.idTutor = $("#id").val();
+                        return params;
+                    }
+                </script> 
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tab-content">
+                            <div id="divBeneficiarios" class="tab-pane fade show active"> 
+                                <button type="button" data-toggle="formbox" data-url="../beneficiario/form" class="btn btn-primary">Crear un beneficiario</button>
+                                <table class="table table-striped" data-toggle="table"
+                                       data-url="list_data_beneficiario"
+                                       data-pagination="true"
+                                       data-side-pagination="server"
+                                       data-query-params="tecnara.filtroIdTutor"
+                                       data-locale="es-ES"
+                                       data-controller="../beneficiario">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="usuario">Usuario</th>
+                                            <th data-field="nombre">Nombre</th>
+                                            <th data-field="apellido">Apellido</th>
+                                            <th data-field="telefono">Teléfono</th>
+                                            <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+                                        </tr>   
+                                    </thead>    
+                                </table>  
+                            </div>
+                            <div id="divComentarios" class="tab-pane fade"> 
+                                <div class="row"> 
+                                    <div class="col-12">
+
+                                        <table class="table table-striped" data-toggle="table" data-width="50%"
+                                               data-url="list_data_comentario"
+                                               data-pagination="true"
+                                               data-side-pagination="server"
+                                               data-query-params="tecnara.filtroIdTutor"
+                                               data-locale="es-ES"
+                                               data-controller="../comentario">
+                                            <thead>
+                                                <tr>
+                                                    <th data-field="nombreMonitor" data-width="50%" >Nombre del Monitor</th>
+                                                    <th data-field="texto" >Comentario</th>
+                                                </tr>   
+                                            </thead>    
+                                        </table>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

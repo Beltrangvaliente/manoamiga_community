@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div> 
+
+        <h3>Eventos del mes</h3>
+        <form action="generar" class="was-validated" onsubmit="tecnara.mostrarAnimacion()" method="post" th:object="${registro}">
+            <div th:fragment="plantilla()">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div id="calendar"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Generar citas</h5>
+                        <hr/>
+                        <div class="col-md-6">
+                            <label>Centro de atención</label>
+                            <input id="idCentroDeAtencion" name="idCentroDeAtencion" data-toggle="buscador" data-url="../centro_atencion/buscador" class="form-control" required/>
+                        </div>
+                        <br/>
+                        <div class="col-md-12">
+                            de <input type="date" name="fechaInicio" required/>
+                            a <input type="date" name="fechaFin" required/>
+                        </div>
+                        <br/>
+                        <div class="col-md-12">
+                            <script>
+                                tecnara.actualizarDiaSemana = function () {
+                                    $("#diaSemana").val("");
+                                    $(".dia").each(function (x, item) {
+                                        if (item.checked) {
+                                            $("#diaSemana").val($("#diaSemana").val() + item.value);
+                                        }
+                                    })
+                                }
+                            </script>
+                            Día de la semana:<br/>
+                            <input id="diaSemana" name="diaSemana" placeholder="dia" type="hidden" required />   
+                            <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="2">Lunes</input><br/>
+                            <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="3">Martes</input><br/>
+                            <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="4">Miercoles</input><br/>
+                            <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="5">Jueves</input><br/>
+                            <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="6">Viernes</input><br/>
+                            <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="7">Sabado</input><br/>
+                            <input onchange="tecnara.actualizarDiaSemana()" class="dia" type="checkbox" value="1">Domingo</input> <br/>
+                        </div>
+                        <br/>
+                        <div class="col-md-12">
+                            de <input type="time" name="horaInicio" required/>
+                            a <input type="time" name="horaFin" required/>
+                        </div>
+                        <br/>
+                        <div class="col-md-12">
+                            intervalo 
+                            <input type="number" name="intervaloMinutos" placeholder="cada" required/>
+                            minutos
+                        </div>
+                        <br/>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary mt-2">Crear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            tecnara.eventosMes = [
+                    /*[# th:each="m : ${mes}"]*/
+                    {
+                    title: /*[[${m.disponibles + ' ' + m.nombre}]]*/,
+                    start: /*[[${m.fecha}]]*/
+                    },
+                    /*[/]*/
+            ];
+                    /*]]>*/
+        </script> 
+
+        <script>
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var calendarEl = document.getElementById('calendar');
+
+                        var calendar = new FullCalendar.Calendar(calendarEl, {
+                            locale: 'es',
+                            firstDay: 1,
+                            initialView: 'dayGridMonth',
+                            //selectable: true,
+                            height: "600px",
+                            //eventClick: function (obj) {
+                            //    alert(obj);
+                            //},
+                            headerToolbar: {
+                                left: 'prev,next',
+                                center: 'title',
+                                right: 'today'
+                            },
+                            events: tecnara.eventosMes,
+                        });
+                        calendar.render();
+                    });
+        </script>          
+    </body>
+</html>

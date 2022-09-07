@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/trabajador/layouts/layout::layout( ~{::body} )">
+
+
+    <body>
+        <div data-toggle="indice"></div>
+
+        <h2 class="text-center">Registro de entradas y salidas</h2>  
+
+        <div class="container">
+
+
+            <script>
+                tecnara.alternarEntradaSalida = function () {
+                    var es = $("#entradaSalida").val();
+                    if (es == "0") {
+                        $("#entradaSalida").val(1);
+                    } else {
+                        $("#entradaSalida").val(0);
+                    }
+                    $("#idTrabajador").val("");
+                    $("#nombreTrabajador").html("");
+                    tecnara.refrescar();
+                }
+
+
+                tecnara.refrescar = function () {
+                    $(".btnEntradaSalida").addClass("d-none");
+                    var es = $("#entradaSalida").val();
+                    $("#btn" + es).removeClass("d-none");
+
+
+                }
+                $(document).ready(function () {
+                    tecnara.refrescar();
+                })
+            </script>
+
+            <input type="hidden" id="entradaSalida" value="0"/>
+
+            <div class="row">
+                <div id="btn0" class="offset-md-2 col-md-4 btnEntradaSalida">
+                    <div class="card text-center fa-10x">
+                        <a onclick="tecnara.alternarEntradaSalida()" class="w-100">
+                            <i class="fas fa-sign-in-alt text-success"></i><br/>
+                            <h2 class="card-title text-success">Registrar Entrada</h2>
+                        </a>
+                    </div>
+                </div>
+                <div id="btn1" class="offset-md-2 col-md-4 btnEntradaSalida">
+                    <div class="card text-center fa-10x">
+                        <a onclick="tecnara.alternarEntradaSalida()" class="w-100">
+                            <i class="fas fa-sign-out-alt text-danger"></i><br/>
+                            <h2 class="card-title text-danger">Registrar Salida</h2>
+                        </a>
+                    </div>
+                </div>
+                    <div class="col-md-4" style="height:300px;overflow: hidden">
+                        <video class='d-none' id="qr-video"></video>
+
+                        <div class='w-100 text-center position-relative'>
+                            <div id='info' style="width:400px" class="bg-primary text-white mx-auto pt-1 pb-1 font-weight-bold">Escanear códigos QR de los alumnos</div>
+                            <div class="w-100"  id="captura" ></div>
+                            <input type="hidden" id="qrResultado" class="form-control"/>
+                        </div>
+                    </div>
+                
+                
+            </div>
+            <div class="row mt-3">
+                <div class="offset-md-2  input-group col-md-4" style="height: 70px">
+                    <div class="input-group-prepend w-25 ">
+                        <span class="input-group-text w-100" style="font-size: 25px;">Id</span>
+                    </div>                    
+                    <input name="id" type="number" class="form-control h-100" style="font-size: 25px;" id="idTrabajador" placeholder="Introduce tu id" required/>
+                </div>
+                <div class="input-group col-md-4" style="height: 70px">
+                    <button id="btnFichar" type="button" onclick="tecnara.fichar()" class="btn btn-success btn-block btn-lg mb-3 h-100" >Fichar</button>
+
+                </div>   
+
+            </div>
+            <div class="row mt-3">
+                    
+
+
+                    <div class="input-group offset-md-2 col-md-8 mx-auto mb-3" style="height: 70px">
+                        <div class="input-group-prepend w-25 ">
+                            <span  class="input-group-text w-100" style="font-size: 25px;">Iniciales</span>
+                        </div>                    
+                        <span id="nombreTrabajador" type="nombre" name="nombre" class="form-control h-100 pt-3" style="font-size: 25px" />
+
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <script>
+
+                        tecnara.fichar = function () {
+                            var id = $("#idTrabajador").val();
+                            var url = "fichar_puesto_nuevo_registro";
+                            if ($("#entradaSalida").val() == 1) {
+                                url = "fichar_puesto_finalizar";
+                            }
+                            $.ajax({
+                                url: url + "?idTrabajador=" + id,
+                                typeData: "json",
+                                success: function (res) {
+                                    $("#nombreTrabajador").html(res.nombre.charAt(0) + res.apellido1.charAt(0) + res.apellido2.charAt(0));
+                                }
+                            })
+
+                        }
+                        
+                        tecnara.play = function () {
+                            var audio = new Audio('/audio/beep.mp3');
+                            audio.play();
+                        }                        
+
+                    </script>
+
+                    <script type="module">
+                        import QrScanner from "/library/qrscanner/qr-scanner.min.js";
+                        QrScanner.WORKER_PATH = '/library/qrscanner/qr-scanner-worker.min.js';
+
+                        const video = document.getElementById('qr-video');
+                        const camList = document.getElementById('cam-list');
+                        const camQrResult = document.getElementById('cam-qr-result');
+                        const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
+                        var lastId = "";
+
+                        tecnara.qrResult = function (result) {
+                            $("#idTrabajador").val(result);
+                            if (lastId == result) {
+                                return;
+                            }
+                            tecnara.play();
+                            lastId = result;
+                            $("#btnFichar").trigger("click");
+
+                        }
+
+                        // ####### Web Cam Scanning #######
+                        const scanner = new QrScanner(video,
+                                result => {
+                                    tecnara.qrResult(result);
+                                },
+                                error => {
+                                    $("#qrResultado").val(error);
+                                }
+                        );
+                        document.getElementById("captura").appendChild(scanner.$canvas);
+                        scanner.start();
+
+                        window.scanner = scanner;
+                    </script>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

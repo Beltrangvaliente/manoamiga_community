@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="enConstruccion"></div>
+
+        <div class="float-right">
+            <a href="list">Volver</a>
+            
+    </div>
+        <h3>Centro ayuda</h3>
+        <div class="row">
+            <div class="col-6">
+                <img class="w-100" src="/img/admin/help_centro_atencion_list.png" />
+            </div>
+            <div class="col-6">
+                <p>
+                    En centro de atención se encuentra diferentes <br>apartados.</br>
+                </p>   
+                <ul> 
+                    <li>Centro de Formación</li>
+                    <li>Nombre Lugar del Centro</li>
+                    <li>Teléfono Número de Telefono del Centro</li>
+                    <li>Correo Dirección del Dentro </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-6">
+            <p>Ayuda  de Dormulario de Dtención </p>
+            <ul>
+                <li>Nombre: escribir el nombre de la persona que atiende al usuario </li>
+                <li>Telefono: numero de telefono del centro donde ha sido atendido </li>
+                <li>Dirección: lugar de la dirección de la oficina atendido </li>
+                <li>Correo: dirección del correo de la persona que lo atiende </li>
+            </ul>
+            <div class="col-6">
+                <img class="w-100" src="/img/admin/help_centro_atencion_list.png" />
+            </div>
+        </div>
+    </body>
+</html>

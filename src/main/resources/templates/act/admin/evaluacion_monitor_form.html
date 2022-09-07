@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+
+
+
+    <head>
+        <title>Evaluación Monitor</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+
+    <body>
+        <h3>Evaluación Monitor</h3>   
+
+        <form action="guardar" method="post" th:object="${registro}">
+
+
+
+
+
+            <div class="row">
+
+                <div class="col-4">
+                    <label>Monitor</label>
+                    <input class="form-control" th:field="*{idMonitor}"/>
+                </div>
+
+
+
+
+                <div class="col-4">
+                    <label>Evaluación</label>
+                    <input class="w-100" type="range"  list="tickmarks">
+
+                    <datalist id="tickmarks" data-memory="2">
+                        <option value="0" label="0%">
+                        <option value="10">
+                        <option value="20">
+                        <option value="30">
+                        <option value="40">
+                        <option value="50" label="50%">
+                        <option value="60">
+                        <option value="70">
+                        <option value="80">
+                        <option value="90">
+                        <option value="100" label="100%">
+                    </datalist>
+
+                </div>  
+
+                <div class="col-4">
+                    <label>Comentarios adicionales</label>
+                    <textarea class="form-control" placeholder="Indique información que quiera ampliar..." rows="20" th:field="*{comentario}"/></textarea>
+                </div>  
+
+
+            </div>       
+
+            <button type="submit" class="btn btn-primary mt-3">Guardar</button> 
+        </form>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+    <body>
+        <div data-toggle="volver"></div>
+        <h3>Profesor</h3>
+
+        <form class="was-validated" action="guardar" method="post" th:object="${registro}">
+            <input type="hidden" th:field="*{id}"/>
+            <a href="usuario_form.html"></a>
+            <div class="container" >
+                <div class="row">
+                    <div class="col-md-6 col-sm-4">
+                        <label>Nombre</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">
+                                    <i class="fas fa-asterisk"></i>
+                                </span>
+                            </div>
+                            <input class="form-control" th:field="*{nombre}" required=""/>
+                            <div class="invalid-feedback">
+                                Debes introducir Nombre 
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-sm-4">
+                        <label>Primer Apellido</label> 
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend">
+                                    <i class="fas fa-asterisk"></i>
+                                </span>
+                            </div>
+                            <input class="form-control" th:field="*{apellido1}" required=""/>
+                            <div class="invalid-feedback">
+                                Debes introducir Apellido
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-4">
+                        <label>Segundo Apellido</label>
+                        <input class="form-control" th:field="*{apellido2}"/>
+                    </div>   
+
+
+                    <div class="col-md-3 col-sm-4">
+                        <label>Usuario</label>
+                        <input data-toggle="buscador" data-url="buscador_profesor" class="form-control" th:field="*{idUsuario}" />
+                    </div>
+                    <div class="col-md-3 col-sm-4 ">
+                        <label class="d-block">&nbsp;</label>
+                        <input type="hidden" id="rol" value="ROLE_ACT_Profesor"/>
+                        <button type="button" data-toggle="formbox" data-return="idUsuario" data-params="rol" data-url="../usuario/form" class="btn btn-primary"><i class="fas fa-plus"></i> Crear usuario nuevo</button>
+                    </div>                    
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3 mb-5">Guardar</button> 
+            </div>
+
+        </form>
+
+        <script>
+            tecnara.filtroIdProfesor = function (params) {
+                params.idProfesor = $("#id").val();
+                return params;
+            }
+
+        </script>          
+
+        <!-- *************** TABLAS ***************  --> 
+
+
+        <ul class="nav nav-tabs">
+
+            <li class="nav-item" > 
+                <a class="nav-link active" data-toggle="tab" href="#divEvaluaciones">
+                    Evaluaciones
+                </a> 
+            </li>
+            <li class="nav-item" > 
+                <a class="nav-link" data-toggle="tab" href="#divFalta ">
+                    Faltas de Asistencia
+                </a> 
+            </li>
+            <li class="nav-item" > 
+                <a class="nav-link" data-toggle="tab" href="#divComentarios">
+                    Comentarios
+                </a> 
+            </li>
+            <li class="nav-item" > 
+                <a class="nav-link" data-toggle="tab" href="#divClasesFormativas">
+                    Clases Formativas
+                </a> 
+            </li>                        
+
+        </ul>
+        <div class="tab-content">
+
+
+            <!-- evaluaciones -->
+            <div id="divEvaluaciones" class="tab-pane fade show active" >
+
+                <table class="table table-striped" data-toggle="table" 
+                       data-url="list_data_evaluacion" data-pagination="true" 
+                       data-side-pagination="server" data-query-params="tecnara.filtroIdProfesor"
+                       data-locale="es-ES"
+                       data-controller="../evaluacion_beneficiario"
+                       data-mobile-responsive="true">
+                    <thead>
+                        <tr>
+                            <th data-field="nombreBeneficiario" >Beneficiario</th>
+                            <th data-field="puntuacion">Puntuación</th>
+                            <th data-field="comentarios">Comentarios</th>
+                            <th data-field="fechaDeEvaluacion" data-formatter="tecnara.formatFecha">Fecha de Evaluación</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- commentarios clases -->
+            <div id="divComentarios" class="tab-pane fade" > 
+                <table class="table table-striped" data-toggle="table"
+                       data-url="list_data_comentario"
+                       data-pagination="true"
+                       data-side-pagination="server"
+                       data-query-params="tecnara.filtroIdProfesor"
+                       data-locale="es-ES"
+                       data-controller="../list_data_comentario"
+                       data-mobile-responsive="true"> 
+                    <thead>
+                        <tr>
+                            <th data-field="texto">Observación</th>
+                            <th data-field="fechaComentario" data-formatter="tecnara.formatFecha">Fecha</th>
+                            <th data-field="horaComentario">Hora</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- clases formativas -->
+            <div id="divClasesFormativas" class="tab-pane fade" > 
+                <button type="button" data-toggle="formbox" data-url="../clase_formativa/form" class="btn btn-primary">Asignar beneficiario</button>
+                <table class="table table-striped" data-toggle="table" 
+
+                       data-url="list_data_clase"
+                       data-pagination="true"
+                       data-side-pagination="server"
+                       data-query-params="tecnara.filtroIdProfesor"
+                       data-locale="es-ES"
+                       data-controller="../clase_formativa"
+                       data-mobile-responsive="true">
+
+                    <thead>
+                        <tr>
+                            <th data-field="nombreBeneficiario" >Nombre Beneficiario</th>
+                            <th data-field="asignatura">Asignatura</th>
+                            <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- *************** Falta de Asistencia ***************  -->
+            <div id="divFalta" class="tab-pane fade" > 
+                <table class="table table-striped" data-toggle="table" 
+                       data-url="list_data_falta" data-pagination="true" 
+                       data-side-pagination="server" 
+                       data-query-params="tecnara.filtroIdProfesor"
+                       data-locale="es-ES"
+                       data-controller="../list_data_falta"
+                       data-mobile-responsive="true">
+                    <thead>
+                        <tr>
+                            <th data-field="nombreBeneficiario" >Nombre Beneficiario</th>
+                            <th data-field="nombreTutor">Tutor</th>
+                            <th data-field="motivo">Motivo</th>
+                            <th data-field="observacion">Observación</th>
+                            <th data-field="fechaFaltaAsistencia" data-formatter="tecnara.formatFecha">Fecha de Falta</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>  
+    </body>
+</html>

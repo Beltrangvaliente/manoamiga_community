@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <body>
+
+        <div th:fragment="plantilla()">
+
+            <script>
+                tecnara.mostrarSoloUno = function (dia) {
+                    var mostrando = parseInt($(dia).attr("mostrando"));
+                    //alert($(dia).find(".minicarrusel-slide:nth-child(1)").length);
+                    var dias = $(dia).find(".minicarrusel-slide");
+                    $(dias).fadeOut(1000);
+                    setTimeout(function () {
+                        $(dias[mostrando]).fadeIn(1000);
+                    }, 1000);
+
+                    setTimeout(function () {
+                        mostrando++;
+                        if (mostrando == dias.length) {
+                            mostrando = 0;
+                        }
+                        $(dia).attr("mostrando", mostrando);
+                        console.log("Entra" + mostrando);
+                        tecnara.mostrarSoloUno(dia);
+                    }, 10000);
+                    //10000/dias.length
+                    //var elements=$(dia).find("div:nth-child(1)");
+                    //$(dia).find("div:nth-child(1)").removeClass("d-none");
+                }
+                tecnara.dividir = function () {
+
+                    var dias = $("div[data-toggle='minicarrusel']");
+
+                    dias.each(function (dia) {
+                        var eventos = $(dias[dia]).find(".eventos");
+                        if (eventos.length > 2) {
+                            var contar = 0;
+                            for (var n = 0; n < eventos.length; n += 2) {
+                                var div = $("<div>").addClass("minicarrusel-slide");
+                                $(div).append($(eventos[n]).html());
+                                $(eventos[n]).html("");
+                                if (n + 1 < eventos.length) {
+                                    $(div).append($(eventos[n + 1]).html());
+                                    $(eventos[n + 1]).html("")
+                                }
+                                $(dias[dia]).append(div);
+                                contar++;
+                            }
+                            $(dias[dia]).attr("elementos", contar);
+                            $(dias[dia]).attr("mostrando", 0);
+                            tecnara.mostrarSoloUno(dias[dia]);
+                        }
+                    })
+                }
+                $(document).ready(function () {
+                    tecnara.dividir();
+                })
+            </script>
+
+            <h2 class="text-center " th:style="${'background-color:'+ aspecto.ColorTitulosFondo +';color:' + aspecto.colorTitulosLetra}">Eventos del mes</h2>
+            <div class="row" style="height: 100%">
+                <div data-toggle="minicarrusel" style=" width:20%; height:16%; " th:each=" m : ${mes}">
+                    <header style="background-color: lightsalmon; margin: 2px" >
+                        <h5 th:text="${m.fecha.date + '-' + m.diaSemana}"  class="text-center" th:style="${'background-color:'+ aspecto.colorTitulosFondo + ';color:' + aspecto.colorTitulosLetra}">Título</h5>    
+                    </header>
+                    <div style=" height: 100%; padding: 5px" class="text-center" th:if="${m.eventos.size()==0}">
+                        <img th:if='${m.idImagen!=null}' style="object-fit: cover; height: 150px " th:src="@{/expo/public/imagen/descargar(id=${m.idImagen})}"/>
+                        <div th:if='${m.idImagen==null}' style="object-fit: cover; height: 150px "><h6>No hay actividades</h6></div>
+                    </div>
+                    <div class="eventos" th:each="e:${m.eventos}" >
+                        <div  th:style="${'color:'+ aspecto.colorTexto}">
+                            <div class="text-left" th:if="${m.eventos.size()>0}"   >
+                                <i th:style="${'color:' + e.color }" class="fas fa-circle"></i>
+                                <span th:text="${e.hora}" style="font-weight: bold; font-size:small; padding-right: 10px"  >
+                                    Hora 
+                                </span>
+                                <span class="font-weight-bold" th:text="${e.nombreActividad}" style=" font-size:medium" > Más información</span>
+                                <p th:text="${e. descripcion}" style="font-size: small">Descripción</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

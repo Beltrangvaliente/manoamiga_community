@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div th:fragment="plantilla()" >
+            <!--- Noticias de hoy ---->
+            <h1 class="mb-5 text-center"th:text="${n.titulo}"></h1>
+
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-6" >
+                        <img th:src="@{/expo/public/imagen/descargar(id=${n.idImagen1})}" alt="..." style=" object-fit: cover; weigth: 700px; height: 500px; margin-top: 0%">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h4 class="card-title" style="text-align: center" ></h4>
+                            <p class="card-text" >
+                                [(${n.contenido1})]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3" >
+                <div class="row no-gutters">
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text" >
+                                [(${n.contenido2})]
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img  th:src="@{/expo/public/imagen/descargar(id=${n.idImagen2})}"alt="..." style="object-fit: cover; weigth: 700px; height: 500px; margin-top: 0%">
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3" >
+                <div class="row no-gutters">
+                    <div class="col-md-6">
+                        <img th:src="@{/expo/public/imagen/descargar(id=${n.idImagen3})}" alt="..." style=" object-fit: cover; weigth: 700px; height: 500px; margin-top: 0%">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text" >
+                                [(${n.contenido3})]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/muestra/layouts/layout::layout( ~{::body} )">
+    <body>
+        <button onclick="nmHtml.mostrarHtml()">Pulsar para mostrar</button>
+        <script>
+            var nmHtml={
+                mostrarHtml:function(){
+                    $.ajax({
+                        url:"/data/muestra_html.html",
+                        success: function(res){
+                            bootbox.dialog({
+                                message: res
+                            })
+                        }
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>
+

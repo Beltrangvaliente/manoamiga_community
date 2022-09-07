@@ -1,0 +1,41 @@
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )"> 
+    <body>
+        <h3>Documento Requerido</h3>
+        <form action="guardar" method="post" th:object="${registro}">
+            <input type ="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class=" col-md-3 col-sm-6">
+                    <label>Curso</label>
+                    <div  data-toggle="obligatorio">
+                        <input type="number" data-toggle="buscador" data-url="../curso/buscador" class="form-control" th:field="*{idCurso}" required=""/>
+                    </div> 
+                </div> 
+                <div class=" col-md-3 col-sm-6">
+                    <label>Tipo de Documento</label>
+                    <select class="form-control" th:field="*{tipoDeDocumento}">
+                        <option value="DNI"/>Documento Identificativo</option>
+                        <option value="Titulo">Título Formativo</option>
+                        <option value="CV">Vida Laboral</option>
+                        <option value="Documentos Obligatorios">Otros Documentos</option>
+                    </select>
+                </div>
+                <div class=" col-md-3 col-sm-6">
+                    <label>Obligatorio</label>
+                    <select class="form-control" th:field="*{obligatorio}">
+                        <option value="Si"/>Si</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class=" col-md-3 col-sm-6">
+                    <label>Días Plazo</label>
+                    <input type="number" class="form-control" th:field="*{diasPlazo}" />
+                </div>
+                <div class="col-12">
+                    <label>Descripcion</label>
+                    <input  class="form-control" th:field="*{descripcion}" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+        </form>
+    </body>

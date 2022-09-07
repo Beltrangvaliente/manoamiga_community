@@ -1,0 +1,99 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <h3>Formulario de Datos Personales</h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- *************** TABS ***************  -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" > 
+                            <a class="nav-link active" data-toggle="tab" href="#divDP">
+                                Información Evaluación
+                            </a> 
+                        </li>                    
+                    </ul>
+                   
+                    <div class="tab-content">
+                        
+                  
+                        
+                        <!-- *************** Datos Personales ***************  -->
+                        <div id="divDP" class="tab-pane fade show active" > 
+                            <div class="row">
+                                <div class="col-2">   
+                                    <label>Beneficiario</label>
+                                    <input class="form-control" th:field="*{idBeneficiario}"/>
+                                </div> 
+                 
+                                <div class="col-2">   
+                                    <label>Profesor/Tutor</label>
+                                    <input class="form-control" th:field="*{idProfesor}"/><br/><!-- comment -->
+                                    <input class="form-control" th:field="*{idMonitor}"/>
+                                </div> 
+                            </div>
+                        </div>
+                       
+                        <!-- *************** Calificacion ***************  -->
+                      
+                        <div id="divCalificacion" class="tab-pane fade show active" > 
+
+                            <div class="row">
+                                <div class="col-3">
+                                    <label>Actividad</label>
+                                    <input class="form-control" th:field="*{idActividad}"/>
+                                </div>
+                                <div class="col-3">
+                                    <label>Puntuación</label>
+                                    <input class="form-control" th:field="*{puntuacion}"/>
+                                </div>  
+                                <div class="col-3">
+                                    <label>Fecha de Evaluación</label>
+                                    <input type="date" class="form-control" th:field="*{fechaDeEvaluacion}"/>
+                                </div>    
+                            </div>                             
+                        </div>
+                        
+                        <!-- *************** Comentarios ***************  -->
+                        <div id="divComentarios" class="tab-pane fade show active" > 
+
+                            <div class="row">
+                               
+                                <div class="col-12">
+                                    <label>Comentarios Adicionales</label>
+                                    <textarea class="form-control" placeholder="Indique información que quiera ampliar..." rows="20" th:field="*{comentarios}"/></textarea>
+                                </div>    
+                            </div>                             
+                        </div>
+                        
+       
+                        <!-- *************** Evaluaciones ***************  -->
+                        <div id="divMatriculas" class="tab-pane fade show active" > 
+                            <table class="table table-striped" data-toggle="table" data-url="/data/usuarios_matriculas.json">
+                                <thead>
+                                    <tr>
+                                        <th data-field="id">Id</th>
+                                        <th data-field="nombreBeneficiario">Nombre Beneficiario</th>
+                                        <th data-field="nombreMonitor">Nombre Evaluador</th>
+                                        <th data-field="idActividad">Id Actividad</th>
+                                        <th data-field="puntuacion">Puntuación</th>
+                                        <th data-field="comentarios">Comentarios</th>
+                                        <th data-field="fechaDeEvaluacion" data-formatter="tecnara.formatFecha">Fecha de Evaluación</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            </br>
+            
+            
+         <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+        </form>    
+
+    </body>
+</html>

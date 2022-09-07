@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="volver"></div>
+        <h3>Formulario de Preferencias</h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <label>Clave</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir el nombre">
+                            <input name="clave" id="validationDefault01" class="form-control" th:field="*{clave}" required/>
+                        </div>
+                    </div>
+
+                    <script>
+                        tecnara.refrescarCampoValor = function(){
+                            var dato=$("#valor").val();
+                            var tipo=$("#tipo").val();
+                            if (tipo==="Multilinea" || tipo==="HTML"){
+                                var campo=$("<textarea>").attr("class","form-control").attr("name","valor").attr("id","valor").attr("rows","5").val(dato);
+                                $("#divEntrada").html(campo);
+                                if (tipo==="HTML"){
+                                    tecnara.editorHTML(campo);
+                                }
+                            }else{
+                                var campo=$("<input>").attr("class","form-control").attr("name","valor").attr("id","valor").val(dato);
+                                if (tipo==='Entero'){
+                                    campo=campo.attr("type","number").attr("step","1");
+                                }else if (tipo==='Decimales'){
+                                    campo=campo.attr("type","number");
+                                }else if (tipo==='Booleano'){
+                                    campo=campo.attr("type","checkbox").val("1").html("Activar").attr("class", "");
+                                }
+                                $("#divEntrada").html(campo);
+                            }
+                        }
+                        $(document).ready(function(){
+                             tecnara.refrescarCampoValor();
+                        })
+                    </script>
+
+                    <div class="col-md-6">
+
+                        <label>Tipo</label>
+                       
+                        <select  class="form-control" th:field="*{tipo}"  onchange="tecnara.refrescarCampoValor()" >
+                            <option value="Texto">Texto</option>
+                            <option value="Multilinea">Multilinea</option>
+                            <option value="HTML"> HTML</option>
+                            <option value="Entero"> Entero</option>
+                            <option value="Decimales"> Decimales</option>
+                            <option value="Booleano"> Booleano</option>
+                        </select>
+                    </div>
+                
+                    <div class="col-md-12">
+                        <label>Valor</label>
+                        <div id="divEntrada">
+                            <textarea class="form-control" th:field="*{valor}"  rows="3" cols="50"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Perfil</label>
+                        <input class="form-control" th:field="*{perfil}" />
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary mt-3 mb-5">Guardar</button>  
+                
+            </div>
+        </form>
+    </body>
+</html>
+
+

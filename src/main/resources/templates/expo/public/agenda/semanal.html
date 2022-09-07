@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+
+    <body>
+        <div th:fragment="plantilla()" th:style="${'color:' + aspecto.ColorTitulosLetra}">
+            <div class="m-auto w-100 d-block">
+                <h2 class="mb-2 text-center" th:style="${'background-color:'+ aspecto.ColorTitulosFondo}"  >Eventos próximos</h2>
+            </div>
+            
+            <div class='row'>
+                <div class='col-6 border mb-5 shadow pb-3' th:if="${dia.eventos.size()>0}" th:each=" dia: ${semanal}">
+                    <div class="m-auto w-100 d-block p-1">
+                        <h4 th:if="${dia.eventos.size()>0}"  th:style="${'background-color:'+ aspecto.ColorTitulosFondo}" class="text-center" th:text="${general.getFechaTitulo(dia.fecha)}" ></h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3" th:each=" s: ${dia.eventos}" > 
+                            <div class="card shadow" >
+                                <div class="text-center" th:style="${'background-color:' + s.color + ';color:' + s.colorTexto}">
+                                    <h4 class="font-weight-bold" th:text="${s.hora}" /> 
+                                </div>
+                                <div class="card-body row" th:style="${'background-color:' + aspecto.colorFondo + ';color:' + aspecto.colorTexto}" >
+                                    <div th:class="${s.idImagen!=null?'col-8':'col-12'}">
+                                        <div class="text-center pr-2">
+                                            <b th:text="${s.nombreActividad}" > </b>
+                                        </div>
+                                        <div class="text-center pr-2">
+                                            <span th:text="${s.descripcion}" />
+                                        </div>
+
+
+                                    </div>
+                                    <div th:if="${s.idImagen!=null}" class="col-4">
+                                        <img th:src="@{/expo/public/imagen/descargar(id=${s.idImagen})}" style="height: 100px" class="card-img-top" alt="..."  >
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+
+    </body>
+</html>

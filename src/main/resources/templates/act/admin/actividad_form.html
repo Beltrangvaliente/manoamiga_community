@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+
+    <body>
+
+        <script type="text/javascript">
+            tecnara.diaSemana = function (valor) {
+                if (valor == 1) {
+                    return "Lunes";
+                } else if (valor == 2) {
+                    return "Martes";
+                } else if (valor == 3) {
+                    return "Miércoles";
+                } else if (valor == 4) {
+                    return "Jueves";
+                } else if (valor == 5) {
+                    return "Viernes";
+                } else if (valor == 6) {
+                    return "Sabado";
+                } else if (valor == 7) {
+                    return "Domingo";
+                }
+
+                return valor;
+            },
+        </script>
+
+        <div data-toggle="volver"></div>
+        <h3>Actividades</h3>
+        <form action="guardar" method="post" th:object="${registro}" >    
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="row">
+                <div class="col-md-2 col-sm-6">   
+                    <label>Formulario de Actividad</label>
+                    <select class="form-control" th:field="*{tipoActividad}" data-memory="2">
+                        <option value="Formativa">Formativa</option>
+                        <option value="Voluntariado">Voluntariado</option>
+                        <option value="Recreativa">Recreativa</option>
+                    </select>
+                </div>     
+                <div class="col-md-4 col-sm-6">
+                    <label>Nombre de la Actividad</label> 
+                    <div data-toggle="obligatorio" data-invalid-text="Debes introducir una actividad">
+                        <input class="form-control" required="" th:field="*{nombreActividad}"/>
+                    </div>
+
+                </div> 
+                <div class="col-md-2 col-sm-6">
+                    <label>Plazas</label>
+                    <input class="form-control" type="number" th:field="*{plazaActividad}"/>
+                </div> 
+                <div class="col-md-3 col-sm-6">
+                    <label>Lugar de Actividad</label>
+                    <input class="form-control" th:field="*{lugarActividad}"/>
+                </div>  
+
+            </div>   
+            <div class="row">   
+
+                <div class="col-md-4 col-sm-6">
+                    <label>Responsable de Actividad</label>
+                    <input class="form-control" th:field="*{responsableActividad}"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                   <label>Email </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">
+                                <i class="fas fa-at"></i>
+                            </span>
+                        </div>                    
+                        <input type="email" class="form-control" th:field="*{mail}" required="" onfocusout="tecnara.comprobarFormulario()"/>
+                        <div class="invalid-feedback">
+                            Debes introducir un email
+                        </div>                        
+                    </div>                       
+                </div> 
+            </div>
+
+
+            <button type="submit" class="btn btn-primary mt-3 mb-5">Guardar</button>
+
+            <!-- *************** TABS ***************  -->
+            <div class="row">
+                <div class="col-md-12 mt-6">
+                    <ul class="nav nav-tabs">
+
+                        <li class="nav-item" > 
+                            <a class="nav-link active" data-toggle="tab" href="#divHorario">
+                                Horario de Actividad
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#monitores">
+                                Monitores
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divFalta">
+                                Falta de Asistencia
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divBeneficiario">
+                                Registro de Beneficiario
+                            </a> 
+                        </li>   
+                    </ul>
+                </div>  
+            </div> 
+            <script>
+                        tecnara.filtroIdActividad = function (params) {
+                            params.idActividad = $("#id").val();
+                            return params;
+                        }
+            </script>            
+            <div class="tab-content" >
+                <!-- *************** HORARIOS ***************  -->
+                <div id="divHorario" class="tab-pane fade show active" > 
+                    <div class="row">
+                        <div class="col-md-12 mt-6">
+                            <button type="button" data-toggle="formbox" data-url="../horario/form" class="btn btn-primary">Crear horario de actividad</button>
+
+
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_horario"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdActividad"
+                                   data-locale="es-ES"
+                                   data-controller="../horario"
+                                   data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="horarioTexto" data-formatter= tecnara.formatHorario>Horario</th>
+                                        <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>                                  
+                    </div>
+                </div>
+                <!-- *************** Monitores ***************  -->
+                <div id="monitores" class="tab-pane fade"> 
+                    <div class="row">
+                        <div class="col-md-12 mt-6">
+                            <button data-toggle="formbox" data-url="../participacion_monitor/form" class="btn btn-primary" >Asignar monitor</button>
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_monitor"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdActividad"
+                                   data-locale="es-ES"
+                                   data-controller="../participacion_monitor"
+                                   data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="nombre">Nombre </th>
+                                        <th data-field="apellido1">Primer Apellido</th>
+                                        <th data-field="apellido2">Segundo Apellido</th>
+                                        <th data-field="telefono">Teléfono</th>
+                                        <th data-field="correo">Correo</th>
+                                        <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>                                  
+                    </div>
+                </div>
+                <!-- *************** Falta de Asistencia ***************  -->
+                <div id="divFalta" class="tab-pane fade" > 
+                    <div class="row">
+                        <div class="col-md-12 mt-6">
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_asistencia"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdActividad"
+                                   data-locale="es-ES"
+                                   data-controller="../falta_asistencia"
+                                   data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="nombreBeneficiario">Beneficiario</th>
+                                        <th data-field="evaluador">Monitor</th>
+                                        <th data-field="fechaFaltaAsistencia" data-formatter="tecnara.formatFecha">Fecha</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>                                  
+                    </div>
+                </div>
+                <!-- *************** BENEFICIARIO DE ACTIVIDAD ***************  -->
+                <div id="divBeneficiario" class="tab-pane fade" > 
+                    <div class="row">
+                        <div class="col-md-12 mt-6">
+                            <button data-toggle="formbox" data-url="../participacion_beneficiario/form" class="btn btn-primary">Asignar beneficiario</button>
+                            <table class="table table-striped" data-toggle="table"
+                                   data-url="list_data_beneficiario"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdActividad"
+                                   data-locale="es-ES"
+                                   data-controller="../participacion_beneficiario"
+                                   data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="nombre">Nombre </th>
+                                        <th data-field="apellido1">1er. Apellido</th>
+                                        <th data-field="apellido2">2do. Apellido</th>
+                                        <th data-field="documento">Doc. de Identidad</th>
+                                        <th data-field="telefono">Teléfono</th>
+                                        <th data-field="nombreTutor">Tutor</th>
+                                        <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>                                  
+                    </div>
+                </div>
+        </form>    
+    </body>
+</html>

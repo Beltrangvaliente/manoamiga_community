@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <script>
+
+            let files;
+            document.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                document.classList.add("active");
+                document.textContent = "Suelta para subir los archivos";
+            });
+            document.addEventListener("drop", (e) => {
+                e.preventDefault();
+                files = e.dataTransfer.files;
+                showFiles(files);
+                document.classList.remove("active");
+                document.textContent = "Arrastra y suelta imágenes"
+            });
+            function showFiles(files) {
+                if (files.length == undefined) {
+                    processFile(files);
+                } else {
+                    for (const file of files) {
+                        processFile(file);
+                    }
+                }
+            }
+
+            function processFile(file) {
+                const docType = file.type;
+                const validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+                if (validExtensions.includes(docType)) {
+
+                    const fileReader = new FileReader();
+                    const id = `file-${Math.random().toString(32).substring(7)}`;
+                    fileReader.addEventListener('load', e => {
+                        const fileUrl = fileReader.result;
+                        $("#imagen").attr('src', fileUrl);
+                        $("#img").val(fileUrl);
+                    });
+                    fileReader.readAsDataURL(file);
+                    uploadFile(file, id);
+                } else {
+                    alert("No es un archivo válido");
+                }
+            }
+        </script>
+        <script>
+            function quitarImagen(nombre) {
+                $("#" + nombre).val("");
+                $("#div_" + nombre).addClass("d-none");
+            }
+            function btnAsignar(value, row, idx) {
+                return  "<a class='btn btn-primary' data-url='../participantes_formacion/form' onclick='tecnara.abrirFormularioMostrarSinMenu(this, " + value + ")'>Asignar personas</a>";
+            }
+        </script>    
+
+        <h3>Formulario de Proyecto</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated" enctype="multipart/form-data" novalidate>
+            <input type="hidden" th:field="*{id}" />
+            <input id="idCurso" type="hidden" th:value="${idCurso}"/>
+            <div class="row">
+                <div class="col-12">
+                    <label>Titulo</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir el nombre">
+                        <input class="form-control" th:field="*{nombre}" required=""/>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <label>Fecha inicio</label>
+
+                    <input type="date" class="form-control" th:field="*{fechaInicio}" /> 
+
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <label>Fecha fin</label>
+                    <input type="date" class="form-control" th:field="*{fechaFin}" /> 
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <label>Estado</label>
+                    <select class="form-control" th:field="*{estado}">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Activo">Activo</option>               
+                        <option value="Finalizado">Finalizado</option>                       
+
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <label>Publicar Web</label>
+                    <select class="form-control" th:field="*{aceptar}">
+                        <option value="No">No</option>
+                        <option value="Si">Si</option> 
+                    </select>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-md-8'>
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Contenido</label>
+                            <textarea data-toggle="html" class="form-control" th:field="*{explicacionHtml}" ></textarea>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-12">
+                            <label>Empresa organizadora</label>
+                            <input type="number" data-toggle="buscador" data-url="../empresa/buscador"  class="form-control" th:field="*{idEmpresa}" required=""/>
+                        </div>
+                    </div>
+
+                </div>
+                <div class='col-md-4'>
+                    <div class="row">
+                        <div class="col-12">  
+                            <input type="hidden" name="img" id="img"/>
+                            <div id="div_idImagen" >
+                                <h4 class='text-center mt-3'> Arrastra y suelta imágenes <a class='ml-5 h6 text-nowarp' th:if="${registro.idImagen!=null}" onclick="quitarImagen('idImagen')"> - <i class="fas fa-trash-alt"></i> Quitar imagen</a></h4>
+                                <label>¿Mover imagen a la izquierda?</label>
+                               <select class="form-control form-control-sm mt-2" id='moverIzda' th:field="*{moverIzda}" onchange="tecnara.moverIzda(this)">
+                                    <option value="Si">Si</option>
+                                    <option value="No">No</option>
+                                   
+                                </select>
+
+                                <img th:if="${registro.idImagen!=null}" id="imagen" style="width:100%; height: 300px" class="border shadow img-thumbnail" th:src="@{/emp/tecnico/fichero/descargar(id=${registro.idImagen})}"/>
+
+                                <img th:if="${registro.idImagen==null}" id="imagen" style="width:100%; height: 300px" class="border shadow img-thumbnail" src="/img/draw_and_drop_image.png" />
+                                <select class="form-control mt-2" th:field="*{imagenFit1}" onchange="tecnara.cambiarFit(this)">
+                                    <option value="cover">Recortar imagen</option>
+                                    <option value="contain">Espacios en blanco</option>
+                                    <option value="fill">Estirar imagen</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            tecnara.cambiarFit = function (obj) {
+
+                                //Coger el valor
+                                var dato = $("#imagenFit1").val();
+                                //Ponerlo en la imagen
+                                $("#imagen").css("object-fit", dato);
+
+                            }
+                            tecnara.moverIzda= function(obj){
+                                $("#moverIzda").val();
+                            }
+                            $(document).ready(function () {
+                                tecnara.cambiarFit();
+                                tecnara.moverIzda();
+                                
+
+                            })
+                        </script>
+                        <div class="col-12">  
+                            <div>
+                                <div class="area">
+                                    <h4>o selecciona una imagen</h4>
+                                    <input type="hidden" th:field="*{idImagen}"/>
+                                    <input type="file" id="file" class="form-control" name="imagen"/>
+                                </div>
+                                <div id="preview"></div>
+                            </div>   
+                        </div>
+                    </div>   
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3" >Guardar</button>
+
+            <div class="row">
+                <div class="col-12 col-md-12 col-sm-6">
+
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" > 
+                            <a class="nav-link active" data-toggle="tab" href="#divParticipante">
+                                Participante
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divFormacion">
+                                Formación
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divDocumentacion">
+                                Documentación
+                            </a> 
+                        </li>        
+                    </ul>
+
+                </div>
+            </div>
+
+            <script>
+                tecnara.filtroIdProyecto = function (params) {
+                    params.idProyecto = $("#id").val();
+                    return params;
+                }
+                tecnara.filtroIdProyectoCursoActivo = function (params) {
+                    params.idProyecto = $("#id").val();
+                    params.cursoActivo = $("#filtroCursoActivo").val();
+                    return params;
+                }
+            </script>  
+
+            <script>
+                tecnara.descargarDocumento = function (id, row, index) {
+                    if (id == null) {
+                        return "";
+                    }
+                    return "<div class='text-center'><a type='button' href='descargar?id=" + id + "' > <i class='fas fa-file-download fa-2x'></i> </a></div>";
+                }
+
+
+            </script>
+            <script>
+                function btnCurso(value, row, index) {
+                    return "<a class='btn btn-primary btn-sm' data-url='iniciar_curso?id=" + value + "' onclick='tecnara.ejecutarAjax(this)'>Iniciar Curso</a>" +
+                            "<a class='btn btn-danger btn-sm' data-url='finalizar_curso?id=" + value + "' onclick='tecnara.ejecutarAjax(this)'>Finalizar Curso</a>";
+                }
+
+                $(document).ready(function () {
+
+                    refrescar();
+                })
+
+            </script>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-content">
+                        <div id="divParticipante" class="tab-pane fade show active" >
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <button type="button" data-toggle="formbox" data-url="../proyecto_participante/form" class="btn btn-primary">Asignar participante</button>
+                                </div>
+                                <div class="col-md-1 text-right">
+                                    <label>Estado:</label>
+                                   
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control" id="filtroCursoActivo"  onclick="tecnara.refrescarTablas()">
+
+
+                                        <option value="Todos">Todos</option>
+                                        <option value="Si">Inscrito</option>               
+                                        <option value="No">No Inscrito</option>                       
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_participante"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdProyectoCursoActivo"
+                                   data-locale="es-ES"
+                                   data-controller="../proyecto_participante" data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="participante" >Participante</th>
+
+                                        <th data-field="fecha_alta"   data-formatter="tecnara.formatFecha">Fecha de alta</th>
+
+
+
+                                        <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+                                    </tr>   
+                                </thead>    
+                            </table>
+                        </div>
+
+                        <div id="divFormacion" class="tab-pane fade" >
+                            <button type="button" data-toggle="formbox" data-url="../formacion/form" class="btn btn-primary">Asignar Formación</button>
+
+
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_formacion"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdProyecto"
+                                   data-locale="es-ES"
+                                   data-controller="../formacion" data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="nombre"  >Nombre</th>
+
+
+                                        <th data-field="fechaInicio"   data-formatter="tecnara.formatFecha">Fecha de Inicio</th>
+                                        <th data-field="fechaFin"   data-formatter="tecnara.formatFecha">Fecha de Fin</th>
+
+                                        <th data-field="estado" >Estado</th> 
+
+                                        <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+                                        <th data-field="id" data-formatter="btnCurso">Acciones Curso</th>
+                                        <th data-field="id" data-formatter="btnAsignar">Asignar personas</th>
+
+                                    </tr>   
+                                </thead>    
+                            </table>
+                        </div>
+
+                        <div id="divDocumentacion" class="tab-pane fade" >
+                            <button type="button" data-toggle="formbox" data-url="../documento_proyecto/form" class="btn btn-primary">Alta nuevo documento</button>
+
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_documentacion"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdProyecto"
+                                   data-locale="es-ES"
+                                   data-controller="../documento_proyecto" data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="nombre_documento"  >Nombre Documento</th>
+                                        <th data-field="fecha_subido"   data-formatter="tecnara.formatFecha">Fecha subido</th>
+                                        <th data-field="id_fichero" data-formatter="tecnara.descargarDocumento">Descargar</th>
+                                        <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+
+
+
+
+
+
+                                    </tr>   
+                                </thead>    
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+
+
+</html>

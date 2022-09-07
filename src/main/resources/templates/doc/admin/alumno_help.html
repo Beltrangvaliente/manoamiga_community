@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="enConstruccion"></div>
+        <div class="float-right">
+            <a href="list">Volver</a>  
+        </div>
+        <h3>Ayuda de Usuario</h3>
+        <div class="row">
+            <div class="col-6">
+                <img class="w-100" src="/img/admin/help_usuario_list.png"/>    
+            </div>
+            <div class="col-6">    
+                <p>
+                    En este listado podéis visualizar los datos personales del usuario y organizarlos por Id o apellidos.</br>
+                    Para crear un nuevo usuario, está indicado arriba a la izquierda el botón <b>NUEVO</b>.
+                    Las columnas que se ven son: 
+                </p>    
+                <ul>
+                    <li>Id: Número de Identificación.</li>
+                    <li>Nombre.</li>
+                    <li>Primer Apellido.</li>
+                    <li>Segundo Apellido.</li>
+                    <li>Teléfono.</li>
+                </ul>
+            </div>
+        </div></br>
+        <div class="row">
+            <div class="col-6">
+                <p>
+                    En este formulario podéis visualizar las casillas en las que rellenar los datos personales del usuario.</br>
+                    Para que queden grabados, abajo a la izquierda de la pantalla está indicado el botón <b>GUARDAR</b>.
+                    Las casillas que se ven son:
+                </p>    
+                <ul>
+                    <li>Usuario: Identificación de usuario.</li>
+                    <li>Password: Contraseña escogida por el usuario.</li>
+                    <li>Nombre.</li>
+                    <li>Primer apellido.</li>
+                    <li>Segundo apellido.</li>
+                    <li>Fecha de nacimiento.</li>
+                    <li>Género: con el que se identifica el usuario.</li>
+                    <li>DNI o documento de identificación.</li>
+                    <li>Dirección.</li>
+                    <li>Teléfono.</li>
+                    <li>E-mail.</li>
+                    <li>Localidad.</li>
+                    <li>Nacionalidad.</li>
+                    <li>Estado civil.</li>
+                    <li>Número de hijos.</li>
+                    <li>Nº de Seguridad Social.</li>
+                    <li>Discapacidad: indicar el porcentaje en caso afirmativo.</li>
+                    <li>Ingresos anuales: cantidad en bruto.</li>
+                    <li>Condición personal: otra información adicional no comtemplada en las anteriores casillas.</li>
+                    <li>Comentarios adicionales: otra información que crea relevante el usuario para completar su perfil de usuario.</li>
+                </ul>   
+            </div> 
+            <div class="col-6">
+                <img class="w-100" src="/img/admin/help_usuario_form.png"/>
+            </div>   
+        </div>    
+    </body>
+</html>

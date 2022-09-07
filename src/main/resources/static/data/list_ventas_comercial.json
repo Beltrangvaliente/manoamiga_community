@@ -1,0 +1,6 @@
+[
+    {"id":1, "comercial": "Juan Lopez", "mesActual": 22000, "mesAnterior": 21000},
+    {"id":2, "comercial": "Alfredo Sanz", "mesActual": 27000, "mesAnterior": 26000},
+    {"id":3, "comercial": "Ana Gutierrez", "mesActual": 13000, "mesAnterior": 21000},
+    {"id":4, "comercial": "Alberto Fran", "mesActual": 42000, "mesAnterior": 34000}
+]

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/profesor/layouts/layout::layout( ~{::body} )">
+    <body>
+
+        <script>
+            tecnara.filtroIdBeneficiario = function (params) {
+                params.idBeneficiario = $("#id").val();
+                return params;
+            }
+
+            tecnara.tablaBotonesSinMenu = function (id, row, index) {
+
+                if (row['idProfesor'] == $('#idValidado').val()) {
+                    return "<button type='button' class='btn btn-success btn-sm' onclick='tecnara.abrirFormularioEditarSinMenu(this, " + row["id"] + ")' > Editar </button> " +
+                           "<button type='button' class='btn btn-danger btn-sm' onclick='tecnara.borrarRegistroSinMenu(this, " + row["id"] + ")'> Borrar </button> ";
+                } else {
+                    return "";
+                }
+            }
+        </script>
+        <input type="hidden" id="idValidado" th:value="${general.idValidado}"/>
+
+        <div class="container">
+            <div data-toggle="volver"></div>        
+            <h3>Beneficiario</h3>   
+            <form action="guardar" method="post" th:object="${registro}">    
+                <input type="hidden" th:field="*{id}">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 mt-3">  
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" th:field="*{nombre}" readonly >
+                    </div>
+                    <div class="col-md-4 col-sm-6 mt-3">
+                        <label>Primer Apellido </label>
+                        <input type="text" class="form-control" th:field="*{apellido1}" readonly >
+                    </div>
+                    <div class="col-md-4 col-sm-6 mt-3">
+                        <label>Segundo Apellido</label>
+                        <input type="text" class="form-control" th:field="*{apellido2}" readonly >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 mt-3">
+                        <label>Documento de Identidad</label>
+                        <input type="text" class="form-control" th:field="*{documento}" readonly >
+                    </div>
+                    <div class="col-md-3 col-sm-6 mt-3">
+                        <label>Teléfono</label>
+                        <input type="tel" class="form-control" th:field="*{telefono}" readonly >
+                    </div>
+                    <div class="col-md-3 col-sm-6 mt-3">
+                        <label>Usuario</label>
+                        <input class="form-control" th:field="*{idUsuario}" data-toggle="buscador" data-url="../usuario/buscador"  readonly>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mt-3">
+                        <label>Tutor Asignado</label>
+                        <input class="form-control" th:field="*{idTutor}" data-toggle="buscador" data-url="../tutor/buscador" readonly>
+                    </div>
+                </div>
+            </form>
+            <div class="row"> 
+                <div class="col-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item ">
+                            <a class="nav-link active" href="#divFaltas" data-toggle="tab">
+                                Faltas de Asistencia 
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#divComentarios" data-toggle="tab"> 
+                                Comentarios 
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div id="divFaltas" class="tab-pane fade show active" >  
+                    <button data-toggle="formbox" data-url="../falta_asistencia/form" class="btn btn-primary">Anotar Falta de Asistencia</button>
+                    <table class="table table-striped" data-toggle="table" 
+                           data-url="list_data_falta"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdBeneficiario"
+                           data-locale="es-ES"
+                           data-controller="../falta_asistencia">
+                        <thead>
+                            <tr>
+                                <th data-field="evaluador">Autor</th>
+                                <th data-field="fechaFaltaAsistencia" data-formatter="tecnara.formatFecha">Fecha</th>
+                                <th data-field="motivo" class="text-left">Motivo</th>
+                                <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div id="divComentarios" class="tab-pane fade" >                   
+                    <button data-toggle="formbox" data-url="../comentario/form" class="btn btn-primary">Publicar Comentario</button>
+
+                    <table class="table table-striped" data-toggle="table" data-url="list_data_c"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdBeneficiario"
+                           data-locale="es-ES"
+                           data-controller="../comentario">
+                        <thead class="table-primary">
+                            <tr>
+                                <th data-field="persona">Autor</th>
+                                <th data-field="fechaComentario"  data-formatter="tecnara.formatFecha">Fecha</th>
+                                <th data-field="texto" class="text-left">Comentario</th>
+                                <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        tecnara.inputPonerHoy("fechaFaltaAsistencia");
+                    });
+                </script>
+            </div>
+        </div>
+    </body>
+</html>

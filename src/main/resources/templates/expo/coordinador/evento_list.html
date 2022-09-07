@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>Listado de Eventos </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div data-toggle="indice"></div> 
+        <h3>Listado de Eventos </h3>
+
+        <a data-toggle='formbox' class="btn btn-primary btn-sm">Crear Evento</a>
+        <script>
+            tecnara.rechazarEvento = function (id) {
+                bootbox.confirm({
+                    message: "¿Desea rechazar el evento propuesto?",
+                    callback: function (res) {
+                        if (res) {
+                            document.location = "rechazar?id=" + id;
+                        }
+                    }
+                });
+            },
+                    tecnara.aceptarORechazar = function (id) {
+                        return "<a  href='aceptar?id=" + id + "' class='text-success'><i class='fas fa-check-circle fa-2x'></i></a>     " +
+                                "<a  onclick='tecnara.rechazarEvento(" + id + ")'  href='#' class='text-danger'><i class='fas fa-times-circle fa-2x'></i></a>";
+                    }
+        </script>
+
+        <div class="row mb-3 mt-3"> 
+            <div class="col-md-2 col-sm-4 ">
+                <label class="sr-only">Búsqueda por estado</label>
+                <label>Estado</label>
+                <select name="estado" class="form-control" data-memory="2" >
+                    <option value="">Todas</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Aprobado">Aprobado</option>
+                    <option value="Rechazado">Rechazado</option>
+                    
+                </select>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <label>Buscar</label>
+                <input class="form-control" name="filtro" placeholder="Escribe un texto para buscar"/>
+            </div>
+            <div class="col-md-2 col-sm-4">
+                <label>Desde</label>
+                <input class="form-control" type="date" name="fechaDesde" />
+            </div>
+            <div class="col-md-2 col-sm-4">
+                <label>Hasta</label>
+                <input class="form-control" type="date" name="fechaHasta"/>
+            </div>
+            <div class="col-md-2 col-sm-4">
+                <label class="d-block">&nbsp;</label>
+                
+
+                <script>
+                    tecnara.refrescarTablas = function () {
+                        $("table[data-toggle='table']").bootstrapTable('refresh');
+                    }
+                </script>
+
+                <button type="button" class="btn btn-primary " onclick="tecnara.refrescarTablas()"><i class="fas fa-search"></i>Filtrar</button>
+            </div>
+        </div>
+
+        <script>
+            tecnara.filtroTabla = function (params) {
+                params.estado = $("*[name='estado']").val();
+                params.filtro = $("*[name='filtro']").val();
+                params.fechaDesde = $("*[name='fechaDesde']").val();
+                params.fechaHasta = $("*[name='fechaHasta']").val();
+                return params;
+            }
+        </script>
+
+
+        <table class="table table-striped mt-3" data-toggle="table" data-url="list_data" data-mobile-responsive="true" 
+               data-pagination="true" data-side-pagination="server" 
+               data-query-params="tecnara.filtroTabla" >
+            <thead>
+                <tr>
+                    <th data-field="area"  >Área</th>
+                    <th data-field="ubicacion" >Espacio</th>
+                    <th data-field="nombreTrabajador" >Trabajador</th>
+                    <th data-field="nombreActividad"  >Nombre Actividad</th>
+                    <th data-field="descripcion"  >Descripción</th>
+                    <th data-field="fechaActividad" data-formatter="tecnara.formatFecha" data sortable="true" >Fecha Actividad</th>
+                    <th data-field="hora" data sortable="true">Hora</th>
+                    <th data-field="estado" data sortable="true">Estado</th>
+                    <th data-field="id" data-formatter="tecnara.aceptarORechazar">Aceptar / Rechazar</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones">Acciones</th>
+
+                </tr>
+            </thead>
+        </table>
+
+    </body>
+</html>
+

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/monitor/layouts/layout::layout( ~{::body} )"> 
+    <body>
+        <div data-toggle="indice"></div>        
+        <h3>Mis Evaluaciones</h3>
+
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data" >
+            <thead>
+                <tr>
+                    <th data-field="nombreActividad" >Actividad</th>
+                    <th data-field="fechaComentario" data-formatter="tecnara.formatFecha">Fecha del Comentario</th>
+                    <th data-field="valoracion" >Valoración</th>
+                </tr>   
+            </thead>    
+        </table> 
+    </body>
+</html> 

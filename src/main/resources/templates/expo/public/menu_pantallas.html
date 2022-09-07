@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/public/layouts/layout::layout( ~{::body} )">
+
+    <body>
+
+
+        <div class="container indice mt-5"> 
+            <h3 class="mt-5">Seleccione una opción</h3>
+
+            <script>
+                var contador = 0;
+                function setCookie(cname, cvalue) {
+                    const d = new Date();
+                    document.cookie = cname + "=" + cvalue + ";path=/";
+                }
+
+                function getCookie(cname) {
+                    let name = cname + "=";
+                    let ca = document.cookie.split(';');
+                    for (let i = 0; i < ca.length; i++) {
+                        let c = ca[i];
+                        while (c.charAt(0) == ' ') {
+                            c = c.substring(1);
+                        }
+                        if (c.indexOf(name) == 0) {
+                            return c.substring(name.length, c.length);
+                        }
+                    }
+                    return "";
+                }
+
+
+                function irAPagina(url) {
+                    setCookie("direccion", url);
+                    document.location = url;
+                }
+                function cargarOtraVentana() {
+                    var url = getCookie('direccion');
+                    document.location = url;
+                }
+                function subirTiempo() {
+                    contador += 2;
+                    if (contador > 98) {
+                        cargarOtraVentana();
+                    }
+                    $("#barra").attr("style", "width:" + contador + "%");
+                    $("#barra").html(contador + "%");
+                    setTimeout(function () {
+                        subirTiempo()
+                    }, 1000);
+                }
+                $(document).ready(function () {
+                    subirTiempo();
+                })
+
+            </script>
+
+
+            <div class="container">
+                <div class="bg-secondary">
+                    <h5 id="barra" class="bg-primary text-white text-center" style="width: 10%">
+
+                    </h5>
+                </div>            
+            </div>
+
+            <div class="row pt-5 mt-5">
+                <div class=" col-4 p-2">
+                    <div class="card text-center fa-8x shadow">
+                        <a href="#" onclick="irAPagina('agenda')">
+                            <i class="far fa-clipboard"></i><br/>
+                            <h4 class="card-title">Agenda</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-4 p-2">
+                    <div class="card text-center fa-8x shadow">
+                        <a href="#" onclick="irAPagina('noticias')">
+                            <i class="far fa-newspaper"></i><br/>
+                            <h4 class="card-title">Noticias</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-4 p-2">
+                    <div class="card text-center fa-8x shadow">
+                        <a href="#" onclick="irAPagina('multipantalla')">
+                            <i class="far fa-newspaper"></i><br/>
+                            <h4 class="card-title">Multipantalla</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </body>
+</html>

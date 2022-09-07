@@ -1,0 +1,35 @@
+  
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )"> 
+
+
+    <body>
+        <h3>Documento Solicitado</h3>
+        <form action="guardar" method="post" th:object="${registro}">
+            <input type ="hidden" th:field="*{id}"/>
+            <input type ="hidden" th:field="*{idAlumno}"/>
+            <div class="row">
+
+                <div class=" col-md-3 col-sm-6">
+                    <label>Nombre del Documento</label>
+                    <div  data-toggle="obligatorio">
+                        <input type="number" data-toggle="buscador" data-url="../documento_requerido/buscador" class="form-control" th:field="*{idDocumentoRequerido}" required=""/>
+                    </div> 
+                </div> 
+                <div class=" col-md-3 col-sm-6">
+                    <label>Estado</label>
+                    <select class="form-control" th:field="*{estado}">
+                        <option value="pendiente"/>Pendiente</option>
+                        <option value="aceptado">Aceptado</option>
+                        <option value="rechazado"/>Rechazado</option>
+                    </select>
+                </div>
+                <div class=" col-md-3 col-sm-6">
+                    <label>Fecha Límite</label>
+                    <input type="date" class="form-control" th:field="*{fecha_limite}" />
+                </div>
+               
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+        </form>
+    </body>
+</html>

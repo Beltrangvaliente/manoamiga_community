@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="indice"></div>
+        <h3>Documentos fuera de plazo</h3>
+        
+          <form>
+        <div class="row mt-3">
+            <div class="col-md-6 col-8">
+                <input class="form-control" name="filtro" placeholder="Escribe un texto para buscar"/>
+            </div>
+            <div class="col-md-2 col-4">                <button type="button" onclick="tecnara.filtroNombre()" class="btn btn-primary btn-sm btn-block " ><i class="fas fa-search"></i>  Filtrar</button>
+            </div>
+        </div>
+
+        <script>
+            tecnara.tablaBotonesProlongarRechazar= function (id, row, index) {
+                return  "<button type='button' class='btn btn-success btn-sm' onclick='tecnara.bootboxEnConstruccion()' > Prolongar </button> " +
+                        "<button type='button' class='btn btn-danger btn-sm' onclick='tecnara.bootboxEnConstruccion()'> Rechazar </button> ";
+            }
+        </script>   
+      
+            
+            
+        </form>
+        
+        
+                
+        <script>
+            tecnara.filtroNombre = function (params) {
+                params.filtro = $("input[name='filtro']").val();
+                return params;
+            }                    
+            
+        </script>        
+        <table class="table-striped" data-toggle="table" 
+                            data-url="list_data_plazo_finalizado"
+                            data-pagination="true" data-side-pagination="server"
+                            data-query-params="tecnara.filtroNombre">
+            <thead>
+                <tr>
+                    <th data-field="persona" >Persona</th>
+                    <th data-field="documento">Documento</th>
+                    <th data-field="fechaLimite"   data-formatter="tecnara.formatFecha">Fecha límite</th>
+                    <th data-field="nombreCurso" >Nombre del Curso</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotonesProlongarRechazar" data-width="200">Acciones</th>
+                </tr>
+            </thead>
+        </table>
+        <div class="text-right">
+            <a href="help">
+                Ir a la ayuda</a>
+        </div>
+    </body>
+</html>

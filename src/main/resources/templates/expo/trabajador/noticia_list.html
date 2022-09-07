@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/trabajador/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>  
+        <h3>Listado de Noticias</h3>
+        <div class="row">
+
+            <div class="col-2">
+                <a class="btn btn-primary btn-sm"  href="form">Crear Noticia</a>
+
+            </div>
+        </div> <br/>
+        <div class="row">
+            <div class="col-4">
+                <input class="form-control" name="filtro" placeholder="Escribe un texto para buscar" data-memory="2"/>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-primary " onclick="tecnara.refrescarTablas()" ><i class="fas fa-search"></i>Filtrar</button>
+            </div>              
+        </div>  
+        
+        <script>
+            tecnara.filtroTabla = function(params){
+                params.filtro=$("*[name='filtro']").val();
+                return params;
+            }
+        </script>           
+        
+        <table class="table table-striped" data-toggle="table" data-url="list_data" data-mobile-responsive="true" 
+                                                data-pagination="true" data-side-pagination="server" 
+                                                data-query-params="tecnara.filtroTabla" >
+            <thead>
+                <tr>
+                    <th data-field="area">Área</th>
+                    <th data-field="titulo" >Título</th>
+                    <th data-field="fechaInicio"  data-formatter="tecnara.formatFecha">Fecha Inicio</th>
+                    <th data-field="fechaFin"  data-formatter="tecnara.formatFecha">Fecha Fin</th>
+                    <th data-field="fija">Fija</th>        
+                    <th data-field="pantalla">Pantalla/s</th>
+                    <th data-field="estado">Estado</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones"></th>
+                </tr>   
+            </thead>    
+        </table> 
+    </body>
+</html>

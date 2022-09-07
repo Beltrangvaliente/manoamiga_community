@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div class="fijo"><a class="verTutorial "></a></div>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <h3>Plantillas</h3>
+<script src="/help/expo/coordinador_help.js" ></script>
+
+        
+        <div class ="container">
+            <form action= "guardar" method="post" th:object="${registro}" 
+                  class="was-validated" enctype="multipart/form-data">   
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="row">
+                    <div class="col-8">
+
+
+                        <div class="row">
+                            <div class=" col-12 mt-3">
+                                <label>Nombre</label>
+                                <input class="form-control paso1" th:field="*{nombre}" >
+                            </div>
+                        </div>
+
+
+                        <br>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Color fondo general </label> 
+                            </div>   
+                            <div class="col-md-2">   
+                                <input type="color" data-default="#ffffff"  th:field="*{colorFondoGeneral}" th:data-real-value="${registro.colorFondoGeneral}"/>
+                            </div>
+                            <div class="col-md-2">
+
+                                <label>Número imágenes </label> 
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control paso2" th:field="*{numeroImagenes}" onchange="tecnara.refrescar()" >
+                                    <option value= "3">3</option>
+                                    <option value= "2">2</option>
+                                    <option value= "1">1</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+
+                                <label>Número textos </label> 
+                            </div>  
+                            <div class="col-md-2">
+                                <select class="form-control paso3" th:field="*{numeroTextos}" onchange="tecnara.refrescar()" >
+
+                                    <option value= "3">3</option>
+                                    <option value= "2">2</option>
+                                    <option value= "1">1</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <br/>
+                        <div class="row divImg1" data-pos="0" onclick='tecnara.selectRow(0)' >
+
+                            <div class="col-md-2">
+                                <label>Imagen 1  </label> 
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img1ColIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img1ColFin}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img1FilIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img1FilFin}" min="1" max="6" class="form-control"/>
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <div class="row divImg2" data-pos="1" onclick='tecnara.selectRow(1)' >
+                            <div class="col-md-2">
+                                <label>Imagen 2</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img2ColIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img2ColFin}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img2FilIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img2FilFin}" min="1" max="6" class="form-control"/>
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <div class="row divImg3" data-pos="2" onclick='tecnara.selectRow(2)'  >
+                            <div class="col-md-2">
+                                <label>Imagen 3</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img3ColIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img3ColFin}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img3FilIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{img3FilFin}" min="1" max="6" class="form-control"/>
+                            </div>
+
+
+                        </div>
+
+                        <br>
+
+                        <div class="row divTex1" data-pos="3" onclick='tecnara.ocultar(3)'>
+                            <div class="col-md-2">
+                                <label>Texto 1</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto1ColIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto1ColFin}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto1FilIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto1FilFin}" min="1" max="6" class="form-control"/>
+                            </div>
+
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Texto 1</label>
+                            </div>
+                            <div class="col-md-2">
+
+                                <select class="form-control"  th:field="*{texto1LetraFamilia}" data-memory="2">
+                                    <option style="font-family:ABeeZee" value="ABeeZee" >ABeeZee</option>
+                                    <option style="font-family:Arvo" value="Arvo" >Arvo</option>
+                                    <option style="font-family:Bitter" value="Bitter" >Bitter</option>
+                                    <option style="font-family:Fredoka" value="Fredoka" >Fredoka</option>
+                                    <option style="font-family:Josefin Sans" value="Josefin Sans" >Josefin Sans</option>
+                                    <option style="font-family:Lora" value="Lora" >Lora</option>
+                                    <option style="font-family:Poppins" value="Poppins" >Poppins</option>
+                                    <option style="font-family:Sarabun" value="Sarabun" >Sarabun</option>
+                                    <option style="font-family:Spectral" value="Spectral" >Spectral</option>
+                                    <option style="font-family:Ubuntu" value="Ubuntu" >Ubuntu</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="number" data-default="20" th:field="*{texto1LetraTamanyo}" class="form-control" min="12"/>
+                            </div>
+
+                            <div class="col-md-2">
+
+                                <input type="color"  th:field="*{texto1LetraColor}" t="1" th:data-real-value="${registro.texto1LetraColor}"/>
+                            </div>
+                            <div class="col-md-2">
+
+                                <input type="color" data-default="#ffffff"  th:field="*{texto1ColorFondo}" th:data-real-value="${registro.texto1ColorFondo}"/>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row divTex2" data-pos="4" onclick='tecnara.selectRow(4)'>
+                            <div class="col-md-2">
+                                <label>Texto 2</label>   
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto2ColIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto2ColFin}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto2FilIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto2FilFin}" min="1" max="6" class="form-control"/>
+                            </div>
+
+                        </div>
+                        <br>
+
+                        <div class="row divTex2">
+                            <div class="col-md-2">
+                                <label>Texto 2</label>
+                            </div>
+                            <div class="col-md-2">
+
+                                <select class="form-control"  th:field="*{texto2LetraFamilia}" data-memory="2">
+                                    <option style="font-family:ABeeZee" value="ABeeZee" >ABeeZee</option>
+                                    <option style="font-family:Arvo" value="Arvo" >Arvo</option>
+                                    <option style="font-family:Bitter" value="Bitter" >Bitter</option>
+                                    <option style="font-family:Fredoka" value="Fredoka" >Fredoka</option>
+                                    <option style="font-family:Josefin Sans" value="Josefin Sans" >Josefin Sans</option>
+                                    <option style="font-family:Lora" value="Lora" >Lora</option>
+                                    <option style="font-family:Poppins" value="Poppins" >Poppins</option>
+                                    <option style="font-family:Sarabun" value="Sarabun" >Sarabun</option>
+                                    <option style="font-family:Spectral" value="Spectral" >Spectral</option>
+                                    <option style="font-family:Ubuntu" value="Ubuntu" >Ubuntu</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="number" data-default="20" th:field="*{texto2LetraTamanyo}" class="form-control" min="12"/>
+                            </div>
+
+                            <div class="col-md-2">
+
+                                <input type="color"  th:field="*{texto2LetraColor}" th:data-real-value="${registro.texto2LetraColor}"/>
+                            </div>
+                            <div class="col-md-2">
+
+                                <input type="color" data-default="#ffffff"  th:field="*{texto2ColorFondo}" th:data-real-value="${registro.texto2ColorFondo}"/>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row divTex3" data-pos="5" onclick='tecnara.selectRow(5)'>
+                            <div class="col-md-2">
+                                <label>Texto 3</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto3ColIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto3ColFin}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto3FilIni}" min="1" max="6" class="form-control"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" th:field="*{texto3FilFin}" min="1" max="6" class="form-control"/>
+                            </div>
+
+                        </div>
+
+                        <br>
+                        <div class="row divTex3">
+                            <div class="col-md-2">
+                                <label>Texto 3</label>
+                            </div>
+                            <div class="col-md-2">
+
+                                <select class="form-control"  th:field="*{texto3LetraFamilia}" data-memory="2">
+                                    <option style="font-family:ABeeZee" value="ABeeZee" >ABeeZee</option>
+                                    <option style="font-family:Arvo" value="Arvo" >Arvo</option>
+                                    <option style="font-family:Bitter" value="Bitter" >Bitter</option>
+                                    <option style="font-family:Fredoka" value="Fredoka" >Fredoka</option>
+                                    <option style="font-family:Josefin Sans" value="Josefin Sans" >Josefin Sans</option>
+                                    <option style="font-family:Lora" value="Lora" >Lora</option>
+                                    <option style="font-family:Poppins" value="Poppins" >Poppins</option>
+                                    <option style="font-family:Sarabun" value="Sarabun" >Sarabun</option>
+                                    <option style="font-family:Spectral" value="Spectral" >Spectral</option>
+                                    <option style="font-family:Ubuntu" value="Ubuntu" >Ubuntu</option>
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="number" data-default="20" th:field="*{texto3LetraTamanyo}" class="form-control" min="12"/>
+
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="color"  th:field="*{texto3LetraColor}" th:data-real-value="${registro.texto3LetraColor}"/> 
+                            </div>
+                            <div class="col-md-2">
+
+                                <input type="color" data-default="#ffffff"  th:field="*{texto3ColorFondo}" th:data-real-value="${registro.texto3ColorFondo}"/>
+                            </div>
+
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary mt-5 mb-5" >Guardar</button>
+                    </div>
+
+                    <div class="col-md-4 paso4">
+
+
+                        <div id="grid" class="border shadow-lg" style="position: relative;width:100%;height: 500px; overflow: hidden">
+                            <div id="img1" class="border divImg1" style="position:absolute;left:0%;top:0%;width:32%;height:32%"><img style="width:100%;height:100%;opacity:0.7" src="/img/coordinador/1.jpg"/></div>
+                            <div id="img2" class="border divImg2" style="position:absolute;left:0%;top:0%;width:32%;height:32%"><img style="width:100%;height:100%;opacity:0.7" src="/img/coordinador/2.jpg"/></div>
+                            <div id="img3" class="border divImg3" style="position:absolute;left:0%;top:0%;width:32%;height:32%"><img style="width:100%;height:100%;opacity:0.7" src="/img/coordinador/3.jpg"/></div>
+                            <div id="text1" class="border divTex1" style="position:absolute;left:0%;top:0%;width:32%;height:32"><p style="opacity:0.7;width:100%;height: 100%;text-align: center;vertical-align: middle">Texto 1</p></div>
+                            <div id="text2" class="border divTex2" style="position:absolute;left:0%;top:0%;width:32%;height:32%"><p style="opacity:0.7;width:100%;height: 100%;text-align: center;vertical-align: middle">Texto 2</p></div>
+                            <div id="text3" class="border divTex3" style="position:absolute;left:0%;top:0%;width:32%;height:32%"><p style="opacity:0.7;width:100%;height: 100%;text-align: center;vertical-align: middle">Texto 3</p></div>
+                        </div>                
+                    </div>
+
+                </div>
+
+
+            </form>
+
+            <script>
+
+
+                
+                var listaDisenno = ["img1", "img2", "img3", "texto1", "texto2", "texto3"];
+                var posDisenno = 0;
+
+                var click = false;
+                tecnara.clickCuadros = function (obj) {
+                    click = !click;
+                    if (click == false) {
+                        tecnara.sueltaCuadros(obj);
+                        return;
+                    }
+                    $("#grid .border").addClass("aclarar");
+                    $("#" + listaDisenno[posDisenno]).removeClass("aclarar");
+                    $("#" + listaDisenno[posDisenno] + "ColIni").val($(obj).attr("col"));
+                    $("#" + listaDisenno[posDisenno] + "FilIni").val($(obj).attr("fil"));
+                    $("#" + listaDisenno[posDisenno] + "ColFin").val($(obj).attr("col"));
+                    $("#" + listaDisenno[posDisenno] + "FilFin").val($(obj).attr("fil"));
+                    tecnara.crearPlantilla();
+                }
+
+                tecnara.mueveCuadro = function (obj) {
+                    if (click == true) {
+                        $("#" + listaDisenno[posDisenno] + "ColFin").val($(obj).attr("col"));
+                        $("#" + listaDisenno[posDisenno] + "FilFin").val($(obj).attr("fil"));
+                        tecnara.crearPlantilla();
+                    }
+                }
+
+                tecnara.sueltaCuadros = function (obj) {
+                    $("#grid .border").removeClass("aclarar");
+                    $("#" + listaDisenno[posDisenno] + "ColFin").val($(obj).attr("col"));
+                    $("#" + listaDisenno[posDisenno] + "FilFin").val($(obj).attr("fil"));
+                    posDisenno++;
+                    if (posDisenno == 6) {
+                        posDisenno = 0;
+                    }
+                    while ($("*[data-pos='" + posDisenno + "']").hasClass("d-none")){
+                        posDisenno++;
+                        if (posDisenno == 6) {
+                            posDisenno = 0;
+                        }
+                    }
+                    
+                    $(".row").removeClass("bg-semitransparente");
+                    $(".row:has(> div>#" + listaDisenno[posDisenno] + "ColIni)").addClass("bg-semitransparente");
+                }
+
+                tecnara.ponerCuadrosClicks = function () {
+                    for (var f = 0; f < 6; f++) {
+                        for (var c = 0; c < 6; c++) {
+                            var div = $("<div>").attr("class", "semitransparente")
+                                    .attr("onmousedown", "tecnara.clickCuadros(this)")
+                                    .attr("onmousemove", "tecnara.mueveCuadro(this)")
+                                    .attr("fil", f + 1)
+                                    .attr("col", c + 1)
+                                    .attr("style", "position:absolute;left:" + Math.round(c * 100 / 6.0) + "%;" +
+                                            "top:" + Math.round(f * 100 / 6.0) + "%;" +
+                                            "width:" + Math.round(100 / 6.0) + "%;" +
+                                            "height:" + Math.round(100 / 6.0) + "%");
+                            $("#grid").append(div);
+                        }
+                    }
+                    $(".row").removeClass("bg-semitransparente");
+                    $(".row:has(> div>#" + listaDisenno[posDisenno] + "ColIni)").addClass("bg-semitransparente");
+
+                }
+
+                tecnara.selectRow = function (pos) {
+                    posDisenno = pos;
+                    $(".row").removeClass("bg-semitransparente");
+                    $(".row:has(>div>#" + listaDisenno[posDisenno] + "ColIni)").addClass("bg-semitransparente");
+                }
+
+
+                tecnara.rango = function (id) {
+                    if ($("#" + id).val() < 1) {
+                        $("#" + id).val(1);
+                    }
+                    if ($("#" + id).val() > 6) {
+                        $("#" + id).val(6);
+                    }
+                }
+
+                tecnara.crearPlantilla = function () {
+                    $("#grid").attr("style", "position: relative;width:100%;height: 500px; overflow: hidden;background-color:" + $("#colorFondoGeneral").val())
+                    for (var n = 1; n <= 3; n++) {
+                        if ($("#img" + n + "ColIni").val() == "") {
+                            $("#img" + n).attr("style", "display:none");
+                        } else {
+                            tecnara.rango("img" + n);
+                            $("#img" + n).attr("style", "position:absolute;left:" + Math.round((parseInt($("#img" + n + "ColIni").val()) - 1) * 100 / 6.0) + "%;" +
+                                    "top:" + Math.round((parseInt($("#img" + n + "FilIni").val()) - 1) * 100 / 6.0) + "%;" +
+                                    "width:" + Math.round((parseInt($("#img" + n + "ColFin").val()) - parseInt($("#img" + n + "ColIni").val()) + 1) * 100 / 6.0) + "%;" +
+                                    "height:" + Math.round((parseInt($("#img" + n + "FilFin").val()) - parseInt($("#img" + n + "FilIni").val()) + 1) * 100 / 6.0) + "%");
+                        }
+
+                    }
+                    for (var n = 1; n <= 3; n++) {
+                        if ($("#text" + n + "ColIni").val() == "") {
+                            $("#text" + n).attr("style", "display:none");
+                        } else {
+                            tecnara.rango("text" + n);
+                            $("#text" + n).attr("style",
+                                    "font-family:" + $("#texto" + n + "LetraFamilia").val() + ";color:" + $("#texto" + n + "LetraColor").val() + ";font-size:" + $("#texto" + n + "LetraTamanyo").val() + "px;" +
+                                    "position:absolute;left:" + Math.round((parseInt($("#texto" + n + "ColIni").val()) - 1) * 100 / 6.0) + "%;" +
+                                    "color:" + $("#texto" + n + "LetraColor").val() + ";" +
+                                    "background-color:" + $("#texto" + n + "ColorFondo").val() + ";" +
+                                    "top:" + Math.round((parseInt($("#texto" + n + "FilIni").val()) - 1) * 100 / 6.0) + "%;" +
+                                    "width:" + Math.round((parseInt($("#texto" + n + "ColFin").val()) - parseInt($("#texto" + n + "ColIni").val()) + 1) * 100 / 6.0) + "%;" +
+                                    "height:" + Math.round((parseInt($("#texto" + n + "FilFin").val()) - parseInt($("#texto" + n + "FilIni").val()) + 1) * 100 / 6.0) + "%" + "; overflow:hidden; ");
+
+                        }
+
+                    }
+                }
+                $(document).ready(function () {
+                    tecnara.crearPlantilla();
+                    $("input").on("change", function () {
+                        tecnara.crearPlantilla();
+                    })
+                    $("select").on("change", function () {
+                        tecnara.crearPlantilla();
+                    })
+                    tecnara.ponerCuadrosClicks();
+                    tecnara.refrescar();
+                })
+               
+            </script>
+
+            <script>
+                tecnara.ocultarEnImagen = function () {
+                    var imagenes = $("#numeroImagenes").val();
+                    $(".divImg1").removeClass("d-none");
+                    $(".divImg2").removeClass("d-none");
+                    $(".divImg3").removeClass("d-none");
+
+                    if (imagenes < 3) {
+                        $(".divImg3").addClass("d-none");
+                    }
+                    if (imagenes < 2) {
+                        $(".divImg2").addClass("d-none");
+                    }
+                    if (imagenes < 1) {
+                        $(".divImg1").addClass("d-none");
+                    }
+                }
+
+                tecnara.ocultarEnTexto = function () {
+
+                    var textos = $("#numeroTextos").val();
+                    $(".divTex1").removeClass("d-none");
+                    $(".divTex2").removeClass("d-none");
+                    $(".divTex3").removeClass("d-none");
+
+                    if (textos < 3) {
+                        $(".divTex3").addClass("d-none");
+                    }
+                    if (textos < 2) {
+                        $(".divTex2").addClass("d-none");
+                    }
+                    if (textos < 1) {
+                        $(".divTex1").addClass("d-none");
+                    }
+                }
+
+
+ 
+
+
+
+                tecnara.refrescar = function () { 
+                    tecnara.ocultarEnImagen();
+                    tecnara.ocultarEnTexto();
+
+                }
+                
+
+
+
+
+            </script>
+    </body>
+
+
+</html>
+
+
+
+
+

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>        
+        <h3>Faltas y Asistencias</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nuevo</a>
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="fecha" data-formatter="tecnara.formatFecha">Faltas</th>
+                    <th data-field="fecha" data-formatter="tecnara.formatFecha">Asistencia</th>          
+                </tr>
+            </thead>
+
+        </table>
+        <div class="text-right">
+            <a href="help">Ir a la ayuda</a>
+        </div>
+    </body>
+</html>

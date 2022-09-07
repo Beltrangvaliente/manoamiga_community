@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body> 
+        <h3>Formulario de Clases Formativas</h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col-12">
+                    <label>Beneficiarios</label>
+                    <input data-toggle="buscador" data-url="../beneficiario/buscador" class="form-control" th:field="*{idBeneficiario}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label>Profesor</label>
+                    <input data-toggle="buscador" data-url="../profesor/buscador" class="form-control" th:field="*{idProfesor}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">   
+                    <label>Profesores</label>
+                    <input data-toggle="buscador" data-url="../profesor/buscador" class="form-control" th:field="*{idProfesor}"/>
+                </div>     
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label>Asignaturas</label> 
+                    <input class="form-control" th:field="*{asignatura}"/>
+                </div> 
+               
+
+            </div>   
+
+
+            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+        </form>    
+
+    </body>
+</html>

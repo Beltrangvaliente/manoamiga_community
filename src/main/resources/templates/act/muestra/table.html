@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/muestra/layouts/layout::layout( ~{::body} )">
+    <body>
+        <table class="table table-striped" data-toggle="table" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="id" >Id</th>
+                    <th data-field="nombre">Nombre</th>
+                    <th data-field="apellido1" >Primer apellido</th>
+                    <th data-field="apellido2" >Segundo apellido</th>
+                    <th data-field="telefono">Teléfono</th>
+                    <th data-field="fechaNacimiento" data-formatter="tecnara.formatFecha" data-formatter="formatFecha">Fecha Nacimiento</th>
+                </tr>   
+            </thead>    
+        </table> 
+    </body>
+</html>

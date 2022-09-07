@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/trabajador/layouts/layout::layout( ~{::body} )">
+
+    <head>
+        <title>FORMULARIO DE EVENTO</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+
+
+    <body>
+        
+
+        <script>
+            function quitarImagen(nombre) {
+                $("#" + nombre).val("");
+                $("#" + nombre.substr(2).toLowerCase()).attr("src","/img/draw_and_drop_image.png");
+            }
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $('#preview').attr("src", "preview?id=" + $("#id").val());
+            })
+        </script>
+
+
+        <div class="container">
+            <div class="fijo"><a class="verTutorial "></a></div>
+        <script src="/help/expo/trabajador_evento_help.js" ></script>
+            <div data-toggle="volver" th:if="${sinmenu!=true}"></div> 
+            
+            <h3>Formulario de evento</h3>
+
+            <form action="guardar" method="post" th:object="${registro}"  class="was-validated" enctype="multipart/form-data">    
+                <input type="hidden" th:field="*{id}"/>
+
+                <hr/>
+                <div class="row">
+                    <div class="col-md-6 col-12 paso1">
+                        <label>Nombre del Evento</label> 
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir un nombre">
+                            <input class="form-control " th:field="*{nombreActividad}" placeholder ="Nombre" maxlength="200" required="true"/>
+                        </div>
+                    </div> 
+                    <div class="col-md-6 col-12 paso2">
+                        <label> Espacio</label> 
+                        <input data-toggle="buscador" data-url="../espacio/buscador" class="form-control " th:field="*{idEspacio}" placeholder="Espacio"  maxlength="200" required="true"  />
+                    </div> 
+                </div> 
+                <div class="row">
+                    <div class="col-md-4 col-12 paso3">
+                        <label>Fecha</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir una fecha">
+                            <input type="date" class="form-control " th:field="*{fechaActividad}" required/>
+                        </div>
+                    </div>  
+                    <div class="col-md-4 col-12 paso4">
+                        <label>Hora</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir una hora">
+                            <input type="time"  class="form-control " th:field="*{hora}" required/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 paso5">
+                        <label>Descripción (Tamaño máximo 200 carácteres)</label>
+                        <textarea class="form-control " th:field="*{descripcion}" maxlength="200"  rows="3" ></textarea>
+                    </div>                       
+                </div>
+
+                <div class="row paso6">
+                    <div class="col-md-6 mt-4">  
+                        <input type="hidden" name="img" id="img"/>
+
+                        <div id="div_idImagen" style="width:470px;">
+                            <script>
+                                tecnara.cambiarFit=function(obj){
+                                    //Coger el valor
+                                    var dato=$("#imagenFit").val();
+                                    //Ponerlo en la imagen
+                                    $(".img-thumbnail").css("object-fit", dato);
+                                }
+                                $(document).ready(function(){
+                                    tecnara.cambiarFit();
+                                })
+                            </script>
+                            <h4 class='text-right'> Arrastra y suelta imágenes <a class='ml-5 h6 text-nowarp' th:if="${registro.idImagen!=null}" onclick="quitarImagen('idImagen')"> - <i class="fas fa-trash-alt"></i> Quitar imagen</a></h4>
+                            <img th:if="${registro.idImagen!=null}" id="imagen" style="width:100%; height: 420px; margin:auto; display:block" class="border shadow img-thumbnail" th:src="@{/expo/trabajador/imagen/descargar(id=${registro.idImagen})}"/>
+                            <img th:if="${registro.idImagen==null}" id="imagen" style="width:100%; height: 420px; margin:auto; display:block" class="border shadow img-thumbnail" src="/img/draw_and_drop_image.png" />
+                            <select class="form-control" th:field="*{imagenFit}" onchange="tecnara.cambiarFit(this)">
+                                <option value="cover">Recortar imagen</option>
+                                <option value="contain">Espacios en blanco</option>
+                                <option value="fill">Estirar imagen</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4">  
+                        <div>
+                            <div class="area">
+                                <h4>o selecciona una imagen</h4>
+                                <input type="hidden" th:field="*{idImagen}"/>
+                                <input type="file" id="file" class="form-control" name="imagen"/>
+                            </div>
+                            <div id="preview"></div>
+                        </div>   
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-4 paso7"> <i class="fas fa-save"></i> Guardar</button> 
+            </form>
+
+
+        </div>
+
+        <script>
+
+            let files;
+
+            document.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                document.classList.add("active");
+                document.textContent = "Suelta para subir los archivos";
+            });
+
+            document.addEventListener("drop", (e) => {
+                e.preventDefault();
+                files = e.dataTransfer.files; 
+
+                showFiles(files);
+                document.classList.remove("active");
+                document.textContent = "Arrastra y suelta imágenes"
+            });
+
+            function showFiles(files) {
+                if (files.length == undefined) {
+                    processFile(files);
+                } else {
+                    for (const file of files) {
+                        processFile(file);
+                    }
+                }
+            }
+
+            function processFile(file) {
+                const docType = file.type;
+                const validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+
+                if (validExtensions.includes(docType)) {
+
+                    const fileReader = new FileReader();
+                    const id = `file-${Math.random().toString(32).substring(7)}`;
+
+                    fileReader.addEventListener('load', e => {
+                        const fileUrl = fileReader.result;                        
+                        $("#imagen").attr('src', fileUrl);
+                        $("#img").val(fileUrl);
+                    });
+
+                    fileReader.readAsDataURL(file);
+                    uploadFile(file, id);
+                } else {
+                    alert("No es un archivo válido");
+                }
+            }
+        </script>
+    </body>
+</html>

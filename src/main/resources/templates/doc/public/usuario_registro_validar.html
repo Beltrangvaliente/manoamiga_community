@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/public/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div class="container">
+            <h3>Identificación de usuario</h3>
+            <form action="" method="post">
+                <div class="row">
+                    <div class="input-group col-10 col-md-8 mx-auto">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text w-100" >Correo electrónico</span>
+                        </div>
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Introduce tu correo electrónico">
+
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="input-group col-10 col-md-8 mx-auto">
+
+                        <div class="input-group-prepend w-25 ">
+                            <span class="input-group-text w-100 text-rigth" >Contraseña</span>
+                        </div>
+                        <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Introduce tu contraseña">
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="/alumno/curso/list" class="btn btn-success btn-lg mb-4">Entrar</a><br/>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

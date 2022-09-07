@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>Registro de Servicios</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div> 
+        <div data-field="id" data-formatter="tecnara.tablaBotones" data-width="200"></div>
+        <div class="fijo"><a class="verTutorial"></a></div>
+      
+        <h3>Registro de Servicios</h3>
+          <script src="/help/expo/coordinador_servicio_form_help.js"></script>
+        <form action="guardar" method="post" th:object="${registro}"  enctype="multipart/form-data" >
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col-md-4 paso1">
+                    <label>Nombre del servicio</label>
+                    <input class="form-control" th:field="*{nombre}" maxlength="200" />
+                </div>
+                <div class="col-md-4 paso2">
+                    <label>Pantalla</label>
+                    <select  class="form-control" th:field="*{pantalla}" data-memory="2"  >
+                        <option value="1"> 1</option>
+                        <option value="2"> 2</option>
+                        <option value="Todas">Todas</option>
+                    </select>
+                </div>
+                <div class="col-md-4 paso3">
+                    <label>Activo</label>
+                    <select  class="form-control" th:field="*{activo}" data-memory="2" >
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+
+                    </select>
+
+                    <script>
+                        function quitarImagen(nombre) {
+                            $("#" + nombre).val("");
+                            $("#" + nombre.substr(2).toLowerCase()).attr("src", "/img/draw_and_drop_image.png");
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="row paso4">
+                <div class="col-md-6 col-12 paso5">  
+                    <input type="hidden" name="img" id="img"/>
+                    <div id="div_idImagen" >
+                        <h4 class='text-center'> Arrastra y suelta imágenes <a class='ml-5 h6 text-nowarp' th:if="${registro.idImagen!=null}" onclick="quitarImagen('idImagen')"> - <i class="fas fa-trash-alt"></i> Quitar imagen</a></h4>
+                        <img th:if="${registro.idImagen!=null}" id="imagen" style="width:100%; height: 500px;object-fit: contain" class="border shadow img-thumbnail" th:src="@{/expo/coordinador/imagen/descargar(id=${registro.idImagen})}"/>
+                        <img th:if="${registro.idImagen==null}" id="imagen" style="width:100%; height: 500px;object-fit: contain" class="border shadow img-thumbnail" src="/img/draw_and_drop_image.png" />
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 paso6">  
+                    <div class="area text-center">
+                        <h4>o selecciona una imagen</h4>
+                        <input type="hidden" th:field="*{idImagen}"/>
+                        <input type="file" id="file" class="form-control" name="imagen"/>
+                    </div>
+                    <div id="preview"></div>
+                </div>
+            </div>                   
+            <div class="row">
+                <div class="col-12">
+                    <span class="text-info"><b>Tamaño máximo de la imagen:</b> 20Mb. <br/><b>Resolución recomendada:</b> 1920x1080 para vista horizontal y 1080x1920 para vista vertical</span>
+                </div>
+            </div>  
+            <button type="submit" class="btn btn-primary mt-3 mb-5 paso7" >Guardar</button>
+        </form>   
+        <script>
+
+            let files;
+
+            document.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                document.classList.add("active");
+                document.textContent = "Suelta para subir los archivos";
+            });
+
+            document.addEventListener("drop", (e) => {
+                e.preventDefault();
+                files = e.dataTransfer.files;
+
+                showFiles(files);
+                document.classList.remove("active");
+                document.textContent = "Arrastra y suelta imágenes"
+            });
+
+            function showFiles(files) {
+                if (files.length == undefined) {
+                    processFile(files);
+                } else {
+                    for (const file of files) {
+                        processFile(file);
+                    }
+                }
+            }
+
+            function processFile(file) {
+                const docType = file.type;
+                const validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+
+                if (validExtensions.includes(docType)) {
+
+                    const fileReader = new FileReader();
+                    const id = `file-${Math.random().toString(32).substring(7)}`;
+
+                    fileReader.addEventListener('load', e => {
+                        const fileUrl = fileReader.result;
+                        $("#imagen").attr('src', fileUrl);
+                        $("#img").val(fileUrl);
+                    });
+
+                    fileReader.readAsDataURL(file);
+                    uploadFile(file, id);
+                } else {
+                    alert("No es un archivo válido");
+                }
+            }
+        </script>
+    </body>
+</html>
+
+
+

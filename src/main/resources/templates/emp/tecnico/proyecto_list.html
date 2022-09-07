@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>
+        <h3>Listado de proyectos</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nuevo</a>
+        <a class="ml-5" href="#" onclick="tecnara.ocultar('formulario')" data-memory="2">Ver filtros</a>
+        <form id="formulario" class="d-none">  <!-- Filtrar -->
+            <div class="row mt-3">
+                <div class="col-md-2 col-sm-12">
+                    <label>Nombre</label>
+                    <input class="form-control" name="filtro" data-memory="2"/>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <label>Fecha desde</label>
+                    <input type="date" class="form-control" name="fechaDesde" data-memory="2"/>
+                </div>                
+                <div class="col-md-2 col-sm-6">
+                    <label>Fecha hasta</label>
+                    <input type="date" class="form-control" name="fechaHasta" data-memory="2"/>
+                </div>  
+                <div class="col-md-2 col-sm-12">
+                    <label>Empresa</label>
+                    <input data-url="../empresa/buscador" data-toggle="buscador" class="form-control" name="idEmpresa" data-memory="2"/>
+                </div>      
+                <div class="col-md-2 col-sm-12">
+                    <label class="btn-block">&nbsp;</label>
+                    <button onclick="tecnara.refrescarTablas()" class="btn btn-primary" ><i class="fas fa-search"></i> Filtrar</button>
+                </div>                     
+            </div>
+        </form>
+
+        <script>
+            tecnara.filtroTabla = function (params) {
+
+                params.filtro = $("*[name='filtro']").val();
+                params.fechaDesde = $("*[name='fechaDesde']").val();
+                params.fechaHasta = $("*[name='fechaHasta']").val();
+                params.idEmpresa = $("*[name='idEmpresa']").val();
+                return params;
+            }
+
+            tecnara.tablaBotonesDescargarAceptarRechazar = function (id, row, index) {
+                return
+                "<button type='button' class='btn btn-success btn-sm' onclick='tecnara.aceptarORechazar()' > Aceptar </button> " +
+                        "<button type='button' class='btn btn-danger btn-sm' onclick='tecnara.aceptarORechazar()'> Rechazar </button> ";
+            }
+
+            tecnara.aceptarORechazar = function (id) {
+                return  "<a onclick='tecnara.ejecutarAjax(this)' data-url='solicitar_documentacion?id=" + id + "' class='text-info'><i class='fas fa-sticky-note fa-2x'></i></a> " +
+                        "<a onclick='tecnara.ejecutarAjax(this)' data-url='confirmar?id=" + id + "' class='text-success'><i class='fas fa-check-circle fa-2x'></i></a>" +
+                        "<a onclick='tecnara.ejecutarAjax(this)' data-url='rechazar?id=" + id + "' class='text-danger'><i class='fas fa-times-circle fa-2x'></i></a>";
+            }
+        </script>
+
+        <table class="table table-striped mt-3" 
+               data-show-export="true"   
+               data-export-data-type="all"
+               data-export-types="['excel','pdf','doc']"
+               data-title="Listado de proyectos"
+               data-toggle="table" 
+               data-mobile-responsive= "true" 
+               data-url="list_data"
+               data-side-pagination= "server"
+               data-pagination="true"
+               data-query-params="tecnara.filtroTabla">
+            <thead>
+                <tr>
+                    <th data-field="nombre"  >Nombre</th>
+                    <th data-field="estado" >Estado</th>
+                    <th data-field="fecha_inicio"   data-formatter="tecnara.formatFecha">Fecha de Inicio</th>
+                    <th data-field="fecha_fin"   data-formatter="tecnara.formatFecha">Fecha de Fin</th>
+                    <th data-field="empresa" >Empresa</th>
+                    <th data-field="id" data-force-hide="true" data-formatter="tecnara.tablaBotones"></th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>
+
+
+
+

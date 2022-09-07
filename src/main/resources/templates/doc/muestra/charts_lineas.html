@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body >
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <h3>Charts.js</h3>
+
+        <div class="w-50">
+            <canvas id="graficaLineas"></canvas>
+        </div>
+        
+        <script>
+            var nmLineas = {
+                lineas: {},
+                crearGraficaLineas: function () {
+                    nmLineas.lineas = new Chart(document.getElementById('graficaLineas').getContext('2d'), {
+                        type: 'line',
+                        data: {
+                            labels: [], //Se debe rellenar con Ajax
+                            datasets: [
+                                {
+                                    label: 'Ventas',
+                                    data: [], //Se debe rellenar con Ajax
+                                    borderColor: "#080",
+                                    backgroundColor: "#080",
+                                },
+                                {
+                                    label: 'Compras',
+                                    data: [], //Se debe rellenar con Ajax
+                                    borderColor: "#F00",
+                                    backgroundColor: "#F00",
+                                },
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                },
+                                title: {
+                                    display: true, //Debe estar a true para que se visualice.
+                                    text: 'Titulo superior' //Titulo superior
+                                }
+                            }
+                        },
+                    })
+                },
+                cargarDatosLineas: function () {
+                    $.ajax({
+                        url: "/data/list_ventas_mes.json",
+                        dataType: "json",
+                        success: function (respuesta) {
+                            //Limpieza de valores
+                            nmLineas.lineas.data.labels = []
+                            nmLineas.lineas.data.datasets[0].data = [];  //Si hay muchas series se puede hacer un for de 0 a length-1
+                            nmLineas.lineas.data.datasets[1].data = [];
+
+                            respuesta.forEach(function (registro) {
+                                nmLineas.lineas.data.labels.push(registro.mes);
+                                nmLineas.lineas.data.datasets[0].data.push(registro.ventas);
+                                nmLineas.lineas.data.datasets[1].data.push(registro.compras);
+                            });
+                            nmLineas.lineas.update();
+
+                        }
+                    })
+                },
+                iniciarPaginaLineas: function () {
+                    nmLineas.crearGraficaLineas();
+                    nmLineas.cargarDatosLineas();
+                }
+            }
+            
+            $(document).ready(function(){
+                nmLineas.iniciarPaginaLineas();
+            })
+
+        </script>
+
+    </body>
+</html>

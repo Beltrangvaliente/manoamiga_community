@@ -1,0 +1,114 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div data-toggle="indice"></div>        
+        <h3>Lista de documentos subidos</h3>  
+        <a href="#" onclick="tecnara.ocultar('table')" >Ver filtros</a>      
+        <form id="table" class="d-none">  <!-- Filtrar -->
+            <div class="row mt-3">
+                <div class="col-3">
+                    <select name="verificacion" class="form-control" >
+                        <option value="">-----</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="aceptado">Aceptado</option>
+                        <option value="rechazado">Rechazado</option>
+                    </select>                   
+                </div>
+                <div class="col-3">
+                    <input name=fecha_desde type="date" class="form-control"  placeholder="Fecha desde"/>
+                </div>
+                <div class="col-3">
+                    <input name=fecha_hasta type="date" class="form-control"  placeholder="Fecha hasta"/>
+                </div>
+                <div class="col-3">
+                    <script>
+                        tecnara.refrescarTablas = function () {
+                            $("table[data-toggle='table']").bootstrapTable('refresh');
+                        }
+                    </script>
+                    <a onclick="tecnara.refrescarTablas()" class="btn btn-primary btn-sm"><i class="fas fa-search"></i> Filtrar</a>
+                </div>
+            </div>
+        </form>
+
+        <script>
+            tecnara.filtroTabla = function (params) {
+                params.verificacion = $("*[name='verificacion']").val();
+                params.fechaDesde = $("*[name='fecha_desde']").val();
+                params.fechaHasta = $("*[name='fecha_hasta']").val();
+                return params;
+            }
+        </script>
+
+        <table class="table table-striped mt-3" 
+               data-toggle="table" 
+               data-url="list_data"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-query-params="tecnara.filtroTabla">
+            <thead>
+                <tr>
+                    <th data-field="tipoDocumento">Documento</th>
+                    <th data-field="Fecha"  data-formatter="tecnara.formatFecha">Fecha</th>
+                    <th data-field="Curso">Curso</th>
+                    <th data-field="Estado" data-formatter="tecnara.celdaEstado">Estado</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotonesSubirFichero" data-width="300"></th>
+                    <script>
+                        tecnara.botonSubirFichero = function(id){
+                            alert("botonSubirFichero");
+                        };
+                        tecnara.botonTomarFoto = function(id){
+                            alert("botonTomarFoto");
+                        };
+                        tecnara.botonDescargar = function(id){
+                            document.location="descargar?id=" + id;
+                        };
+                        tecnara.botonSubirFichero = function(id){
+                            alert("tecnara.botonSubirFichero");
+                        };
+                        tecnara.celdaEstado = function(texto, row, index){
+                            if (texto=='rechazado'){
+                                return texto +
+                                        " - <a type='button' href='show' > Ver motivos </a> ";
+                            }else{
+                                
+                                return texto;
+                            }
+                
+                        };
+                        tecnara.tablaBotonesSubirFichero = function (id, row, index) {
+                            if (row['Estado']=='pendiente'){
+                                return "<button type='button' class='btn btn-success btn-sm' style='width:40%' onclick='tecnara.botonSubirFichero(" + row["id"] + ")' > Subir fichero </button> " +                                    
+                                        "<button type='button' class='btn btn-success btn-sm' style='width:40%' onclick='tecnara.botonTomarFoto(" + row["id"] + ")' > Tomar foto </button> ";
+                            }else if(row['Estado']=='rechazado' ){
+                                return "<button type='button' class='btn btn-success btn-sm' style='width:40%' onclick='tecnara.botonDescargar(" + row["id"] + ")' > Descargar </button> " + 
+                                        "<button type='button' class='btn btn-danger btn-sm' style='width:40%' onclick='tecnara.botonElminar(" + row["id"] + ")'> Eliminar </button> ";
+                            }else{
+                                return "<button type='button' class='btn btn-success btn-sm' style='width:40%' onclick='tecnara.botonDescargar(" + row["id"] + ")' > Descargar </button> ";
+                            }
+                          
+                            //if (row['Estado']=='aceptado'){
+                                //return "<button type='button' class='btn btn-success btn-sm' style='width:40%' onclick='tecnara.bootboxEnConstruccion()' > Descargar </button> " 
+                            //}else{
+                                     //if (row['Estado']=='pendiente'){
+                                          //return "<button type='button' class='btn btn-success btn-sm' style='width:40%' onclick='tecnara.bootboxEnConstruccion()' > Subir fichero </button> " +                                    
+                                                 //"<button type='button' class='btn btn-success btn-sm' style='width:40%' onclick='tecnara.bootboxEnConstruccion()' > Tomar foto </button> ";
+                                     //}else{
+                                          //return "<button type='button' class='btn btn-success btn-sm' style='width:40%' onclick='tecnara.bootboxEnConstruccion()' > Descargar </button> " + 
+                                                 //"<button type='button' class='btn btn-danger btn-sm' style='width:40%' onclick='tecnara.borrarRegistro(" + row["id"] + ")'> Eliminar </button> ";
+                            //}
+                      
+                        }
+                        
+                    </script>                    
+                </tr>                   
+            </thead>          
+        </table>    
+    </body>
+
+</html>

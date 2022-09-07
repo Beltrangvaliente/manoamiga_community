@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+        <script>
+            function quitarFichero(nombre) {
+                $("#" + nombre).val("");
+                $("#div_" + nombre).addClass("d-none");
+            }
+
+
+            tecnara.cargarFechas = function () {
+                $.ajax({
+                    url: 'list_data_fecha_disponible',
+                    data: {
+                        idCentroDeAtencion: $('#idCentroDeAtencion').val()
+                    },
+                    dataType: "json",
+                    success: function (data, textStatus, jqXHR) {
+                        $("#fechaDeCita").html("");
+                        data.forEach(function (fila) {
+                            var opt = $("<option>").attr("value", fila.fechaDeCita).html(fila.fechaDeCita);
+                            $("#fechaDeCita").append(opt);
+                        });
+                        tecnara.cargarHoras();
+                    }
+                }
+            
+
+           
+
+
+        </script>  
+
+        <div class="container">
+            <div data-toggle="indice"></div>
+            <h3> Documentos Participante</h3>
+            <form th:object="${registro}">
+
+
+                <div class="col-12">  
+                    <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{idFichero}"/>
+                    <input type="hidden" th:field="*{idParticipante}"/>
+                    <input type="file" id="file" class="form-control" name="fichero"/>
+
+                </div>
+
+                <div class="col-12">
+                    <label>Nombre del Documento</label>
+                    <input type="text" class="form-control" th:field= "*{nombreDocumento}"/>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <label>Fecha de subida</label>
+                    <input type="date" class="form-control" th:field="*{fechaSubido} "data-default="hoy" /> 
+
+
+                    <button type="submit" class="btn btn-primary mt-5" >Guardar</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+
+
+
+
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <h3>Alumno</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated">    
+            <input type="hidden" th:field="*{id}"/>
+          
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <label>Nombre</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir el nombre">
+                        <input class="form-control" th:field="*{nombre}" required=""/>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Primer Apellido </label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir el primer apellido">
+                        <input class="form-control" th:field="*{apellido1}" required=""/>    
+                    </div>
+                </div>    
+                <div class="col-md-4 col-sm-6">
+                    <label>Segundo Apellido</label> 
+                    <input class="form-control" th:field="*{apellido2}"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Usuario</label>
+                    <input data-toggle="buscador" data-url="../usuario/buscador" id="user" class="form-control" th:field="*{idUsuario}"/>
+                </div>
+                <div class="col-md-1 col-sm-6 ">   
+                    <label>Sexo</label>
+                    <select class="form-control" th:field="*{sexo}">
+                        <option value=""></option>
+                        <option value="Hombre">Hombre</option>
+                        <option value="Mujer">Mujer</option>
+                        <option value="Otro">Otro</option>
+                    </select> 
+                </div>   
+                <div class="col-md-3 col-sm-4">
+                    <label>DNI/NIE/Pasaporte</label>
+                    <select class="form-control" th:field="*{tipoDocumento}">
+                        <option value=""></option>
+                        <option value="DNI">DNI</option>
+                        <option value="NIE">NIE</option>
+                        <option value="Pasaporte">Pasaporte</option>
+                    </select> 
+                </div>    
+                <div class="col-md-4 col-sm-8">
+                    <label>Documento</label>
+                    <input class="form-control" th:field="*{documento}"/>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label>Dirección</label>
+                    <input class="form-control" th:field="*{direccion}"/>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label>Localidad</label>
+                    <input class="form-control" th:field="*{localidad}"/>
+                </div>  
+            </div>  
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <label>Teléfono</label>
+                    <input class="form-control" th:field="*{telefono}"/>
+                </div>  
+                <div class="col-md-4 col-sm-12">
+                    <label>E-mail</label>
+                    <input type="email" name="email" class="form-control" th:field="*{mail}"/>
+                </div> 
+                <div class="col-md-4 col-sm-6">
+                    <label>Nacionalidad</label>
+                    <input class="form-control" th:field="*{nacionalidad}"/>
+                </div>     
+                <div class="col-md-2 col-sm-6">
+                    <label>Estado Civil</label>
+                    <select class="form-control" th:field="*{estadoCivil}">
+                        <option value="soltero">Soltero/a</option>
+                        <option value="pareja_de_hecho">Pareja de hecho</option>
+                        <option value="casado">Casado/a</option>
+                        <option value="separado">Separado/a</option>
+                        <option value="divorciado">Divorciado/a</option>
+                        <option value="viudo">Viudo/a</option>
+                        <option value="ns_nc">NS/NC</option>
+                    </select>
+                </div>   
+                <div class="col-md-2 col-sm-6">
+                    <label>Número de Hijos</label>
+                    <input class="form-control" type="number" th:field="*{hijos}"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Nº Seguridad Social</label>
+                    <input class="form-control" th:field="*{seguridadSocial}"/>
+                </div>    
+                <div class="col-md-2 col-sm-6">    
+                    <label>Discapacidad</label>
+                    <input class="form-control" placeholder="%" th:field="*{discapacidad}"/>                    
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <label>Ingresos Anuales</label>
+                    <input type="number" class="form-control" placeholder="Cantidad en bruto" th:field="*{ingresosAnuales}"/>
+                </div>
+            </div>                             
+            <button type="submit" class="btn btn-primary mt-3" >Guardar</button>
+            <!-- *************** TABS ***************  -->
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" > 
+                            <a class="nav-link active" data-toggle="tab" href="#divMatriculas">
+                                Matrículas/Cursos
+                            </a> 
+                        </li>                        
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divDocumentos1">
+                                Documentos Subidos
+                            </a> 
+                        </li>   
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divDocumentos2">
+                                Documentos Solicitados
+                            </a> 
+                        </li>   
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divCitas">
+                                Citas
+                            </a> 
+                        </li>    
+                        
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divNecesidadesFormativas">
+                                Necesidades formativas
+                            </a> 
+                        </li>  
+                    </ul>
+                </div>
+            </div> 
+            <script>
+                tecnara.filtroIdAlumno = function (params) {
+                    params.idAlumno = $("#id").val();
+                    return params;
+                }
+            </script>
+            <div class="tab-content">
+
+                <!-- *************** Matriculas ***************  -->
+                <div id="divMatriculas" class="tab-pane fade show active" >
+                    <button type="button" data-toggle="formbox" data-url="../matricula/form" class="btn btn-primary btn-sm">Crear nueva matricula para curso</button>
+                    <table class="table table-striped" data-toggle="table"
+                           data-url="list_data_matricula" 
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdAlumno"
+                           data-locale="es-ES"
+                           data-controller="../matricula">
+                        <thead>
+                            <tr>
+                                <th data-field="referencia" >Referencia</th>
+                                <th data-field="nombreCurso">Curso</th>
+                 
+                                <th data-field="fechaMatricula"  data-formatter="tecnara.formatFecha">Fecha Alta</th>
+                                <th data-field="estado">Estado</th>
+                                <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- *************** Documentos Subidos ***************  -->
+                <div id="divDocumentos1" class="tab-pane fade" > 
+                    <button type="button" data-toggle="formboxsinmenu" data-url="../documento_subido/form" class="btn btn-primary btn-sm">Subir documento nuevo</button>
+                    <table class="table table-striped" data-toggle="table" 
+                           data-url="list_data_documentos"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdAlumno"
+                           data-controller="../documento_subido"> 
+                        <thead>
+                            <tr>
+                                <th data-field="tipoDeDocumento" >Tipo de Documento</th>
+                                <th data-field="nombreFichero">Archivo</th>
+                                <th data-field="obligatorio">Obligación de Presentarlo</th>
+                                <th data-field="verificacion" >Estado de la Verificación</th>
+                                <th data-field="observaciones">Observaciones</th>
+                                <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <!-- *************** Documentos Solicitados ***************  -->
+                <div id="divDocumentos2" class="tab-pane fade" > 
+                    <button type="button" data-toggle="formboxsinmenu" data-url="../documento_solicitado/form" class="btn btn-primary btn-sm">Solicitar Documento</button>
+                    <table class="table table-striped" data-toggle="table" 
+                           data-url="list_data_documento_solicitado"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdAlumno"
+                           data-controller="../documento_solicitado"> 
+                        <thead>
+                            <tr>
+                                <th data-field="tipoDeDocumento" >Archivo</th>
+                                <th data-field="nombreCurso">Nombre del Curso</th>
+                                <th data-field="estado">Estado</th>
+                                <th data-field="fecha_limite" data-formatter="tecnara.formatFecha" >Fecha limite</th>
+                                <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu"></th>
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+
+                <!-- *************** Citas ***************  -->
+                <div id="divCitas" class="tab-pane fade" > 
+                    <button type="button" data-toggle="formbox" data-url="../cita/form" class="btn btn-primary btn-sm">Crear cita</button>
+                    <table class="table table-striped" data-toggle="table" 
+                           data-url="list_data_cita"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdAlumno"
+                           data-controller="../cita">
+                        <thead>
+                            <tr>
+                                <th data-field="nombreCentroDeAtencion">Centro de Atención</th>
+                                <th data-field="fechaDeCita"  data-formatter="tecnara.formatFecha">Fecha de Cita</th>
+                                <th data-field="horaDeCita">Hora de Cita</th>
+                                <th data-field="estado">Estado</th> 
+                                <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>                                
+                <!-- *************** Títulos ***************  -->
+                <div id="divTitulos" class="tab-pane fade" > 
+                    <button type="button" data-toggle="formboxsinmenu" data-url="../titulo/form" class="btn btn-primary btn-sm">Nuevo título</button>
+                    <table class="table table-striped" data-toggle="table" 
+                           data-url="list_data_titulo" 
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdAlumno"
+                           data-controller="../titulo">
+                        <thead> 
+                            <tr>
+                                <th data-field="titulacion" >Titulación</th>
+                                <th data-field="nivel">Nivel</th>
+                                <th data-field="duracion">Duración</th>
+                                <th data-field="homologacion" >Homologación</th>
+                                <th data-field="paisExpedicion">País expedición</th> 
+                                <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- *************** Necesidades ***************  -->
+                <div id="divNecesidadesFormativas" class="tab-pane fade" > 
+                    <button type="button" data-toggle="formbox" data-url="../alumno_necesidad_formacion/form" class="btn btn-primary btn-sm">Nueva necesidad</button>
+                    <table class="table table-striped" data-toggle="table" 
+                           data-url="list_data_alumno_formacion" 
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdAlumno"
+                           data-controller="../alumno_necesidad_formacion">
+                        <thead> 
+                            <tr>
+                                <th data-field="nombre" >Nombre</th>
+                                <th data-field="idioma">Idioma</th>
+                                <th data-field="edad">Edad</th>
+                                
+                                <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu"></th>
+                                
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

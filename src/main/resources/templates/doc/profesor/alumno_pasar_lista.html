@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <script>
+            var totalAlumnos = 0;
+            tecnara.play = function () {
+                var audio = new Audio('/audio/beep.mp3');
+                audio.play();
+            }
+            tecnara.ponerTexto = function (persona) {
+                $("#info").html(persona);
+                setTimeout(function () {
+                    tecnara.ponerContador()
+                }, 5000);
+            }
+            tecnara.ponerContador = function () {
+                $("#info").html(totalAlumnos + " alumnos")
+            }
+            tecnara.quitarAsistencia = function (idAlumno) {
+                tecnara.confirmar("Desea quitar esta asistencia?", function(){
+                    $.ajax({
+                        url: "borrar",
+                        data: {
+                            idAlumno: idAlumno,
+                            idCurso: $("#curso").val()
+                        },
+                        success: function (result) {
+                            tecnara.refrescarTablas();
+                        }
+                    })
+                });
+            }            
+            tecnara.nuevaAsistencia = function (idAlumno) {
+                $.ajax({
+                    url: "guardar",
+                    data: {
+                        idAlumno: idAlumno,
+                        idCurso: $("#curso").val()
+                    },
+                    success: function (result) {
+                        tecnara.refrescarTablas();
+                    }
+                })
+            }
+            tecnara.grabarManual = function () {
+                tecnara.nuevaAsistencia(($("#alumno").val()));
+            }
+
+            tecnara.Curso = function (params) {
+                params.idCurso = $("#curso").val();
+                return params;
+            }
+        </script>
+        <div data-toggle="indice"></div>     
+        <h2>Registro de Asistencia</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Buscador de cursos</label><br/>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-6">
+                <input class="form-control" name="nombreCurso" placeholder="Escribe un curso para buscar" data-toggle="buscador" data-url="../curso/buscador" id="curso" onchange="tecnara.refrescarTablas()" th:value="${idCursoInicial}"/><br/>                
+            </div>
+            <br/>
+            <div class="col-md-6">
+                <br/>
+                <button onclick="tecnara.refrescarTablas()" class="btn btn-primary md-2">Filtrar</button>
+            </div>
+        </div> 
+        <br/>
+        <div class="row">
+            <div class="col-md-12">
+                <video class='d-none' id="qr-video"></video>
+
+                <div class='w-100 text-center position-relative'>
+                    <div id='info' style="width:400px" class="bg-primary text-white mx-auto pt-1 pb-1 font-weight-bold">Escanear códigos QR de los alumnos</div>
+                    <div class="w-100" id="captura" ></div>
+                    <input type="hidden" id="qrResultado" class="form-control"/>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <script>
+            tecnara.tablaBotonesAsistencia = function (id, row) {
+                if (row['asistencia'] == "Si") {
+                    return "<i class='fa fa-check-square fa-4x' style='color:green' onclick='tecnara.quitarAsistencia (" + row['id_alumno'] + ")'> </button>";
+                } else {
+                    return "<i class='fas fa-times fa-4x' style='color:red' onclick='tecnara.nuevaAsistencia (" + row['id_alumno'] + ")'> </i>";
+                }
+            }
+            tecnara.nombreCompleto=function(value,row){
+                return row['nombre'] + " " + row['apellido1'] + " " + row['apellido2'];
+            }
+        </script>         
+        <div class="row">
+            <div class="col-md-12"></br>
+                <label>Listado de Asistencia</label>
+                <table id='alumnos' class="table table-striped mt-3" 
+                       data-toggle="table" 
+                       data-url="list_data_pasar_lista"
+                       data-mobile-responsive="true"
+                       data-pagination="true"
+                       data-side-pagination="server"
+                       data-query-params="tecnara.Curso">
+                    <thead>
+                        <tr>
+                            <th data-field="asistencia" data-formatter="tecnara.tablaBotonesAsistencia">Asistencia</th>
+                            <th data-field="id" data-formatter="tecnara.nombreCompleto">Alumno</th>
+                        </tr>  
+                    </thead>    
+                </table> 
+            </div>
+        </div>
+        <hr/>
+        <br/>
+
+        <script type="module">
+            import QrScanner from "/library/qrscanner/qr-scanner.min.js";
+            QrScanner.WORKER_PATH = '/library/qrscanner/qr-scanner-worker.min.js';
+
+            const video = document.getElementById('qr-video');
+            const camList = document.getElementById('cam-list');
+            const camQrResult = document.getElementById('cam-qr-result');
+            const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
+            var lastId = "";
+
+            tecnara.qrResult = function (result) {
+                $("#qrResultado").val(result);
+                if (lastId == result) {
+                    return;
+                }
+                tecnara.play();
+                lastId = result;
+                tecnara.nuevaAsistencia(result);
+            }
+
+            // ####### Web Cam Scanning #######
+            const scanner = new QrScanner(video,
+                    result => {
+                        tecnara.qrResult(result);
+                    },
+                    error => {
+                        $("#qrResultado").val(error);
+                    }
+            );
+            document.getElementById("captura").appendChild(scanner.$canvas);
+            scanner.start();
+
+            window.scanner = scanner;
+        </script>
+    </body>
+</html>

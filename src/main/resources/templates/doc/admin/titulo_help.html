@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="enConstruccion"></div>
+        
+        <div class="float-right">
+            <a href="list">Volver</a>
+        </div>
+        <h3>Ayuda de titulo</h3>
+        <div class="row">
+            <div class="col-6">
+                <img class="w-100" src="/img/admin/help_titulo_list.png"/>               
+            </div>
+            <div class="col-6">
+                <p>
+                    En el listado de títulos podemos ver los títulos introducidos por el usuario.
+                </p>
+                <ul>
+                    <li>Descripción: Listado de los títulos en posesión de los usuarios</li>
+                    <li>Persona de contacto: Persona que hace la tarea</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>
+                    En el formulario podemos introducir los datos requeridos.
+                </p>
+                <ul>
+                    <li>Función: Posibilitar al usuario la inscripción a un curso</li>
+                    <li>Introducir los datos requeridos</li>
+                    <li>Pulsando el botón de guardar, guardamos los datos</li>
+                    <li>Persona de contacto: Persona que hace la tarea</li>
+                </ul>
+            </div>
+            <div class="col-6">
+                <img class="w-100" src="/img/admin/help_titulo_form.png"/>               
+            </div>
+        </div>
+
+    </div>
+</body>
+
+
+</html>

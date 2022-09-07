@@ -1,0 +1,84 @@
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+    <body>
+
+        <div data-toggle="indice"></div>        
+        <h3>Lista de notificaciones</h3>
+
+        <script>
+            tecnara.ponerEnlace = function (valor, row, index) {
+                if (valor != undefined) {
+                    return "<a href='" + valor + "'>Ir a pagina</a>";
+                } else {
+                    return "";
+                }
+
+            }
+            
+            tecnara.ponerNegrita = function () {
+                $("tr:has(.fa-envelope)").addClass("font-weight-bold");
+                $("tr:has(.fa-envelope-open)").removeClass("font-weight-bold");
+            }
+
+            $(document).ready(function () {
+                $("table").on("load-success.bs.table", function () {
+                    tecnara.ponerNegrita();
+                });
+            });            
+        </script>
+
+        <script>
+            tecnara.iconoLeido = function (valor, row, index) {
+                if (valor.toLowerCase() != "si") { 
+                    return '<span>' +
+                            '<i class="fas fa-envelope"></i>' + 
+                            '</span>' +
+                            '<span class="pl-3">' + 
+                            '<a class="btn btn-primary btn-xs" data-url="marcar_check?id=' + row["id"] + '" onclick="tecnara.ejecutarAjax(this)" >' + 
+                            '<i  class="fas fa-check"></i>' + 
+                            '</a>'+
+                            '</span>';
+                } else {
+
+                    return '<i class="fas fa-envelope-open"></i>';
+                }
+
+            }
+        </script>
+        
+        <button class=" btn btn-success btn-sm mb-4 " data-url="marcar_leido" onclick="tecnara.ejecutarAjaxConfirmar(this,'¿Desea marcar todos como leido?')">Marcar todos</button>
+        <table class="table table-striped mt-3" 
+               data-toggle="table" 
+               data-url="list_data_notificacion"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-query-params="tecnara.filtroTabla">
+            <thead>
+
+                <tr>
+
+                    <th data-field="fecha"  data-formatter="tecnara.formatFecha">Fecha</th>
+                    <th data-field="hora"  data-formatter="tecnara.formatFecha">Hora</th>
+                    <th data-field="leido" data-formatter="tecnara.iconoLeido" >Leido</th>
+                    <th data-field="notificacion">Notificacion</th>
+                 
+                    <th data-field="enlace" data-formatter="tecnara.ponerEnlace">Enlace</th>
+
+
+
+                </tr>
+            </thead>
+
+        </table>
+
+
+    </body>
+
+
+</html>

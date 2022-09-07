@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <body>
+
+        <div data-toggle="volver"></div> 
+        <div class="container">
+            <h3>Información del documento</h3>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <p><b>Tipo de documento:</b>   <span th:text='${registro.tipo_documento}'/><br/></p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <p><b>Nombre: </b><br/>   <span th:text="${registro.descripcion}"/><br/></p>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <p><b>Fecha de subida:</b>   <span th:text="${registro.fechaSubida}"/><br/></p>  
+                </div> 
+
+            </div>
+        
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <p><b>Estado:</b></p><br/>   <span th:text="${registro.estadoVerificacion}"/><br/>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <p><b>Observaciones:</b><br/><span th:text="${registro.observaciones}"/><br/></p> 
+                </div>
+            </div>
+            <hr>
+            <a th:href="@{descargar(id=${id})}" download="">Descargar documento</a>  
+            
+        </div>
+
+    </body>
+
+</html>

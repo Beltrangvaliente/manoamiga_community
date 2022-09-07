@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/public/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div class="container">
+            <h3>Cursos disponibles</h3>
+            <a  href="#" onclick="tecnara.ocultar('formulario')" data-memory="2">Ver filtros</a>
+        </div>
+        <form action="list">
+            <div class="container">
+                <script>
+                    $(document).ready(function () {
+                        $("#formulario input").each(function (obj) {
+                            if ($(obj).val() > "") {
+                                $("#formulario").removeClass("d-none");
+                            }
+                        })
+                    })
+                </script>
+                <div  id="formulario" th:class="${filtro=='' && mes==null && modalidad==null && horario==null ?'d-none':''}" >
+                    <hr/>
+                    <div class="row"> 
+                        <div class="col-md-3 col-sm-6">
+                            <label><b>Nombre</b></label>
+                            <input class="form-control" name="filtro" th:value="${filtro}" placeholder="Introduce un curso" data-memory="2"/>
+                        </div>      
+                        <div class="col-md-3 col-sm-6">
+                            <label><b>Mes</b></label>
+                            <select class="form-control" name="mes" th:value="${mes}" onchange="tecnara.clickSelect()" data-memory="2">
+                                <option value="">Todos</option>
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <label><b>Modalidad</b></label>
+                            <select class="form-control" name="modalidad" th:value="${modalidad}" onchange="tecnara.clickSelect()" data-memory="2">
+                                <option value="">Todos</option>
+                                <option value="Presencial">Presencial</option>
+                                <option value="Online">Online</option>
+                                <option value="Mixta">Mixta</option>
+                            </select>
+                        </div>      
+                        <div class="col-md-2 col-sm-6">
+                            <label><b> Horario</b></label>
+                            <select class="form-control" name="horario" th:value="${horario}" onchange="tecnara.clickSelect()" data-memory="2">
+                                <option value="">Cualquier momento</option>
+                                <option value="mañana">Mañana</option>
+                                <option value="tarde">Tarde</option>
+                            </select>   
+                        </div>    
+                        <div class="col-md-2 col-6 mt-3">
+                            <button type="submit" class="btn btn-primary btn-block" ><i class="fas fa-search"></i>  Filtrar</button>
+                        </div> 
+                    </div>
+                    <hr/>
+                </div>   
+            </div>
+        </form>
+
+        <script>
+            tecnara.filtroTabla = function (params) {
+                params.filtro = $("*[name='filtro']").val();
+                params.mes = $("*[name='mes']").val();
+                params.modalidad = $("*[name='modalidad']").val();
+                params.horario = $("*[name='horario']").val();
+                return params;
+            }
+        </script>
+
+        <script>
+          
+            $(document).ready(function(){
+                tecnara.clickSelect();
+            })
+        </script>
+
+
+
+        <div class="container">
+            <div class="row mt-3">
+                <div class=" col-md-4 col-sm-6 mt-2 mb-4" th:each="lis:${lista}"  >
+                    <div class="card">
+                        <div class="card-header">
+                            <span th:text="${lis.nombreCurso}" />
+                        </div>
+                        <div class="card-body">
+                            <b>Centro:</b> <span th:text="${lis.nombreCentro}" /><br/>
+                            <b>Horas:</b> <span th:text="${lis.numeroHoras}" /><br/>
+                            <b>Modalidad:</b> <span th:text="${lis.modalidad}" /><br/>
+                            <b>Localizacion:</b> <span th:text="${lis.localidad}" /><br/>
+                            <b>Fecha Inicio:</b> <span th:text="${lis.fechaInicio}" /><br/>
+                            <b>Fecha Fin:</b> <span th:text="${lis.fechaFin}" /><br/>
+                        </div>
+                        <div class="card-footer text-center d-flex justify-content-between">
+                            <a th:href="@{show(id=${lis.id})}" class="btn btn-info"> <i class="fas fa-info-circle"></i> Información</a>
+                            <a th:if="${general.username==''}" th:href="${'../usuario/login?url=/doc/alumno/curso/preinscripcion?idCurso=' + lis.id}" class="btn btn-success"> <i class="fas fa-plus-square"></i> Preinscribirse</a>
+                            <a th:if="${general.username!=''}" th:href="@{/doc/alumno/curso/preinscripcion(idCurso=${lis.id})}" class="btn btn-success"> <i class="fas fa-plus-square"></i> Preinscribirse</a>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-12' th:if='${lista.size()==0}'>
+                    <h4>No se han encontrado coincidencias</h4>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

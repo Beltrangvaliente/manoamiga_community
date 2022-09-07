@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/trabajador/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div class="container indice">
+
+            <hr class="mb-6
+                "/>
+            <div class="row"> 
+                <div class="col-md-6 ">
+                    <div class="card text-center fa-8x">
+                        <a href="/emp/trabajador/horario_imputado/panel">
+                            <i class="fas fa-project-diagram"></i><br/>
+                            <h4 class="card-title">Registro de horario</h4>
+
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="card text-center fa-8x">
+                        <a href="/emp/trabajador/horario_imputado/list">
+                            <i class="fas fa-user-circle"></i><br/>
+                            <h4 class="card-title">Listado de horas</h4>
+                        </a>
+                    </div>
+                </div> 
+            </div>
+        </div> 
+
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div class="container indice pt-5">
+            <div class="row pt-5">
+                <div class="col-sm-12 col-md-4">
+                    <div class="card text-center fa-10x">
+                        <a href="/doc/profesor/alumno/pasar_lista">
+                            <i class="fas fa-list"></i><br/>
+                            <h4 class="card-title">Pasar lista</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card text-center fa-10x">
+                        <a href="/doc/profesor/curso/list">
+                            <i class="fas fa-book"></i><br/>
+                            <h4 class="card-title">Cursos</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card text-center fa-10x">
+                        <a href="/doc/profesor/alumno/list">
+                            <i class="fas fa-user"></i><br/>
+                            <h4 class="card-title">Alumnos</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

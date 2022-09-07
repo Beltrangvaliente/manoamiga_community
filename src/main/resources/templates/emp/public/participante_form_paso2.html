@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/public/layouts/layout::layout( ~{::body} )">
+    <head>
+        <style>
+            .breadcrumb-item+.breadcrumb-item::before {
+                content: ">"
+            }
+            .breadcrumb-item.active{
+                color: grey;
+                font-weight: bold;
+            }
+
+        </style>
+    </head>
+    <body>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{form_paso1(codigoVerificacion=${codigoVerificacion})}">Datos personales</a></li>
+                <li class="breadcrumb-item active">Experiencia</li>
+                <li class="breadcrumb-item">Formación previa</li>
+                <li class="breadcrumb-item">Intereses</li>
+            </ol>
+        </nav>
+        <div class="container">
+            <script>
+                function guardarDatos() {
+                    $.ajax({
+                        url: 'form_paso2_guardar',
+                        data: {
+                            empresa: $("input[name='empresa']").val(),
+                            puesto: $("input[name='puesto']").val(),
+                            anyoInicio: $("input[name='anyoInicio']").val(),
+                            anyoFin: $("input[name='anyoFin']").val(),
+                            codigoVerificacion: $("input[name='codigoVerificacion']").val()
+                        },
+                        success: function (data, textStatus, jqXHR) {
+                            $("input[name='empresa']").val("");
+                            $("input[name='puesto']").val("");
+                            $("input[name='anyoInicio']").val("");
+                            $("input[name='anyoFin']").val("");
+                            tecnara.refrescarTablas();
+                        }
+                    })
+                }
+                function borrar(id) {
+                    $.ajax({
+                        url: 'form_paso2_borrar',
+                        data: {
+                            id: id,
+                            codigoVerificacion: $("input[name='codigoVerificacion']").val()
+                        },
+                        success: function (data, textStatus, jqXHR) {
+                            tecnara.refrescarTablas();
+                        }
+                    })
+                }                
+            </script>
+            <form  class="was-validated" name="registro" action="form_paso2_guardar" id="register-form" method="post" role="form" th:object="${registro}">
+                <input type="hidden" name="codigoVerificacion" th:value="${codigoVerificacion}"/>
+                <div>
+                    <h3>Desarrollo experiencia laboral</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Puesto</label>
+                        <input class="form-control" name="puesto"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Empresa</label>
+                        <input class="form-control" name="empresa"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Año inicio</label>
+                        <input class="form-control" name="anyoInicio" type="number" min="1950" max="2023"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Año fin</label>
+                        <input class="form-control" name="anyoFin" type="number" min="1950" max="2023"/>       
+                    </div>
+                    <div class="col-md-2">
+                        <label class="w-100">&nbsp;</label>
+                        <button type="button" onclick="guardarDatos()" name="btninicio" id="register-submit" class="btn btn-primary" value="registrar"><i class="fas fa-plus"></i> Añadir experiencia</button>
+                    </div>
+                </div>
+                
+            </form>
+              
+            <script>
+                tecnara.filtroCodigoVerificacion = function (params) {
+                    params.codigoVerificacion = $("input[name='codigoVerificacion']").val();
+                    return params;
+                }
+                tecnara.borrar=function(value,row,indice){
+                    return "<a onclick='borrar(" + value + ")' class='text-danger'> <i class='fas fa-minus-circle fa-2x'></i> </a> "
+                }
+            </script>
+
+            <table class="table table-striped" data-toggle="table"
+                   data-url="form_paso2_list_data" 
+                   data-pagination="true"
+                   data-side-pagination="server"
+                   data-query-params="tecnara.filtroCodigoVerificacion"
+                   data-mobile-responsive="true">                         
+                <thead>
+                    <tr>
+                        <th data-field="puesto">Puesto</th>
+                        <th data-field="empresa">Empresa</th>
+                        <th data-field="anyo_inicio">Año Inicio</th>
+                        <th data-field="anyo_fin">Año Final</th>
+                        <th data-field="id" data-formatter="tecnara.borrar">Borrar</th>
+                    </tr>
+                </thead>
+            </table>  
+            <div class="w-100 text-right">
+                <a th:href="@{/emp/public/participante/form_paso3(codigoVerificacion=${codigoVerificacion})}" name="btninicio" id="register-submit" class="btn btn-success mt-3" value="registrar">Ir al siguiente paso <i class="fas fa-angle-double-right"></i></a>
+            </div>
+    </body>
+</html>

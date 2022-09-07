@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+
+        <div data-toggle="volver"></div>
+        <h3>Formulario de Formación</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated">
+            <input type="hidden" th:field="*{id}" />
+            <div class="row">
+                <div class="col-12">
+                    <label>Proyecto</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir un proyecto">
+                        <input class="form-control" data-url="../proyecto/buscador" data-toggle="buscador" th:field="*{idProyecto}" required=""/>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label>Nombre del curso</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir el nombre">
+                        <input class="form-control" th:field="*{nombre}" required=""/>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <label>Fecha inicio</label>
+                    <input type="date" class="form-control" th:field="*{fechaInicio}"/> 
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <label>Fecha fin</label>
+                    <input type="date" class="form-control" th:field="*{fechaFin}" /> 
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-5" >Guardar</button>
+            <ul class="nav nav-tabs">
+                <li class="nav-item" > 
+                    <a class="nav-link active" data-toggle="tab" href="#divComentarios">
+                        Participantes
+                    </a> 
+                </li>  
+                <li class="nav-item" > 
+                    <a class="nav-link" data-toggle="tab" href="#divDocumentosFormacion">
+                        Documentación
+                    </a> 
+                </li>
+            </ul>
+
+            <script>
+                tecnara.filtroTabla = function (params) {
+                    params.idFormacion = $("#id").val();
+                    return params;
+                }
+            </script>
+            <script>
+                tecnara.descargarDocumento = function (id, row, index) {
+                    if (id == null) {
+                        return "";
+                    }
+                    return "<div class='text-center'><a type='button' href='descargar?id=" + id + "' > <i class='fas fa-file-download fa-2x'></i> </a></div>";
+                }
+            </script>
+
+            <div class="tab-content">
+
+                <div id="divComentarios" class="tab-pane fade show active" >
+                    <table class="table table-striped mt-3" 
+                           data-toggle="table" 
+                           data-mobile-responsive= "true" 
+                           data-url="list_data_participante"
+                           data-side-pagination= "server"
+                           data-pagination="true"
+                           data-query-params="tecnara.filtroTabla"
+                           data-controller="../formacion_participante" >
+                        <thead>
+                            <tr>
+                                <th data-field="Participante"  >Participante</th>
+                                <th data-field="Telefono"  >Teléfono</th>
+                                <th data-field="Email"  >Email</th>
+                                <th data-field="Estado"  >Estado</th>
+                                <th data-field="id_fichero" data-width="20px" data-formatter="tecnara.descargarDocumento">Diploma</th>
+                                <th data-field="id" data-formatter="tecnara.tablaBotonesEditarSinMenu">Acciones</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+                <div id="divDocumentosFormacion" class="tab-pane fade" >
+                    <button type="button" data-toggle="formbox" data-url="../documento_formacion/form" class="btn btn-primary">Insertar documento</button>
+                    <script>
+                    </script>                              
+                    <table class="table table-striped" data-toggle="table" 
+                           data-url="list_data_documento_formacion"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroTabla"
+                           data-locale="es-ES"
+                           data-controller="../documento_formacion" data-mobile-responsive="true">
+                        <thead>
+                            <tr>
+
+                                <th data-field="Documento"  >Nombre Documento</th>
+                                <th data-field="Fecha_subido" data-formatter="tecnara.formatFecha" >Fecha subido</th>
+                                <th data-field="id_fichero" data-formatter="tecnara.descargarDocumento">Descargar</th>
+                                <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+
+                            </tr>   
+                        </thead>    
+                    </table>
+                </div>
+
+            </div>
+        </form>
+    </body>
+</html>
+
+

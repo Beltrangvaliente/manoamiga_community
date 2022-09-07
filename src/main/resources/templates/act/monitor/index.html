@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/monitor/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div class="container indice">
+            <h3 class="mb-5">Sistema de Acceso para Monitores</h3>
+            <div class="row pt-5">
+                <div class="col-md-3 col-12 mb-3">
+                    <div class="card text-center fa-8x shadow">
+                        <a href="/act/monitor/beneficiario/list">
+                            <i class="fas fa-child"></i><br/>
+                            <h4 class="card-title">Beneficiarios</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-12 mb-3">
+                    <div class="card text-center fa-8x shadow">
+                        <a href="/act/monitor/actividad/list">
+                            <i class="fas fa-basketball-ball"></i><br/>
+                            <h4 class="card-title">Actividades</h4>
+
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-12 mb-3">
+                    <div class="card text-center fa-8x shadow">
+                        <a href="/act/monitor/comentario/list">
+                            <i class="fas fa-bell"></i><br/>
+                            <h4 class="card-title">Notificaciones <span th:text="${general.notificaciones>0?'('+general.notificaciones+')':''}"/></h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-12 mb-3">
+                    <div class="card text-center fa-8x shadow">
+                        <a href="/act/monitor/evaluacion_monitor/list">
+                          <i class="fas fa-comment-medical"></i><br/>
+                            <h4 class="card-title">Mis Evaluaciones</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

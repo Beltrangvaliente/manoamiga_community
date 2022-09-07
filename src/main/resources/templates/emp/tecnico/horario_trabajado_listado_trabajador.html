@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="indice"></div>        
+        <div class="container">
+            <h3>Listado por trabajador</h3>
+            <a href="form" class="btn btn-primary btn-sm">Nuevo</a>
+            <a class="ml-5" href="#" onclick="tecnara.ocultar('formulario')" data-memory="2">Ver filtros</a>
+
+            <form id="formulario" class="d-none mt-3"  >  
+                <script>
+                    tecnara.refrescarTablas = function () {
+                        $("table[data-toggle='table']").bootstrapTable('refresh');
+                    }
+                    tecnara.rellenarActual = function(){
+                        $("input[name='fechaDesde']").val($("#mesActualInicio").val());
+                        $("input[name='fechaHasta']").val($("#mesActualFin").val());
+                        tecnara.refrescarTablas();
+                    }
+                    tecnara.rellenarAnterior = function(){
+                        $("input[name='fechaDesde']").val($("#mesAnteriorInicio").val());
+                        $("input[name='fechaHasta']").val($("#mesAnteriorFin").val());
+                        tecnara.refrescarTablas();
+                    }
+                </script>
+
+                <div class="row">
+                    <input type="hidden" id="mesAnteriorInicio" th:value="${fechaAnteriorInicio}"/>
+                    <input type="hidden" id="mesAnteriorFin" th:value="${fechaAnteriorFin}"/>
+                    <input type="hidden" id="mesActualInicio" th:value="${fechaActualInicio}"/>
+                    <input type="hidden" id="mesActualFin" th:value="${fechaActualFin}"/>
+                    
+                    
+                    <div class="col-md-2 col-sm-4">
+                        <input class="form-control" type="date" name="fechaDesde"/>
+                    </div>
+                    <div class="col-md-2 col-sm-4">
+                        <input class="form-control" type="date" name="fechaHasta"/>
+                    </div>
+                    <div class="col-md-1 col-sm-12">
+                        <button type="button" class="btn btn-primary btn-block" 
+                                onclick="tecnara.refrescarTablas()">Filtrar</button>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <button type="button" class="btn btn-primary btn-block" 
+                                onclick="tecnara.rellenarActual()">Mes actual</button>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <button type="button" class="btn btn-primary btn-block" 
+                                onclick="tecnara.rellenarAnterior()">Mes anterior</button>
+                    </div>
+
+                </div>
+            </form>
+
+            <script>
+                tecnara.filtroTabla = function (params) {
+                    params.fechaDesde = $("*[name='fechaDesde']").val();
+                    params.fechaHasta = $("*[name='fechaHasta']").val();
+                    return params;
+                }
+            </script>
+
+            <div class="row mt-3 mb-3">
+                <div class="col-12">
+                    <table class="table table-striped mt-3" 
+                           data-show-export="true"   
+                           data-export-data-type="all"
+                           data-export-types="['excel','pdf','doc']"
+                           data-title="Listado por Fecha"
+                           data-toggle="table" 
+                           data-mobile-responsive="true" 
+                           data-url="listado_por_fecha" 
+                           data-pagination="true"
+                           data-side-pagination="server" 
+                           data-query-params="tecnara.filtroTabla"> 
+                        <thead>
+                            <tr>
+                                <th data-field="nombre" name="nombre">Nombre</th>
+                                <th data-field="minutosTrabajados" data-formatter="tecnara.formatTiempo" name="minutosTrabajados">Horas trabajadas</th>
+                                <th data-field="retrospectivo"  name="retrospectivo">Uso retrospectivo</th>
+                                <th data-field="presencial"  name="presencial" data-formatter="tecnara.formatTiempo">Presencial</th>
+                                <th data-field="teletrabajo"   name="teletrabajo" data-formatter="tecnara.formatTiempo">Teletrabajo</th>
+                                <th data-field="desplazamiento"   name="desplazamiento" data-formatter="tecnara.formatTiempo">Desplazamiento</th>
+                                <th data-field="permiso"  name="permiso" data-formatter="tecnara.formatTiempo">Permiso</th>
+                                <th data-field="vacaciones"  name="permiso" data-formatter="tecnara.formatTiempo">Vacaciones</th>
+                                <th data-field="bajas"  name="permiso" data-formatter="tecnara.formatTiempo">Bajas</th>
+                            </tr>  
+                        </thead>
+                    </table> 
+                </div>
+            </div>
+        </div>
+    </body>
+</html> 

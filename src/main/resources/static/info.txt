@@ -1,0 +1,2 @@
+En esta carpeta se ponen los recursos estáticos: CSS, JS, Imagenes y HTMLs que no vayan a cambiar.
+

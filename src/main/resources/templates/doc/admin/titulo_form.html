@@ -1,0 +1,64 @@
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        
+        <div th:if="${sinmenu!=true}" data-toggle="volver"></div>
+        <h3>Formulario de Títulos</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated">
+            <input type="hidden" th:field="*{id}" />
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Alumno</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir un nombre" >
+                        <input  class="form-control" data-toggle="buscador" data-url="../alumno/buscador" th:field="*{idAlumno}" maxlength="10" required/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>Titulación</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir la titulación">
+                        <input class="form-control" th:field="*{titulacion}" maxlength="135" required />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Nivel</label>
+                    <input class="form-control" th:field="*{nivel}" maxlength="40" />
+                </div>           
+            </div>
+            <div class="row">  
+                <div class="col-md-3">
+                    <label>Duración</label>
+                    <input class="form-control" th:field="*{duracion}" maxlength="30" />
+                </div>
+                <div class="col-md-2">
+                    <label>Año</label>
+                    <input type="number" class="form-control" th:field="*{anyoExpedicion}" maxlength="4" />
+                </div> 
+                <div class="col-md-2">
+                    <label>Homologado</label>
+                    <select class="form-control" th:field="*{homologacion}">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>  
+                <div class="col-md-5">               
+                    <label>País de expedición (Si no es España)</label>
+                    <input class="form-control" th:field="*{paisExpedicion}" maxlength="35" />
+                </div> 
+            </div> 
+            <div class="row">              
+                <div class="col-12">               
+                    <label>Centro de expedición</label>
+                    <input class="form-control" th:field="*{centroExpedicion}" maxlength="105" />
+                </div>                                  
+            </div> 
+            <div class="row">
+                <div class="col-12">
+                    <label>Comentarios</label>
+                    <textarea class="form-control" rows="5"  th:field="*{comentarios}"></textarea>
+                </div> 
+            </div>    
+            
+            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+        </form>
+    </body>
+</html>

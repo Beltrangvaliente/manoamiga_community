@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/public/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div class="container">
+            <div data-toggle="indice"></div>
+            <div class="row mt-5"></div>
+            <h3>Listado de Centros</h3>
+            <form>
+                <div class="row">
+                    <div class="input-group col-md-5">
+
+                        <input type="search" id="form1" class="form-control" name="filtro" placeholder="Búsqueda de centros"  title="Busca un centro" th:value="${filtro}" />
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>            
+            </form>
+            <div class="row">
+                <div class="col-md-4 mt-5" th:each="l:${lista}">
+                    <div class="card">
+                        <div class="card-header" th:text="${l.nombre}">
+                            Nombre del centro
+                        </div>
+                        <div class="card-body text-center">
+                            <b>Dirección <span th:text="${l.direccion}"></span></b><br>
+                            <b>Horario de atención <span th:text="${l.horarioAtencion }"></span></b><br> 
+                            <b>Teléfono <span th:text="${l.contactoTelefono}"></span></b><br> 
+                        </div>
+                        <div class="card-footer text-center d-flex justify-content-between">
+                            <div class="mx-auto">
+                                <a th:href="@{show(id=${l.id})}" class="btn btn-info"> <i class="fas fa-info-circle"></i> Información</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span th:if="${lista.size()==0}">No se han encontrado coincidencias</span>
+        </div>
+    </body>
+</html>

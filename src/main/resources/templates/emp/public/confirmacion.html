@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/public/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div class="container">
+            <h3>Registro completado</h3>
+                <h4 style="text-align: center">¡Bienvenido!</h4>
+            <p class='text' style="text-align: center">Hola <span th:text="${registro.nombre}"/>, te acabas de registrar en la plataforma de Tecnara.</p>
+            <p class='text' style="text-align: center">Se ha recogido toda la información facilitada y uno de nuestros técnicos se pondran en contacto con usted.</p>
+            <p class='text' style="text-align: center">Muchas gracias por su tiempo.</p>
+        </div>
+    </body>
+</html>

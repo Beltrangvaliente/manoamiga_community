@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+
+    <head>
+        <title>Horario Trabajado</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <h3>Horario Trabajado</h3>
+
+        <div class="container">
+
+            <form action="guardar" method="post" th:object="${registro}" class="was-validated">
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{idTecnico}" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Trabajador</label>
+                        <input class="form-control" data-url="../trabajador/buscador" data-toggle="buscador" th:field="*{idTrabajador}"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Fecha</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir una fecha">
+                            <input name="fecha" type="date"  class="form-control" th:field="*{fecha}" required/>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-3 col-sm-4">
+                        <label>Tipo de Registro</label>
+                        <select class="form-control" th:field="*{tipoRegistro}" >
+                            <option value="Presencial">Presencial</option>
+                            <option value="Otro centro">Otro centro</option>
+                            <option value="Desplazamiento">Desplazamiento</option>               
+                            <option value="Teletrabajo">Teletrabajo</option>                       
+                            <option value="Permiso">Permiso</option>               
+                            <option value="Descanso">Descanso</option>   
+                            <option value="Ausencia">Ausencia</option>   
+                            <option value="Vacaciones">Vacaciones</option>                 
+                            <option value="Baja">Baja</option>
+                        </select>
+                    </div>
+                </div> 
+                <div class="row">
+                    <script>
+                        tecnara.calcularMinutos=function(){
+                            var horaInicio=$("#horaInicio").val();
+                            var horaFin=$("#horaFin").val();
+                            var vInicio=horaInicio.split(":");
+                            var vFin=horaFin.split(":");
+                            var calculo= ( parseInt(vFin[0])-parseInt(vInicio[0]))*60 + parseInt(vFin[1])-parseInt(vInicio[1]);
+                            $("#tiempoMinutos").val(calculo);
+                        }
+                    </script>
+                    
+                    <div class="col-md-4">
+                        <label>Hora Inicio</label>
+                        <input name="horaInicio" onchange="tecnara.calcularMinutos()" type="time"  class="form-control" th:field="*{horaInicio}" required/>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Hora Fin</label>
+                        <input name="horaFin" onchange="tecnara.calcularMinutos()" type="time"  class="form-control" th:field="*{horaFin}" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Tiempo en minutos</label>
+                        <div data-invalid-text="Total minutos">
+                            <input readonly="" name="tiempoMinutos" class="form-control" th:field="*{tiempoMinutos}" />
+                        </div>
+                    </div>  
+                </div>
+                <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+            </form>
+        </div>
+    </body>
+</html>
+

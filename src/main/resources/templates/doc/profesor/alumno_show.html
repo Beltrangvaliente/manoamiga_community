@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver"></div> 
+
+        <div class="container" >
+            <h3>Información del Alumno</h3>
+
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <label><b>Nombre:</b></label><span th:text="${registro.get('nombre')}"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label><b> Primer Apellido:</b></label><span th:text="${registro.get('apellido1')}"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label><b>Segundo Apellido:</b></label><span th:text="${registro.get('apellido2')}"/>
+                </div>
+                <div class="col-md-4 col-sm-6 ">
+                    <label><b>Email:</b> </label><span th:text="${registro.get('mail')}"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label><b>Teléfono:</b> </label><span th:text="${registro.get('telefono')}"/>
+                </div>
+            </div>
+        </div>
+
+
+
+    </body>
+
+</html>

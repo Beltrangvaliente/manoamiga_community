@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/trabajador/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>
+        <div class="container">
+            <h3>Listado de Horas Trabajadas</h3>  
+            <a href="form" class="btn btn-primary btn-sm">Nuevo</a>
+            <a class="ml-5" href="#" onclick="tecnara.ocultar('formulario')" data-memory="2">Ver filtros</a>
+            <form id="formulario" class="d-none mt-3">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+
+                        <input class="form-control" name="nombre" placeholder="Introduce un texto para buscar" data-memory="2"/>
+                    </div> 
+                    <div class="col-md-2 col-6">                     
+                        <script>
+                            tecnara.refrescarTablas = function () {
+                                $("table[data-toggle='table']").bootstrapTable('refresh');
+                            }
+                        </script>
+                        <button type="button" class="btn btn-primary btn-block" 
+                                onclick="tecnara.refrescarTablas()"><i class="fas fa-search"></i>  Filtrar</button>
+                    </div>
+                </div>
+                </br>    
+            </form>
+
+            <table class="table table-striped" data-toggle="table" 
+                   data-mobile-responsive="true" 
+                   data-url="list_data" 
+                   data-pagination="true" 
+                   data-side-pagination="server" 
+                   data-query-params="tecnara.filtroTabla">
+
+                <thead>
+                    <tr>
+
+                        <th data-field="nombre">Nombre</th>
+                        <th data-field="fecha" data-formatter="tecnara.formatFecha">Fecha</th>
+                        <th data-field="horaInicio">Hora inicio</th>
+                        <th data-field="horaFin">Hora fin</th>
+                        <th data-field="tipoRegistro">Tipo de Trabajo</th>
+                        <th data-field="tiempoMinutos" data-formatter="tecnara.formatTiempo">Tiempo (min)</th>
+                        <th data-field="id" data-force-hide="true" data-formatter="tecnara.tablaBotones"></th>
+                    </tr>
+                </thead>
+            </table>
+    </body>
+</html>

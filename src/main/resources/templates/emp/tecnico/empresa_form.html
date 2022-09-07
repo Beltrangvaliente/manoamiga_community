@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+        <script>
+            tecnara.filtroIdEmpresa = function (params) {
+                params.idEmpresa = $("#id").val();
+                return params;
+            }
+
+
+
+        </script>
+
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <h3>Empresa</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated">   
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="row">
+
+                <div class="col-md-4 col-sm-12">
+                    <label>Nombre</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir el nombre">
+                        <input class="form-control" th:field="*{nombre}" required=""/>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Dirección </label>
+                    <input type="text" class="form-control" th:field="*{direccion}"/>    
+                </div>    
+                <div class="col-md-2 col-sm-6">
+                    <label>CIF </label> 
+                    <input type="text" class="form-control" th:field="*{cif}" />    
+                </div>
+                <div class=" col-md-2">
+                    <label>Socio</label>
+                    <select class="form-control" th:field="*{socio}">
+                        <option value="no">No</option> 
+                        <option value="si">Sí</option>
+                                    
+                    </select>
+                </div>                
+                  <div class="col-md-4 col-sm-6">
+                    <label>Responsable </label> 
+                    <input type="text" class="form-control" th:field="*{responsable}" />    
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Teléfono </label> 
+                    <input type="text" class="form-control" th:field="*{telefono}"/>    
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Email </label> 
+                    <input type="email" class="form-control" th:field="*{email}" />    
+                </div>
+                <div class="col-md-6">
+                    <label>Sector</label>
+                    <input class="form-control" data-url="../sector/buscador" data-toggle="buscador" th:field="*{idSector}"/>
+                </div>
+            </div>                             
+            <button type="submit" class="btn btn-primary mt-3" >Guardar</button>
+
+        </form>
+        <!-- *************** TABS ***************  -->
+        <div class="row">
+            <div class="col-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item" > 
+                        <a class="nav-link active" data-toggle="tab" href="#divProyectos">
+                            Proyectos
+                        </a> 
+                    </li>                        
+                    <li class="nav-item" > 
+                        <a class="nav-link" data-toggle="tab" href="#divParticipantes">
+                            Participantes
+                        </a> 
+                    </li>   
+                    <li class="nav-item" > 
+                        <a class="nav-link" data-toggle="tab" href="#divContactosEmpresa">
+                            Contactos Empresa
+                        </a> 
+                    </li>                     
+
+                </ul>
+            </div>
+        </div> 
+
+        <div class="tab-content">
+
+            <!-- *************** Proyectos ***************  -->
+            <script>
+                tecnara.linkAlParticipante = function (value, row, indice) {
+                    return "<a href='/emp/tecnico/participante/form?id=" + value + "'><i class='fas fa-arrow-circle-right fa-2x'></i></a>";
+                }
+            </script>
+
+            <div id="divProyectos" class="tab-pane fade show active" >
+                <button type="button" data-toggle="formbox" data-url="../proyecto/form" class="btn btn-primary">Crear nuevo proyecto</button>
+                <table class="table table-striped" data-toggle="table"
+                       data-url="list_data_proyectos" 
+                       data-pagination="true"
+                       data-side-pagination="server"
+                       data-query-params="tecnara.filtroIdEmpresa"
+                       data-locale="es-ES"
+                       data-controller="../proyecto">
+                    <thead>
+                        <tr>
+                            <th data-field="nombre" >Nombre</th>
+                            <th data-field="fechaInicio" data-formatter="tecnara.formatFecha">Fecha de Inicio</th>
+                            <th data-field="fechaFin"  data-formatter="tecnara.formatFecha">Fecha Fin</th>
+                            <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu"></th>
+
+
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- *************** Participantes ***************  -->
+
+            <div id="divParticipantes" class="tab-pane fade" > 
+                <table class="table table-striped" data-toggle="table" 
+                       data-url="list_data_participantes"
+                       data-pagination="true"
+                       data-side-pagination="server"
+                       data-query-params="tecnara.filtroIdEmpresa"
+                       data-controller="../participante"> 
+                    <thead>
+                        <tr>
+                            <th data-field="nombre" >Nombre</th>
+                            <th data-field="apellido1">Primer Apellido</th>
+                            <th data-field="apellido2">Segundo Apellido</th>
+                            <th data-field="telefono" >Teléfono</th>
+                            <th data-field="email">Correo Electrónico</th>
+                            <th data-field="id_participante" data-formatter="tecnara.linkAlParticipante"  > Ver Participante </th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div id="divContactosEmpresa" class="tab-pane fade show" >
+                <button type="button" data-toggle="formbox" data-url="../contacto_empresa/form" class="btn btn-primary">Alta nuevo contacto</button>
+                <table class="table table-striped" data-toggle="table"
+                       data-url="list_data_contactos_empresa" 
+                       data-pagination="true"
+                       data-side-pagination="server"
+                       data-query-params="tecnara.filtroIdEmpresa"
+                       data-locale="es-ES"
+                       data-controller="../contacto_empresa">
+                    <thead>
+                        <tr>
+                            <th data-field="nombre" >Nombre</th>
+                            <th data-field="telefono">Teléfono</th>
+                            <th data-field="email" >Correo Electrónico</th>
+                            <th data-field="cargo" >Cargo</th>
+
+                            <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu"></th>
+
+
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body >
+        
+
+        <h3>Nimiq</h3>
+
+  
+        
+        <video id="qr-video"></video>
+        
+        
+        <script type="module">
+            import QrScanner from "https://cdnjs.cloudflare.com/ajax/libs/qr-scanner/1.3.0/qr-scanner.min.js";
+            const video = document.getElementById('qr-video');
+        </script>
+
+    </body>
+</html>

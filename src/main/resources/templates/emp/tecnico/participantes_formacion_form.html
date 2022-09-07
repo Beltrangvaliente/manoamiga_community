@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+        <script>
+            function abrir(id) {
+                bootbox.dialog({
+                    message: $("#" + id).html()
+                });
+            }
+
+
+            function btnInscribir(value, row, idx) {
+                return  "<a href='#' class='btn btn-primary btn-sm' data-url='inscribir_participante?idParticipante=" + value + "&idFormacion=" + $("#asignacion #idCurso").val() + "' onclick='tecnara.ejecutarAjax(this)'>Inscribir</a>";
+            }
+
+            function btnDesinscribir(value, row, idx) {
+                return  "<a href='#' class='btn btn-danger btn-sm' data-url='desinscribir_participante?id=" + value + "' onclick='tecnara.ejecutarAjax(this)'>Desinscribir</a>";
+            }
+
+
+            $(document).ready(function () {
+                refrescar();
+            })
+
+        </script>
+        <script>
+            tecnara.filtroIdCurso = function (params) {
+                params.idFormacion = $("#asignacion #idCurso").val();
+                return params;
+            }
+
+        </script>  
+
+        <div class="container" id="asignacion">
+            <input id="idCurso" type="hidden" th:value="${idCurso}"/>
+            <h3 th:text="${nombre}"></h3>
+            <div class="row">
+                <div class="col-6">
+                    <h4>Participantes no inscritos</h4>
+                    <table data-toggle="table" 
+                           data-url="list_data_inscribir"                 
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdCurso"
+                           data-locale="es-ES"
+                           data-controller="../proyecto">
+                        <thead>
+                            <tr>
+                                <th data-field="Persona">Participante</th>
+                                <th data-field="id" data-formatter="btnInscribir"></th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+                <hr/>
+                <div class="col-6">
+                    <h4>Participantes inscritos</h4>
+                    <table data-toggle="table" 
+                           data-url="list_data_desinscribir"                 
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdCurso"
+                           data-locale="es-ES"
+                           data-controller="../proyecto">
+                        <thead>
+                            <tr>
+                                <th data-field="Persona">Participante</th>
+                                <th data-field="id" data-formatter="btnDesinscribir"></th>                               
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

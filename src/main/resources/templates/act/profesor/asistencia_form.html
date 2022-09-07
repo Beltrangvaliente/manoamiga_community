@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/profesor/layouts/layout::layout( ~{::body} )">    
+    <body>
+        <h3>Formulario faltas de asistencia</h3>
+        <form action="guardar" method="post" th:object="${registro}">
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{idBeneficiario}" />
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <label>Fecha de la falta de asistencia</label>
+                        <input type="date" class="form-control" th:field="*{fechaFaltaAsistencia}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label>Motivo</label>
+                        <textarea class="form-control" placeholder="Indique los motivos que crea pertinentes..." rows="5" th:field="*{motivo}"/></textarea>
+                    </div>  
+                    <div class="col-6">
+                        <label>Observación</label>
+                        <textarea class="form-control" placeholder="Indique las observaciones que crea pertinentes..." rows="5" th:field="*{observacion}"/></textarea>
+                    </div>
+                </div>  
+                <p>
+                    La información aquí publicada será visible por los padres/tutores del beneficiario.
+                </p>
+                
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </body>
+</html>

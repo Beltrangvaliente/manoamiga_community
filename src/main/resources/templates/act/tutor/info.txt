@@ -1,0 +1,2 @@
+En esta carpeta se ponen los elementos dinámicos: HTML con Thymeleaf.
+

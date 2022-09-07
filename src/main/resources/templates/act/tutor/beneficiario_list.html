@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/tutor/layouts/layout::layout( ~{::body} )">
+    <body>
+        <h3>Beneficiarios</h3>
+        <div class="row">
+            <div class="col-md-6 mt-3" th:each=" b: ${beneficiario}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${b.nombre} + ' ' + ${b.apellido1}"> </h5> 
+                        <p class="card-text">Tienes <span th:text='${b.notificaciones}'/> notificaciones sin leer</p>
+                        <a th:href="@{/act/tutor/beneficiario/form(id=${b.id})}" class="btn btn-primary">Ver Información</a>
+                    </div>
+                </div>
+            </div>
+        </div><br><br>
+        <div class="row">
+            <div class="col-md-6 mt-3">
+                <h3>Agenda - Próximas actividades</h3>
+            </div>
+        </div>
+        
+        
+        <table class="table table-striped" 
+               data-toggle="table" 
+               data-url="list_agenda"
+               data-mobile-responsive="true"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-query-params="tecnara.filtroIdTutor"
+               data-locale="es-Es"
+               data-controller="../tutorBeneficiario"
+               onRefresh="tecnara.ponerNegrita()">                    
+            <thead>
+                <tr>
+                    <th data-field="Dia" data-formatter="tecnara.formatDiaSemana">Día</th>
+                    <th data-field="Fecha" data-formatter="tecnara.formatFecha">Fecha</th>
+                    <th data-field="Beneficiario">Beneficiario</th>
+                    <th data-field="Actividad">Actividad</th>
+                    <th data-field="Hora" >Hora inicio</th>
+                    <th data-field="Hasta" >Hora fin</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</body>
+</html>

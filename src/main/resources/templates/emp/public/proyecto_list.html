@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/public/layouts/layout::layout( ~{::body} )">
+   
+    <body>
+        <div class="container">
+            <h3>Proyectos activos</h3>
+        </div>
+        
+        <div class="container">
+            Te interesa algún proyecto. Registrate con nosotros y te enviaremos información
+            <a class="btn btn-primary btn-sm" href="../participante/form_paso1" >Registrate</a> 
+            
+            <div class="row mt-3">
+                <div class=" col-md-12 col-sm-6 mt-2 mb-4" th:each="lis:${lista}"  >
+                    <div class="card shadow-lg">
+                        <div class="card-header">
+                            <span th:text="${lis.nombre}" />
+                        </div>
+                        <div class="card-body">
+                            <!--<script>
+                                  $(document).ready(function () {
+                                tecnara.moverIzda();
+
+                            })
+                            </script>-->
+
+                            <div class="row">
+                                <div class="col-md-4" th:if="${lis.moverIzda=='Si'}">
+                                    <img  th:if="${lis.id_imagen!=null}" width="100%" th:src="@{/emp/public/fichero/descargar(id=${lis.id_imagen})}" />
+                                </div>
+                                <div th:class="${lis.id_imagen!=null?'col-md-8':'col-md-12'}">
+                                    [(${lis.explicacion_html})]
+                                </div>
+                                <div class="col-md-4" th:if="${lis.moverIzda!='Si'}">
+                                    <img  th:if="${lis.id_imagen!=null}" width="100%" th:src="@{/emp/public/fichero/descargar(id=${lis.id_imagen})}" />
+                                </div>
+                                
+                            </div>
+                                 
+                        </div>
+                       
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    
+                            
+                        
+    
+    </body>
+</html>

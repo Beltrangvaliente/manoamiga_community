@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body >
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+        <h3>Charts.js</h3>
+
+        <div class="w-50">
+            <canvas id="graficaChartPie"></canvas>
+        </div>
+        
+        
+        <script>
+            var nmTarta = {
+                chartPie : {},
+                crearGraficaTarta: function () {
+                    nmTarta.chartPie = new Chart(document.getElementById('graficaChartPie').getContext('2d'), {
+                        type: 'pie',
+                        data: {
+                            labels: [], //Se debe rellenar con Ajax
+                            datasets: [
+                                {
+                                    label: 'Ventas',
+                                    data: [], //Se debe rellenar con Ajax
+                                    backgroundColor: ["#F00", "#00F", "#080", "#F80", "#FF0", "#08F", "#F0F", "#0FF", "#888", "#F8F", "#FF8", "#8FF"],
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                },
+                                title: {
+                                    display: true, //Debe estar a true para que se visualice.
+                                    text: 'Titulo superior' //Titulo superior
+                                }
+                            }
+                        },
+                    })
+                },
+                cargarDatosPie: function () {
+                    $.ajax({
+                        url: "/data/list_ventas_mes.json",
+                        dataType: "json",
+                        success: function (respuesta) {
+                            //Limpieza de valores
+                            nmTarta.chartPie.data.labels = []
+                            nmTarta.chartPie.data.datasets[0].data = [];  //Si hay muchas series se puede hacer un for de 0 a length-1
+
+                            respuesta.forEach(function (registro) {
+                                nmTarta.chartPie.data.labels.push(registro.mes);
+                                nmTarta.chartPie.data.datasets[0].data.push(registro.ventas);
+                            });
+                            nmTarta.chartPie.update();
+
+                        }
+                    })
+                },
+                iniciarPagina: function () {
+                    nmTarta.crearGraficaTarta();
+                    nmTarta.cargarDatosPie();
+                }
+            }
+            
+            $(document).ready(function(){
+                nmTarta.iniciarPagina();
+            })
+
+        </script>
+
+    </body>
+</html>

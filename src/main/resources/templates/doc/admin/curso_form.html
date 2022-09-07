@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )"> 
+    <body>
+
+        <div data-toggle="volver"></div>
+        <h3>Cursos</h3>
+     
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated"> 
+            
+            
+            <input type="hidden" th:field="*{id}" />
+            <div class="row">
+                <div class="col-12">
+                    <!-- *************** TABS ***************  -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" > 
+                            <a class="nav-link active" data-toggle="tab" href="#divDatosCurso">
+                                Datos Curso
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divRequisitos">
+                                Requisitos
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divInfoCurso">
+                                Información 
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divUsuarios">
+                                Usuarios apuntados
+                            </a> 
+                        </li>       
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divProfesores">
+                                Profesores
+                            </a> 
+                        </li>  
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divDocumentos">
+                                Documentos Requeridos
+                            </a> 
+                        </li>  
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div id="divDatosCurso" class="tab-pane fade show active">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Nombre del curso</label>
+                            <div data-toggle="obligatorio" data-invalid-text="Debe introducir el nombre del curso">
+                                <input class="form-control" th:field="*{nombreCurso}" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Centro</label>
+                            <div data-toggle="obligatorio" data-invalid-text="Debe introducir el centro donde se imparte">
+                                <input data-toggle="buscador" data-url="../centro/buscador"  type="number" class="form-control" th:field="*{idCentro}" required=""/>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label>Empresa Organizadora</label>
+                            <input type="number" class="form-control" data-toggle="buscador" data-url="../empresa/buscador" th:field="*{idEmpresa}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Documento Título</label>
+                            <input class="form-control" th:field="*{documentoTitulo}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Descripción</label>
+                            <textarea class="form-control" rows="10"  th:field="*{descripcion}"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+                </div>
+                <div id="divRequisitos" class="tab-pane fade" >
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Requisitos</label>
+                            <textarea class="form-control" rows="10"  th:field="*{Requisitos}"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+                </div>
+                <div id="divInfoCurso" class="tab-pane fade" >
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Referencia</label>
+                            <input type="number" class="form-control" th:field="*{referencia}" />
+                        </div>
+                        <div class="col-md-4">
+                            <label>Numero de Horas</label>
+                            <input type="number" class="form-control" th:field="*{numeroHoras}" />
+                        </div>
+                        <div class="col-md-4">
+                            <label>Numero de Alumnos</label>
+                            <input type="number" class="form-control" th:field="*{numeroAlumnos}" />
+                        </div>
+                        <div class="col-md-6">
+                            <label>Horario</label>
+                            <input type="time" class="form-control" th:field="*{horario}" />
+                        </div>
+                        <div class="col-md-6">
+                            <label>Precio</label>
+                            <input type="number" class="form-control" th:field="*{precio}" />
+                        </div>
+                    </div>
+                    <div class="row">    
+                        <div class="col-6">
+                            <label>Modalidad</label>
+                            <select class="form-control" th:field="*{modalidad}">
+                                <option value="Presencial">Presencial</option>
+                                <option value="Online">Online</option>
+                            </select>     
+                        </div>   
+                        <div class="col-6">
+                            <label>Localidad</label>
+                            <input class="form-control" th:field="*{localidad}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Fecha Límite de Inscripción</label>
+                            <input type="date" class="form-control" th:field="*{fechaLimiteInscripcion}" />
+                        </div>                  
+
+                        <div class="col-md-4">
+                            <label>Fecha de Inicio</label>
+                            <input type="date" class="form-control" th:field="*{fechaInicio}" />
+                        </div>      
+                        <div class="col-md-4">
+                            <label>Fecha de Fin</label>
+                            <input type="date" class="form-control" th:field="*{fechaFin}" />
+                        </div>      
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+                </div>
+                <div id="divUsuarios" class="tab-pane fade" > 
+                    <button type="button" data-toggle="formboxsinmenu" data-url="../matricula/form" class="btn btn-primary mb-3">Inscribir alumno</button>
+
+                    <script>
+                        tecnara.filtroIdCurso = function (params) {
+                            params.idCurso = $("#id").val();
+                            return params;
+                        }
+                           
+        
+         
+                    </script>
+                    <table class="table table-striped" data-toggle="table" 
+                           data-url="list_data_usuarios_apuntados"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdCurso"
+                           data-controller="../matricula">
+                        <thead>
+                            <tr>
+                                <th data-field="usuario">Alumno</th>
+                                <th data-field="telefono">Teléfono</th>
+                                <th data-field="fechaNacimiento"  data-formatter="tecnara.formatFecha">Fecha Nacimiento</th>
+                                <th data-field="estadoMatricula">Estado</th>
+                                <th data-field="id" data-formatter="tecnara.aceptarORechazar">Acciones</th>
+                                <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu"></th>
+                            </tr>   
+                        </thead>    
+                    </table>
+                </div>  
+                <div id="divProfesores" class="tab-pane fade" > 
+                    <button type="button" data-toggle="formbox" data-url="../participacion_profesor_curso/form" class="btn btn-primary mb-3">Alta profesor</button>
+                    <table class="table table-striped" data-toggle="table" 
+                           data-url="list_data_participacion_profesor_curso"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdCurso"   
+                           data-controller="../participacion_profesor_curso">
+                        <thead>
+                            <tr>
+                                <th data-field="Nombre">Nombre</th>
+                                <th data-field="primerApellido" >Primer apellido</th>
+                                <th data-field="segundoApellido" >Segundo apellido</th>
+                                <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu"></th>
+                            </tr>   
+                        </thead>    
+                    </table>
+                </div>  
+                <div id="divDocumentos" class="tab-pane fade" > 
+                    <button type="button" data-toggle="formbox" data-url="../documento_requerido/form" class="btn btn-primary mb-3">Alta Documento</button>
+                    <table class="table table-striped" data-toggle="table" 
+                           data-url="list_data_documentos"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdCurso"   
+                           data-controller="../documento_requerido">
+                        <thead>
+                            <tr>
+                                <th data-field="tipodocumento">Tipo Documento</th>
+                                <th data-field="diasplazo" >Dias Plazo</th>
+                                <th data-field="descripcion" >Descripcion</th>
+                                <th data-field="obligatorio" >Obligatorio</th>
+                                
+                                <th data-field="id" data-width="200" data-formatter="tecnara.tablaBotonesSinMenu"></th>
+                            </tr>   
+                        </thead>    
+                    </table>
+                </div>
+            </div>
+        </form>
+        
+         <script>
+   
+     
+        
+        
+            tecnara.tablaBotonesDescargarAceptarRechazar = function (id, row, index) {
+                return 
+                        "<button type='button' class='btn btn-success btn-sm' onclick='tecnara.aceptarORechazar()' > Aceptar </button> " +
+                        "<button type='button' class='btn btn-danger btn-sm' onclick='tecnara.aceptarORechazar()'> Rechazar </button> ";
+            }
+        
+        
+         
+        
+        
+            tecnara.aceptarORechazar=function(id){
+                return   "<a onclick='tecnara.ejecutarAjax(this)' data-url='solicitar_documentacion?id=" + id + "' class='text-info'><i class='fas fa-sticky-note fa-2x'></i></a>     "    + 
+                        "<a onclick='tecnara.ejecutarAjax(this)' data-url='confirmar?id=" + id + "' class='text-success'><i class='fas fa-check-circle fa-2x'></i></a>     "    + 
+                        "<a onclick='tecnara.ejecutarAjax(this)'  data-url='rechazar?id=" + id + "' class='text-danger'><i class='fas fa-times-circle fa-2x'></i></a>";
+            }
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

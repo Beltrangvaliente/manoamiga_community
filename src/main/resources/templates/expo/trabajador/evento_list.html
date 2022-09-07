@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/trabajador/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>Listado de Eventos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div data-toggle="indice"></div> 
+        <h3>Listado de Eventos </h3>
+                
+        <a href="form" class="btn btn-primary btn-sm">Crear Evento</a>
+        <table class="table table-striped mt-3" data-toggle="table" data-url="list_data" data-pagination="true" data-side-pagination="server" data-query-params="tecnara.filtroTabla" data-mobile-responsive="true">
+            <thead>
+                <tr>
+
+                    <th data-field="area"  >Área</th>
+                    <th data-field="ubicacion" >Espacio</th>
+                    <th data-field="nombreActividad"  >Nombre Actividad</th>
+                    <th data-field="fechaActividad" data sortable="true"  data-formatter="tecnara.formatFecha">Fecha Actividad</th>
+                    <th data-field="estado"  >Estado</th>
+                    <th data-field="hora" data sortable="true">Hora</th> 
+                    <th data-field="id" data-formatter="tecnara.tablaBotones">Editar</th>
+                    
+                </tr>
+            </thead>
+        </table>
+        
+    </body>
+</html>
+

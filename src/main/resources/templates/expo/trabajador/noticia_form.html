@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/trabajador/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <h3>Noticias</h3>
+        <form action="guardar" method="post" th:object="${registro}" 
+              class="was-validated" enctype="multipart/form-data">    
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{idArea}"/>
+            <input type="hidden" th:field="*{idArea}"/>
+
+
+            <div class="row">
+                <div class=" col-md-12 mt-3">
+                    <label>Título</label>
+                    <input class="form-control " th:field="*{titulo}" required="true">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class=" col-md-6 ">
+                    <script>
+                        tecnara.modificarSelects=function(){
+                            $.ajax({
+                                url:"info_plantilla?idPlantilla=" + $("#idPlantilla").val(),
+                                dataType: "json",
+                                success: function(res){
+                                    $("#numeroImagenes").val(res.numero_imagenes);
+                                    $("#numeroTextos").val(res.numero_textos);
+                                    tecnara.refrescar();
+                                }
+                            });
+                        }
+                    </script>
+                    <label>Nombre Plantilla</label>
+                    <input data-toggle="buscador" data-url="../plantilla/buscador" onchange="tecnara.modificarSelects()" class="form-control" th:field="*{idPlantilla}" placeholder="Plantilla"  maxlength="200" required="true"  />
+                </div>
+                <div class="col-md-2">
+                <label>Número imágenes </label> 
+                    <select class="form-control" th:field="*{numeroImagenes}" onchange="tecnara.refrescar()" data-memory="2" >
+                        <option value= "3">3</option>
+                        <option value= "2">2</option>
+                        <option value= "1">1</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label>Número textos </label> 
+                    <select class="form-control" th:field="*{numeroTextos}" onchange="tecnara.refrescar()" data-memory="2" >
+                        <option value= "3">3</option>
+                        <option value= "2">2</option>
+                        <option value= "1">1</option>
+                    </select>
+                </div> 
+
+            </div>
+
+
+
+
+            <div class="row">
+                <input type="hidden" name="img1" id="img1"/>
+                <input type="hidden" name="img2" id="img2"/>
+                <input type="hidden" name="img3" id="img3"/>
+
+                <script>
+                    tecnara.cambiarFit=function(obj){
+                        for (var n=1;n<4;n++){
+                            //Coger el valor
+                            var dato=$("#imagenFit" + n).val();
+                            //Ponerlo en la imagen
+                            $("#imagen" + n).css("object-fit", dato);
+                        }
+                    }
+                    $(document).ready(function(){
+                        tecnara.cambiarFit();
+                    })
+                </script>                
+                
+                
+                <div class="col-md-4 col-sm-6 mt-3 divImg1">
+                    <div id="div_idImagen1" >
+                        <h5 > Arrastra y suelta imágenes <a class='ml-5 h6 text-nowarp' th:if="${registro.idImagen1!=null}" onclick="quitarImagen('idImagen1')"> - <i class="fas fa-trash-alt"></i> Quitar imagen</a></h5>
+                        <img th:if="${registro.idImagen1!=null}" id="imagen1" style="width:100%; height: 300px" class="border shadow img-thumbnail" th:src="@{/expo/trabajador/imagen/descargar(id=${registro.idImagen1})}"/>
+                        <img th:if="${registro.idImagen1==null}" id="imagen1" style="width:100%; height: 300px" class="border shadow img-thumbnail" src="/img/draw_and_drop_image.png" />
+                        <select class="form-control" th:field="*{imagenFit1}" onchange="tecnara.cambiarFit(this)">
+                            <option value="cover">Recortar imagen</option>
+                            <option value="contain">Espacios en blanco</option>
+                            <option value="fill">Estirar imagen</option>
+                        </select>                        
+                        
+                    </div>
+                    <div>
+                        <div class="area">
+                            <h5>o selecciona una imagen</h5>
+                            <input type="hidden" th:field="*{idImagen1}"/>
+                            <input type="file" id="file" class="form-control" name="imagen1"/>
+                        </div>
+                        <div id="preview"></div>
+                    </div>   
+                </div>
+
+
+
+                <div class="col-md-4 col-sm-6 mt-3 divImg2">
+                    <div id="div_idImagen2" >
+                        <h5 > Arrastra y suelta imágenes <a class='ml-5 h6 text-nowarp' th:if="${registro.idImagen2!=null}" onclick="quitarImagen('idImagen2')"> - <i class="fas fa-trash-alt"></i> Quitar imagen</a></h5>
+                        <img th:if="${registro.idImagen2!=null}" id="imagen2" style="width:100%; height: 300px" class="border shadow img-thumbnail" th:src="@{/expo/trabajador/imagen/descargar(id=${registro.idImagen2})}"/>
+                        <img th:if="${registro.idImagen2==null}" id="imagen2" style="width:100%; height: 300px" class="border shadow img-thumbnail" src="/img/draw_and_drop_image.png" />
+                        <select class="form-control" th:field="*{imagenFit2}" onchange="tecnara.cambiarFit(this)">
+                            <option value="cover">Recortar imagen</option>
+                            <option value="contain">Espacios en blanco</option>
+                            <option value="fill">Estirar imagen</option>
+                        </select>                          
+                    </div>
+                    <div>
+                        <div class="area">
+                            <h5>o selecciona una imagen</h5>
+                            <input type="hidden" th:field="*{idImagen2}"/>
+                            <input type="file" id="file" class="form-control" name="imagen2"/>
+                        </div>
+                        <div id="preview"></div>
+                    </div>   
+                </div>
+
+                <div class="col-md-4 col-sm-6 mt-3 divImg3">
+                    <div id="div_idImagen3" >
+                        <h5 > Arrastra y suelta imágenes <a class='ml-5 h6 text-nowarp' th:if="${registro.idImagen3!=null}" onclick="quitarImagen('idImagen3')"> - <i class="fas fa-trash-alt"></i> Quitar imagen</a></h5>
+                        <img th:if="${registro.idImagen3!=null}" id="imagen3" style="width:100%; height: 300px" class="border shadow img-thumbnail" th:src="@{/expo/trabajador/imagen/descargar(id=${registro.idImagen3})}"/>
+                        <img th:if="${registro.idImagen3==null}" id="imagen3" style="width:100%; height: 300px" class="border shadow img-thumbnail" src="/img/draw_and_drop_image.png" />
+                        <select class="form-control" th:field="*{imagenFit3}" onchange="tecnara.cambiarFit(this)">
+                            <option value="cover">Recortar imagen</option>
+                            <option value="contain">Espacios en blanco</option>
+                            <option value="fill">Estirar imagen</option>
+                        </select>                         
+                    </div>
+                    <div>
+                        <div class="area">
+                            <h5>o selecciona una imagen</h5>
+                            <input type="hidden" th:field="*{idImagen3}"/>
+                            <input type="file" id="file" class="form-control" name="imagen3"/>
+                        </div>
+                        <div id="preview"></div>
+                    </div>   
+                </div>
+                <script>
+                    function quitarImagen(nombre) {
+                        $("#" + nombre).val("");
+                        $("#" + nombre.substr(2).toLowerCase()).attr("src", "/img/draw_and_drop_image.png");
+                    }
+                </script>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <span class="text-info">Tamaño máximo de la imagen: 20Mg</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 mt-3 divTex1"> 
+
+                    <label>Contenido 1 </label>
+                    <textarea data-toggle='html' class="form-control " th:field="*{contenido1}"  rows="5" cols="20" ></textarea>
+                </div>    
+                <div class="col-md-4 col-sm-6 mt-3 divTex2">
+                    <label>Contenido 2</label> 
+                    <textarea data-toggle='html' class="form-control " th:field="*{contenido2}"  rows="5" cols="20"></textarea>
+                </div>
+                <div class="col-md-4 col-sm-6 mt-3 divTex3">
+                    <label>Contenido 3</label> 
+                    <textarea data-toggle='html' class="form-control " th:field="*{contenido3}"  rows="5" cols="20"></textarea>
+                </div> 
+            </div>
+            <div class="row"> 
+                <div class="col-md-2">
+                    <label>Fecha Inicio</label>
+                    <input type="date" class="form-control" th:field="*{fechaInicio}"/>    
+                </div>    
+                <div class="col-md-2">
+                    <label>Fecha Fin</label>
+                    <input type="date" class="form-control" th:field="*{fechaFin}"/>    
+                </div>    
+                <div class="col-md-4 ">
+                    <label> Espacio</label> 
+                    <input data-toggle="buscador" data-url="../espacio/buscador" class="form-control" th:field="*{idEspacio}" placeholder="Espacio"  maxlength="200" required="true"  />
+                </div> 
+                <div class="col-md-2">
+                    <label>¿Es fija? </label>
+                    <select class="form-control" th:field="*{fija}">
+                        <option value="No">No</option>
+                        <option value="Si">Sí</option>
+                    </select>    
+                </div>    
+                <div class="col-md-2">
+                    <label>Pantalla </label>
+                    <select class="form-control" th:field="*{pantalla}" data-memory="2">
+                        <option value="2">Pantalla 2</option>
+                        <option value="1">Pantalla 1</option>
+                        <option value="Todas"> Todas</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <button type="submit" class="btn btn-primary mt-5 mb-5" >Guardar</button>
+            <button type="submit" formaction="guardar_preview" class="btn btn-primary mt-5 mb-5" >Guardar y previsualizar</button>
+
+        </form>
+        <hr/>
+
+        <div id="ponerFinal">
+            <div class='text-center '  >
+                <h4>¿Cómo quedará tu noticia? <small> - Pulsa para cambiar de orientación</small>
+                    <button  onclick='cambiarTamanyo()'  class="btn btn-primary mt-5 mb-5 te" ><i class="fas fa-arrows-alt-h"></i></button>
+                    <button onclick='cambiarTamanyoVertical()'   class="btn btn-primary mt-5 mb-5" ><i class="fas fa-arrows-alt-v"></i></button>
+                </h4>
+                <div class='autoscale' style="transform:scale(0.5);transform-origin: top" >
+                    <iframe id='preview_document' class="shadow-lg"  frameborder="0" scrolling="no" style="width:1080px;height: 1920px;border:1px solid #888; margin:auto"></iframe>    
+                </div>
+                <script>
+                    cambiarTamanyo = function () {
+                        $('#preview_document').attr('style', 'width:1920px; height: 1080px; text-align:center; margin:auto');
+                        $("#preview_document").contents().find(".pantalla-completa").removeClass("pantalla-vertical");
+                        $("#preview_document").contents().find(".pantalla-completa").addClass("pantalla-horizontal");
+                    }
+                    cambiarTamanyoVertical = function () {
+                        $('#preview_document').attr('style', 'width:1080px;height: 1920px;border:1px solid #888');
+                        $("#preview_document").contents().find(".pantalla-completa").removeClass("pantalla-horizontal");
+                        $("#preview_document").contents().find(".pantalla-completa").addClass("pantalla-vertical");
+                    }
+                </script>
+                <script>
+
+                    $(document).ready(function () {
+                        $('#preview_document').attr("src", "preview?id=" + $("#id").val());
+                    })
+                </script>
+            </div>
+        </div>
+        <script>
+
+            $(document).ready(function () {
+                $("body").append($("#ponerFinal").html());
+                $("#ponerFinal").html("");
+            })
+
+            let files;
+
+            document.getElementById("imagen1").addEventListener("dragover", (e) => {
+                e.preventDefault();
+                document.getElementById("imagen1").classList.add("active");
+                document.getElementById("imagen1").textContent = "Suelta para subir los archivos";
+            });
+
+            document.getElementById("imagen1").addEventListener("drop", (e) => {
+
+                e.preventDefault();
+                files = e.dataTransfer.files;
+
+                showFiles(files, 1);
+                document.getElementById("imagen1").classList.remove("active");
+                document.getElementById("imagen1").textContent = "Arrastra y suelta imágenes"
+            });
+            document.getElementById("imagen2").addEventListener("dragover", (e) => {
+                e.preventDefault();
+                document.getElementById("imagen2").classList.add("active");
+                document.getElementById("imagen2").textContent = "Suelta para subir los archivos";
+            });
+
+            document.getElementById("imagen2").addEventListener("drop", (e) => {
+
+                e.preventDefault();
+                files = e.dataTransfer.files;
+
+                showFiles(files, 2);
+                document.getElementById("imagen2").classList.remove("active");
+                document.getElementById("imagen2").textContent = "Arrastra y suelta imágenes"
+            });
+            document.getElementById("imagen3").addEventListener("dragover", (e) => {
+                e.preventDefault();
+                document.getElementById("imagen3").classList.add("active");
+                document.getElementById("imagen3").textContent = "Suelta para subir los archivos";
+            });
+
+            document.getElementById("imagen3").addEventListener("drop", (e) => {
+
+                e.preventDefault();
+                files = e.dataTransfer.files;
+
+                showFiles(files, 3);
+                document.getElementById("imagen3").classList.remove("active");
+                document.getElementById("imagen3").textContent = "Arrastra y suelta imágenes"
+            });
+
+            function showFiles(files, value) {
+                contador = value;
+                if (files.length == undefined) {
+                    processFile(files);
+                } else {
+                    for (const file of files) {
+                        processFile(file);
+                    }
+                }
+            }
+
+            var contador = 1;
+
+            function processFile(file) {
+                const docType = file.type;
+                const validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+
+                if (validExtensions.includes(docType)) {
+
+                    const fileReader = new FileReader();
+                    const id = `file-${Math.random().toString(32).substring(7)}`;
+
+                    fileReader.addEventListener('load', e => {
+
+                        const fileUrl = fileReader.result;
+
+                        $("#imagen" + contador).attr('src', fileUrl);
+                        $("#img" + contador).val(fileUrl);
+                    });
+
+                    fileReader.readAsDataURL(file);
+                    //uploadFile(file, id);
+                } else {
+                    alert("No es un archivo válido");
+                }
+            }
+        </script>
+ <script>
+            tecnara.ocultarEnImagen = function () {
+
+                var imagenes = $("#numeroImagenes").val();
+                $(".divImg1").removeClass("d-none");
+                $(".divImg2").removeClass("d-none");
+                $(".divImg3").removeClass("d-none");
+
+                if (imagenes < 3) {
+                    $(".divImg3").addClass("d-none");
+                }
+                if (imagenes < 2) {
+                    $(".divImg2").addClass("d-none");
+                }
+                if (imagenes < 1) {
+                    $(".divImg1").addClass("d-none");
+                }
+            }
+
+            tecnara.ocultarEnTexto = function () {
+
+                var textos = $("#numeroTextos").val();
+                $(".divTex1").removeClass("d-none");
+                $(".divTex2").removeClass("d-none");
+                $(".divTex3").removeClass("d-none");
+
+                if (textos < 3) {
+                    $(".divTex3").addClass("d-none");
+                }
+                if (textos < 2) {
+                    $(".divTex2").addClass("d-none");
+                }
+                if (textos < 1) {
+                    $(".divTex1").addClass("d-none");
+                }
+            }
+
+
+
+
+
+
+            tecnara.refrescar = function () {
+                tecnara.ocultarEnImagen();
+                tecnara.ocultarEnTexto();
+
+            }
+
+            $(document).ready(function(){
+                tecnara.refrescar();
+            })
+
+        </script>
+    
+    
+        
+        
+        
+
+    </body>
+</html>

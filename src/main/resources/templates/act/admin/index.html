@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div class="container indice">
+            <h3 class="mb-5">Administración</h3>
+            <div class="row pt-5">
+                <div class="col-sm-4 col-6 mb-3">
+                    <div class="card text-center fa-6x shadow">
+                        <a href="/act/admin/actividad/list">
+                            <i class="fas fa-basketball-ball"></i><br/>
+                            <h4 class="card-title">Actividades</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-6 mb-3">
+                    <div class="card text-center fa-6x shadow">
+                        <a href="/act/admin/beneficiario/list">
+                            <i class="fas fa-child"></i><br/>
+                            <h4 class="card-title">Beneficiarios <b th:if="${nuevosBeneficiarios>0}">(<span th:text="${nuevosBeneficiarios}"></span>)</b></h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-6 mb-3">
+                    <div class="card text-center fa-6x shadow">
+                        <a href="/act/admin/monitor/list"> 
+                            <i class="fas fa-users"></i><br/>
+                            <h4 class="card-title">Monitores <b th:if="${nuevosMonitores>0}">(<span th:text="${nuevosMonitores}"></span>)</b></h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-6 mb-3">
+                    <div class="card text-center fa-6x shadow">
+                        <a href="/act/admin/profesor/list">
+                            <i class="fas fa-chalkboard-teacher"></i><br/>
+                            <h4 class="card-title">Profesores</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-6 mb-3">
+                    <div class="card text-center fa-6x shadow">
+                        <a href="/act/admin/tutor/list">
+                           <i class="fas fa-user-friends"></i><br/>
+                           <h4 class="card-title">Tutores <b th:if="${nuevosTutores>0}">(<span th:text="${nuevosTutores}"></span>)</b></h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-6 mb-3">
+                    <div class="card text-center fa-6x shadow">
+                        <a href="/act/admin/administrador/list">
+                            <i class="fas fa-user-shield"></i><br/>
+                            <h4 class="card-title">Administradores</h4>
+                        </a>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </body>
+</html>

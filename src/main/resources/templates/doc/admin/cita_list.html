@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+
+        <div data-toggle="indice"></div>  
+
+        <h3>Listado de Citas</h3>
+
+
+        <a href="form" class="btn btn-primary btn-sm">Crear Cita</a>
+         <a class="ml-5" href="#" onclick="tecnara.ocultar('formulario')" data-memory="2">Ver filtros</a>
+
+        <script>
+            tecnara.filtroTabla = function (params) {
+                params.fechaDeCita = $("*[name='fecha_de_cita']").val();
+                params.centroDeAtencion = $("*[name='centroDeAtencion']").val();
+                params.estado = $("*[name='estado']").val();
+                params.nombreAlumno = $("*[name='nombreAlumno']").val();
+
+                return params;
+            }
+
+        </script>        
+        
+<div  id="formulario" class="d-none" >
+        <form>
+            <div class="row">
+                <div class="col-2">
+                    <label>Fecha cita</label>
+                    <input class="form-control" name="fecha_de_cita" type="date" data-memory="2"/>
+                </div>
+                <div class="col-3"> 
+                    <label>Nombre centro</label>
+                    <input class="form-control" name="centroDeAtencion" data-memory="2"/>
+                </div>
+                <div class="col-2">
+                    <label>Estado</label>
+                    <select class="form-control" name="estado" data-memory="2">
+                        <option value="">Todas</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Aceptado">Aceptado</option>
+                        <option value="Rechazado">Rechazado</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <label>Nombre alumno</label>
+                    <input class="form-control" name="nombreAlumno" data-memory="2"/>
+                </div>
+                <div class="col-2">
+                <button type="button" class="btn btn-primary btn-block mt-5" 
+                        onclick="tecnara.refrescarTablas()">
+                    <i class="fas fa-search"></i> Filtrar</button>      
+                </div>
+            </div>
+        </form>
+</div>
+
+        <table class="table table-striped mt-3" data-toggle="table" data-mobile-responsive="true" 
+               data-url="list_data" 
+               data-side-pagination="server" data-query-params="tecnara.filtroTabla">
+
+            <thead>
+                <tr>
+                    <th data-field="fechaDeCita"  data-formatter="tecnara.formatFecha" data sortable="true">Fecha de Cita</th>
+                    <th data-field="horaDeCita" data sortable="true">Hora de Cita</th>
+                    <th data-field="centroDeAtencion" data sortable="true">Centro de Atención</th>
+                    <th data-field="estado" data sortable="true">Estado</th>
+                    <th data-field="nombreAlumno" data sortable="true">Nombre del alumno</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones">Editar</th>
+                </tr>
+            </thead>
+        </table>
+
+
+        <div class="text-right">
+            <a href="help"> Ir a la Ayuda</a>
+        </div>
+
+    </body>
+</html>

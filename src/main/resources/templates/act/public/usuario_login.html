@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/public/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div class="container">
+            <h3>Identificación de Usuario</h3>
+            <form action="login" method="post">
+                <div class="row">
+                    <div class="input-group col-10 col-md-8 mx-auto">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text w-100" >Usuario</span>
+                        </div>
+                        <input type="text" name="username" class="form-control" id="formGroupExampleInput" placeholder="Introduce tu nombre de usuario">
+
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="input-group col-10 col-md-8 mx-auto">
+
+                        <div class="input-group-prepend w-25 ">
+                            <span class="input-group-text w-100 text-rigth" >Contraseña</span>
+                        </div>
+                        <input type="password" name="password" class="form-control" id="formGroupExampleInput2" placeholder="Introduce tu contraseña">
+                    </div>
+                </div>
+                <div th:if="${error!=null}" class="row mt-3">
+                    <div class="input-group col-10 col-md-8 mx-auto">
+                        <h4 class="text-danger">Acceso no permitido</h4>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-success btn-lg mb-4">Entrar</button><br/>
+                    <a href="recuperar_password" >Recuperar Contraseña</a><br/>
+                    <a href="form" >Crear Nuevo Usuario</a>
+
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

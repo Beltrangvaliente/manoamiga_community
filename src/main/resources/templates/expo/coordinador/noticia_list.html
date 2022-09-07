@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>Listado de Noticias</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div data-toggle="indice"></div>  
+        <h3>Listado de Noticias</h3>
+        
+        <div class="row">
+            <div class="col-2">
+                <a type="submit" class="btn btn-primary" href="form">Crear noticia</a>
+            </div>
+            <div class="col-3">
+                <div>¿Deseas crear una nueva noticia?</div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-2 col-sm-4">
+                <label class="sr-only">Busqueda por estado</label>
+                <select name="estado" class="form-control" data-memory="2">
+                    <option value="">Todas</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Aprobado">Aprobado</option>
+                    <option value="Rechazado">Rechazado</option>
+                </select>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <input class="form-control" name="filtro" placeholder="Escribe un texto para buscar"/>
+            </div>
+            <div class="col-md-2 col-sm-4">
+                <input class="form-control" type="date" name="fechaDesde"/>
+            </div>
+            
+            <div class="col-md-2 col-sm-4">
+                <input class="form-control" type="date"  name="fechaHasta"/>
+            </div>
+            
+            <div class="col-md-2 col-sm-4">
+                <button class="btn btn-primary " onclick="tecnara.refrescarTablas()" ><i class="fas fa-search"></i>Filtrar</button>
+            </div> 
+            
+        
+        </div>  
+
+        <script>
+            tecnara.rechazarNoticia = function (id) {
+                bootbox.confirm({
+                    message: "¿Desea rechazar la noticia propuesto?",
+                    callback: function (res) {
+                        if (res) {
+                            document.location = "rechazar?id=" + id;
+                        }
+                    }
+                });
+            },
+                    tecnara.aceptarORechazar = function (id) {
+                        return "<a href='aceptar?id=" + id + "' class='text-success'><i class='fas fa-check-circle fa-2x'></i></a>     " +
+                                "<a  onclick='tecnara.rechazarNoticia(" + id + ")'  href='#' class='text-danger'><i class='fas fa-times-circle fa-2x'></i></a>";
+                    }
+        </script>
+
+        <div class="row mb-3 mt-3">
+            <div class="col-md-6 ">
+                <script>
+                    tecnara.refrescarTablas = function () {
+                        $("table[data-toggle='table']").bootstrapTable('refresh');
+                    }
+                </script>
+            </div>
+        </div>
+        
+        <script>
+            tecnara.filtroTabla = function(params){
+                params.estado=$("*[name='estado']").val();
+                params.filtro=$("*[name='filtro']").val();
+                params.fechaDesde=$("*[name='fechaDesde']").val();
+                params.fechaHasta=$("*[name='fechaHasta']").val();
+                return params;
+            }
+        </script>        
+        
+        <table class="table table-striped" data-toggle="table" data-url="list_data" data-mobile-responsive="true" 
+                                                data-pagination="true" data-side-pagination="server" 
+                                                data-query-params="tecnara.filtroTabla" >
+            <thead>
+                <tr>
+
+                    <th data-field="titulo" >Título</th>
+                    <th data-field="fechaInicio"  data-formatter="tecnara.formatFecha">Fecha inicio</th>
+                    <th data-field="fechaFin"  data-formatter="tecnara.formatFecha">Fecha fin</th>
+                    <th data-field="fija">Fija</th>        
+                    <th data-field="pantalla">Pantalla/s</th>
+                    <th data-field="nombreTrabajador">Trabajador</th>
+                    <th data-field="estado">Estado</th>
+                    <th data-field="id" data-formatter="tecnara.aceptarORechazar">Aceptar/Rechazar</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones">Acciones</th>
+                </tr>   
+            </thead>    
+        </table> 
+    </body>
+</html>

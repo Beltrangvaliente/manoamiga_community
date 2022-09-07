@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+  
+        <div th:fragment="plantilla()" >
+        <h1 class="mb-5 text-center">Noticias</h1>
+
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <h4 class="card-title" style="text-align: center" th:text="${n.titulo}"></h4>
+                        <p class="card-text">[(${n.contenido1})]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </body>
+</html>

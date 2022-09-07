@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>   
+    <h3>Usuario</h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col-6">
+                    <label>Usuario</label>
+                    <input class="form-control" th:field="*{usuario}"/>
+                </div>
+                <div class="col-6">
+                    <label>Email</label>
+                    <input class="form-control" th:field="*{email}"/>
+                </div>
+                <div class="col-6">
+                    <label>Estado</label>
+                    <!-- Cambiar por un Select -->
+                    <select class="form-control" th:field="*{estado}">
+                        <option value="aceptado"> Aceptado</option>
+                        <option value="pendiente"> Pendiente</option> 
+                        <option value="rechazado"> Rechazado</option>
+                    </select>
+                    
+                </div>
+            </div>
+                    <script>
+            tecnara.refrescarTablas = function(){
+                $("table[data-toggle='table']").bootstrapTable('refresh');
+                
+            }
+            </script>
+
+            
+        </form>    
+    </body>
+</html>

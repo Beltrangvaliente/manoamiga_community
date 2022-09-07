@@ -1,0 +1,366 @@
+
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0  30 30'%3e%3cpath stroke='rgb(240, 240, 240)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+.bg-light , .navbar-light{
+    background-color: #FFF !important;
+}
+
+
+.navbar-light .navbar-nav .nav-link:hover{
+    color: #211c64 ;
+}
+.dropdown-item:focus, .dropdown-item:hover {
+    color: #FFF;
+    background-color: #211c64 ;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+    color: #FFF;
+    padding: 0 15px 0 15px;
+
+}
+
+
+
+/*botones*/
+.btn,
+.form-control
+{
+    border-radius: 0px !important;
+
+}
+
+.btn{
+    border: 1px solid #211c64 ; 
+    position: relative;
+    padding: 5px 20px;
+}
+
+.btn-primary,
+.btn-primary:focus{
+    border: 1px solid #211c64 ;
+    background-color: #211c64 ;
+    color: #FFF;
+    border-color: #211c64 ;
+    background-image: -webkit-linear-gradient(45deg, #211c64  50%, transparent 50%);
+    background-image: linear-gradient(45deg, #211c64  50%, transparent 50%);
+    background-position: 100%;
+    background-size: 400%;
+    transition: background 300ms ease-in-out;
+}
+
+
+.btn-primary:hover{
+    box-shadow: 0 0 10px 40px #8ebae1 inset;
+
+    color: #FFF;
+    border-color: #211c64 ;
+    background-position: 0;
+}
+
+/*textos*/
+
+
+h3::after{
+    position: absolute;
+    left:0px;
+    bottom: 0px;
+    content: "";
+    background-color: #211c64 ;
+    height: 3px;
+    width: 100%;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    font-family: 'Raleway';
+    font-weight: 500;
+    font-size: 18px;
+    color: #211c64 ;
+}
+
+.text-primary{
+    color: #211c64  !important; 
+}
+
+/*tabla*/
+th{
+    background-color: #FFF;
+    color: #211c64 ;
+}
+.table tbody tr{
+    transition: 0.5s;
+}
+
+.table tbody tr:hover{
+    background-color: #0009c;
+    color: #000;
+}
+
+.btn-primary{
+    transition: 1s !important;
+}
+
+.zindex-back{
+    z-index: -1;
+}
+
+
+
+/*menu*/
+.table{
+    margin-top: 30px;
+}
+.dropdown-menu{
+    transition: 1s;
+}
+
+.dropdown{
+    padding-bottom: 5px;
+}
+
+@media (min-width: 992px) {
+    .dropdown::after 
+    {
+        transition: 0.5s;
+        content: "";
+        background-color: #FFF;
+        position: absolute;
+        left:10%;
+        bottom:0px;
+        width:0%;
+        height:3px;
+        margin-top: 5px;
+    }
+    .dropdown:hover::after{
+        width:80%;
+    }
+}
+
+.btn-info:focus{
+    border: none;
+    transition: 0.5s;
+    box-shadow: none;
+}
+
+.btn-success,
+.btn-info,
+.btn-success:focus,
+.btn-info:focus,
+.btn-success:active,
+.btn-info:active{
+    background-color: #211c64  !important;
+    border-color: #211c64  !important;
+    box-shadow: none !important;
+}
+
+.btn-success:hover,
+.btn-info:hover
+{
+    background-color: #211c64 ;
+}
+
+.btn-danger,
+.btn-danger:focus{
+    background-color: #FFF;
+    color: #211c64 ;
+}
+
+.card-header{
+    font-weight: bold;
+    color: #211c64 ;
+    text-align: center;
+    font-size: 20px;
+}
+
+
+.footer li{
+    list-style: none;
+    font-size: 13px;
+    color: #211c64 
+}
+
+ 
+
+.form-control:focus{
+    border-color: #211c64 ;
+}
+
+a{
+    color: #211c64 ;
+    transition: 0.2s;
+}
+
+a:hover{
+    color: #211c64 ;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+/*tab*/
+.nav-tabs{
+    margin-top: 20px;
+}
+.nav-tabs .nav-item .active{
+    border: 1px solid #211c64 ; 
+    border-bottom: 0px; 
+    font-weight: bold;
+}
+
+.nav-tabs .nav-link{
+    background-color: #EFEFEF;
+    border: 1px solid #211c64 ; 
+    border-bottom: 0px; 
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.nav-tabs .nav-link:hover{
+    border: 1px solid #211c64 ; 
+    border-bottom: 0px; 
+}
+
+.tab-content{
+    padding:20px 10px 20px 20px;
+    border: 1px solid #211c64 ; 
+    border-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top: none;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #211c64 ;
+}
+
+/*.table th{
+    border: 1px solid #211c64  !important;
+    padding: 200px;
+}*/
+
+.table thead th{
+    border: 1px solid #211c64 ;
+}
+
+.table-bordered td{
+    border: 1px solid #211c64  ;
+}
+
+.bg-dark{
+    background-color: #211c64  !important;
+}
+
+
+.indice .card:hover{
+    background-color: #EEE;
+    transform: scale(1.05)
+}
+
+.btn-outline-dark:hover{
+    background-color: #211c64 ;
+}
+
+.img-fit{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+.indice .card{
+    border: 4px solid #211c64;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;   
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.indice .card:hover{
+    background-color: #EEE;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.indice .poligono1{
+    clip-path:polygon(0 0, 100% 0%, 100% 65%, 0% 100%);
+    background-color: #EEE;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.indice{
+    color: #211c64;
+}
+header{
+    background-color: #211c64;
+}
+h1{
+    color: #211c64;
+}
+
+header{ 
+    background-color: #211c64;
+}
+.navbar{
+    background-color: #211c64 !important;
+    color: #FFF !important;
+}
+.navbar-light .navbar-nav .nav-link{
+    color: #FFF;
+}
+
+.navbar-light .navbar-nav .nav-link:hover{
+    color: #DDD;
+}
+label{
+    margin-top: 10px;
+}
+
+.fixed-table-pagination{
+    display:none !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0  30 30'%3e%3cpath stroke='rgb(255, 255, 255)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+/* Icono de la guia de Bootstrap*/
+.fijo{
+    position: fixed;
+    top: 10px;
+  right: 30px;
+  width: 30px;
+  height: 30px;
+  z-index: 10;
+  text-align: right;
+  padding: 10px;
+  cursor: pointer;
+  
+}
+
+@media(max-width: 768px) {
+  .fijo{
+    position: fixed;
+    top: 10px;
+  right: 80px;
+  width: 35px;
+  height: 30px;
+  z-index: 10;
+  text-align: right;
+  padding: 10px;
+  cursor: pointer;
+  }
+}
+
+.fijo i{
+    color: white;
+}
+
+
+
+

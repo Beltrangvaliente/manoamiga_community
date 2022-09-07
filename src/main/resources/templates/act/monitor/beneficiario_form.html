@@ -1,0 +1,176 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/monitor/layouts/layout::layout( ~{::body} )">
+    <head>
+        <!-- Font Awesome Icon Library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    </head>
+    <body>
+
+        <script>
+            tecnara.filtroIdBeneficiario = function (params) {
+                params.idBeneficiario = $("#id").val();
+                return params;
+            },
+                    tecnara.tablaBotonesSinMenu = function (id, row, index) {
+                        if (row['idMonitor'] == $('#idValidado').val()) {
+                            return "<button type='button' class='btn btn-success btn-sm' onclick='tecnara.abrirFormularioEditarSinMenu(this, " + row["id"] + ")' > Editar </button> " +
+                                    "<button type='button' class='btn btn-danger btn-sm' onclick='tecnara.borrarRegistroSinMenu(this, " + row["id"] + ")'> Borrar </button> ";
+                        } else {
+                            return "";
+                        }
+                    },
+                    tecnara.estrella = function (valor, row, index) {
+                        if (valor < 5) {
+                            return "<label class='text-danger'>★</label>".repeat(valor / 2);
+                        }
+                        if (valor > 8) {
+                            return "<label class='text-success'>★</label>".repeat(valor / 2);
+                        }
+                        return "<label class='text-info'>★</label>".repeat(valor / 2);
+
+                    }
+        </script>
+
+        <input type="hidden" id="idValidado" th:value="${general.idValidado}"/>
+        <div data-toggle="volver"></div>
+        <h3>Formulario de Beneficiario</h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">   
+                    <label>Nombre</label>
+                    <input class="form-control" th:field="*{nombre}"/>
+                </div>     
+                <div class="col-md-3 col-sm-6">
+                    <label>Apellido1</label> 
+                    <input  class="form-control" th:field="*{apellido1}"/>
+                </div> 
+                <div class="col-md-3 col-sm-6">
+                    <label>Apellido2</label>
+                    <input class="form-control" th:field="*{apellido2}"/>
+                </div>   
+                <div class="col-md-3 col-sm-6">
+                    <label>Usuario</label>
+
+                    <input class="form-control" th:field="*{idUsuario}" data-toggle="buscador" data-url="buscador_beneficiario" >
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <label>Documento </label>
+                    <input class="form-control" th:field="*{documento}" placeholder="DNI, NIE o Pasaporte"/>
+                </div>    
+                <div class="col-md-6 col-sm-6">
+                    <label>Tutor</label>
+                    <input class="form-control" th:field="*{idTutor}"
+                           data-toggle="buscador" data-url="../tutor/buscador"  /> <!-- th:field -> id, name, value -->
+                </div>    
+                <div class="col-md-3 col-sm-6">
+                    <label> Telefono</label>
+                    <input class="form-control" th:field="*{telefono}"/>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+        </form>
+        <div class="row">
+            <div class="col-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item" > 
+                        <a class="nav-link active" data-toggle="tab" href="#divEvaluar">
+                            Evaluar
+                        </a> 
+                    </li>
+                    <li class="nav-item" > 
+                        <a class="nav-link" data-toggle="tab" href="#divAsistencia">
+                            Asistencia
+                        </a> 
+                    </li> 
+                    <li class="nav-item" > 
+                        <a class="nav-link " data-toggle="tab" href="#divComentarios">
+                            Comentarios
+                        </a> 
+                    </li>
+                    <li class="nav-item" > 
+                        <a class="nav-link" data-toggle="tab" href="#divMemoria">
+                            Memoria
+                        </a> 
+                    </li>
+                </ul>
+                <script>
+                    tecnara.filtroIdBeneficiario = function (params) {
+                        params.idBeneficiario = $("#id").val();
+                        return params;
+                    }
+                </script>
+                <div class="tab-content">
+                    <div id="divEvaluar" class="tab-pane fade show active" > 
+                        <button type="button" data-toggle="formbox" data-url="../evaluacion_beneficiario/form" class="btn btn-primary">Anotar evaluación</button>
+                        <table class="table table-striped" data-toggle="table" data-url="list_data_nombre" 
+                               data-query-params="tecnara.filtroIdBeneficiario" data-controller="../evaluacion_beneficiario"
+                               data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="persona">Monitor</th>
+                                    <th data-field="puntuacion" data-formatter="tecnara.estrella" >Valoración</th>
+                                    <th data-field="comentarios">Comentario</th>
+                                    <th data-field="fechaDeEvaluacion" data-formatter="tecnara.formatFecha">Fecha del Comentario</th>
+                                    <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                                </tr>   
+                            </thead>    
+                        </table>    
+                    </div>
+
+
+                    <div id="divAsistencia" class="tab-pane fade " >
+                        <button type="button" data-toggle="formbox" data-url="../falta_asistencia/form" class="btn btn-primary">Apuntar falta de asistencia</button>
+                        <table class="table table-striped" data-toggle="table" data-url="list_data_falta"
+                               data-query-params="tecnara.filtroIdBeneficiario" data-controller="../falta_asistencia"
+                               data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="motivo">Motivo</th>
+                                    <th data-field="fechaFaltaAsistencia" data-formatter="tecnara.formatFecha">Asistencia</th>   
+                                    <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div id="divComentarios" class="tab-pane fade" > 
+                        <button type="button" data-toggle="formbox" data-url="../comentario/form" class="btn btn-primary">Anotar comentario</button>
+                        <table class="table table-striped" data-toggle="table" data-url="list_data_comentario"
+                               data-query-params="tecnara.filtroIdBeneficiario" data-controller="../comentario"
+                               data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="nombreMonitor">Autor</th>
+                                    <th data-field="texto">Comentario</th>
+                                    <th data-field="fechaComentario" data-formatter="tecnara.formatFecha">Fecha del Comentario</th>
+                                    <th data-field="horaComentario">Hora del Comentario</th>
+                                    <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                                </tr>   
+                            </thead>    
+                        </table>    
+                    </div>
+
+                    <div id="divMemoria" class="tab-pane fade " >
+                        <button type="button" data-toggle="formbox" data-url="../memoria/form" class="btn btn-primary">Anotar Memoria</button>
+                        <table class="table table-striped" data-toggle="table" data-url="list_data_memo"
+                               data-query-params="tecnara.filtroIdBeneficiario" data-controller="../memoria"
+                               data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="nombreCompleto">Monitor</th>
+                                    <th data-field="comentarios">Comentarios</th>
+                                    <th data-field="fechaComentario" data-formatter="tecnara.formatFecha">Fecha</th>
+                                    <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                                </tr>   
+                            </thead>    
+                        </table>
+                    </div>
+                </div>    
+            </div>  
+        </div>  
+    </body>
+</html>

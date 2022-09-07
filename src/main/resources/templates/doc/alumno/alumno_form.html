@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title> PERFIL DE USUARIO</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <div class="container">
+            <div data-toggle="indice"></div> 
+            <h3>PERFIL DE USUARIO</h3>
+
+            <form action="guardar" method="post" th:object="${registro}"  class="was-validated">    
+                <input type="hidden" th:field="*{id}"/>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label><b>Usuario asignado:</b> usuario@dato</label>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-md-3">   
+                        <label>Nombre</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir un nombre">
+                            <input class="form-control" th:field="*{nombre}" placeholder="Nombre"  maxlength="200" required="true" />
+
+                        </div>  
+
+                    </div> 
+                    <div class="col-md-3">
+                        <label> Apellidos</label> 
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir un apellido">
+                            <input class="form-control" th:field="*{apellido1}" placeholder="Apellido"  maxlength="200" required="true"  />
+
+                        </div> 
+
+                    </div> 
+
+                    <div class="col-md-3">
+                        <label>Fecha de Nacimiento</label> 
+                        <input type="date" class="form-control" th:field="*{fechaNacimiento}"/>
+                    </div> 
+                    <div class="col-md-3">
+                        <label>Lugar de Nacimiento</label> 
+                        <input class="form-control" th:field="*{lugarNacimiento}"/>
+                    </div> 
+                </div> 
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Dirección</label>
+                        <input class="form-control" th:field="*{direccion}"/>
+                    </div>
+
+                </div>
+                <div class="row">   
+                    <div class="col-md-3">   
+                        <label>Género</label>
+                        <select class="form-control" th:field="*{sexo}">
+                            <option value=""></option>
+                            <option value="h">Masculino</option>
+                            <option value="m">Femenino</option>
+                            <option value="x">Otro</option>
+                        </select>
+                    </div>   
+                    <div class="col-md-3">
+                        <label>Tipo de Documento de Identidad</label>
+                        <select class="form-control" th:field="*{tipoDocumento}">
+                            <option value="nie">NIE</option>
+                            <option value="dni">DNI</option>
+                            <option value="pasaporte">PASAPORTE</option>
+                            <option value="otro">OTRO</option>
+                        </select>    
+                    </div>   
+                    <div class="col-md-6">
+                        <label>Número de documento</label>
+                        <input class="form-control" th:field="*{documento}"/>
+                    </div>                       
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Teléfono de Contacto</label>
+                        <input class="form-control" th:field="*{telefono}"/>
+                    </div>  
+                    <div class="col-md-6">
+                        <label>Correo Electrónico</label>
+                        <input class="form-control" th:field="*{mail}"/>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Ciudad</label>
+                        <input class="form-control" th:field="*{localidad}"/>
+                    </div>    
+                    <div class="col-md-6">
+                        <label>Nacionalidad</label>
+                        <input class="form-control" th:field="*{nacionalidad}"/>
+                    </div>   
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Estado Civil</label>
+                        <select class="form-control" th:field="*{estadoCivil}">
+                            <option value="soltero">Soltero/a</option>
+                            <option value="pareja_de_hecho">Pareja de hecho</option>
+                            <option value="casado">Casado/a</option>
+                            <option value="separado">Separado/a</option>
+                            <option value="divorciado">Divorciado/a</option>
+                            <option value="viudo">Viudo/a</option>
+                            <option value="ns_nc">NS/NC</option>
+                        </select>
+                    </div>   
+                    <div class="col-md-3">
+                        <label>Número de hijos</label>
+                        <input class="form-control" type="number" th:field="*{hijos}"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Nº Seguridad Social</label>
+                        <input class="form-control" th:field="*{seguridadSocial}"/>
+                    </div>    
+                </div>
+                <button type="submit" class="btn btn-primary mt-4"> <i class="fas fa-save"></i> Modificar perfil</button> 
+                 <a href="../alumno/restablecer_password_form" class="btn btn-success mt-4"  id="myCheck" onclick="tecnara.mostrarAnimacion()">Restablecer contraseña</a><br/>
+                
+            </form>
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+        <!-- *************** Este es un ejemplo de TABs ***************  -->
+        <ul class="nav nav-tabs">
+            <li class="nav-item" > 
+                <a class="nav-link active" data-toggle="tab" href="#divTab1">   <!-- Importante poner en el href el ID del div que queremos mostrar -->
+                    Contenido 1
+                </a> 
+            </li>
+            <li class="nav-item" > 
+                <a class="nav-link" data-toggle="tab" href="#divTab2">
+                    Contenido 2
+                </a> 
+            </li>
+            <li class="nav-item" > 
+                <a class="nav-link" data-toggle="tab" href="#divTab3">
+                    Contenido 3 
+                </a> 
+            </li>
+        </ul>
+
+        <div class="tab-content">   <!-- Se crea 1 div que agrupe todos los tab-pane -->
+
+            <!-- CONTENIDO 1. Se Recomienda poner un comentario delante de cada pestaña indicando para que es esa pestaña -->    
+            <div id="divTab1" class="tab-pane fade show active" >  <!-- *************** Se crea un tab-pane por cada pestaña (solo el primero tiene "show active" ***************  -->
+                Aquí pondríamos el conenido de la pestaña 1
+            </div>
+            
+            <!-- CONTENIDO 2. Se Recomienda poner un comentario delante de cada pestaña indicando para que es esa pestaña -->    
+            <div id="divTab2" class="tab-pane fade" >  <!-- *************** Se crea uno por cada pestaña ***************  -->
+                Aquí pondríamos el conenido de la pestaña 2
+            </div>
+            
+            <!-- CONTENIDO 3. Se Recomienda poner un comentario delante de cada pestaña indicando para que es esa pestaña -->    
+            <div id="divTab3" class="tab-pane fade" >  <!-- *************** Se crea uno por cada pestaña ***************  -->
+                Aquí pondríamos el conenido de la pestaña 3
+            </div>
+            
+        </div>
+    </body>
+</html>

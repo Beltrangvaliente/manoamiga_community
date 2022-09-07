@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/public/layouts/layout::layout( ~{::body} )">
+
+    <body>
+
+        <div class="container" >
+            <div data-toggle="volver"></div> 
+
+            <h3> Información del curso: <span th:text="${registro.nombreCurso}"/> </h3>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <label><b>Modalidad:</b></label><span th:text="${registro.modalidad}"/><br/>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <label><b>Referencia:</b></label><span th:text="${registro.referencia}"/><br/>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <label><b>Localidad:</b></label><span th:text="${registro.localidad}"/><br/> 
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <label><b>Número horas:</b></label><span th:text="${registro.numeroHoras}"/><br/>
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <label><b>Fecha Límite inscripción:</b></label><span th:text="${registro.fechaLimiteInscripcion}"/><br/>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <label><b>Fecha inicio:</b></label><span th:text="${registro.fechaInicio}"/><br/>
+                </div>  
+
+                <div class="col-md-6">
+                    <label><b>Título a obtener:</b> </label><span th:text="${registro.documentoTitulo}"/><br/>
+
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <label><b>Precio:</b> </label><span th:text="${registro.precio}"/><br/>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <label><b>Numero Alumnos:</b> </label><span th:text="${registro.numeroAlumnos}"/> <br/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label><b>Requisitos:</b></label><span th:text="${registro.requisitos}"/><br/>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <a href="../usuario/login" class="btn btn-success"> <i class="fas fa-plus-square"></i> Preinscribirse</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

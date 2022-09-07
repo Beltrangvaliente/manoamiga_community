@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/public/layouts/layout::layout( ~{::body} )">
+    <body>
+
+        <script type="text/javascript">
+            function validar_clave(e) {
+                var caract_invalido = " ";
+                var caract_longitud = 8;
+                var cla1 = $('#password').val();
+                var cla2 = $('#confirm-password').val();
+                if (cla1 == '' || cla2 == '') {
+                    alert('Debes introducir tu clave en los dos campos.');
+                    //document.registro
+                    e.preventDefault();
+                    return false;
+                }
+                if (cla1.length < caract_longitud) {
+                    alert('Tu clave debe constar de ' + caract_longitud + ' carácteres.');
+                    //document.registro
+                    e.preventDefault();
+                    return false;
+                }
+                if (cla1.indexOf(caract_invalido) > -1) {
+                    alert("Las claves no pueden contener espacios");
+                    //document.registro
+                    e.preventDefault();
+                    return false;
+                } else {
+                    if (cla1 != cla2) {
+                        alert("Las claves introducidas no son iguales");
+                        //document.registro
+                        e.preventDefault();
+                        return false;
+                    } else {
+                        //$('#register-form').trigger('submit');
+                        return true;
+                    }
+                }
+            }
+
+            $(function () {
+
+                $('#login-form-link').click(function (e) {
+                    $("#login-form").delay(100).fadeIn(100);
+                    $("#register-form").fadeOut(100);
+                    $('#register-form-link').removeClass('active');
+                    $(this).addClass('active');
+                    e.preventDefault();
+                });
+                $('#register-form-link').click(function (e) {
+                    $("#register-form").delay(100).fadeIn(100);
+                    $("#login-form").fadeOut(100);
+                    $('#login-form-link').removeClass('active');
+                    $(this).addClass('active');
+                    e.preventDefault();
+                });
+
+                $('#register-form').submit(function (e) {
+                    validar_clave(e);
+                });
+            });
+            function mostrarPassword() {
+                var x = document.getElementById("password");
+                var y = document.getElementById("hide1");
+                var z = document.getElementById("hide2");
+                if (x.type === 'password') {
+                    x.type = "text";
+                    y.style.display = "block";
+                    z.style.display = "none";
+                } else {
+                    x.type = "password";
+                    y.style.display = "none";
+                    z.style.display = "block";
+                }
+            }
+            ;
+            function mostrarPassword2() {
+                var x = document.getElementById("confirm-password");
+                var y = document.getElementById("hide3");
+                var z = document.getElementById("hide4");
+                if (x.type === 'password') {
+                    x.type = "text";
+                    y.style.display = "block";
+                    z.style.display = "none";
+                } else {
+                    x.type = "password";
+                    y.style.display = "none";
+                    z.style.display = "block";
+                }
+            }
+            ;
+        </script>
+
+        <div class="container">
+            <div data-toggle="indice"></div>
+            <form id="register-form" action="guardar" class="was-validated" method="post" th:object="${registro}">
+                <div>
+                    <h3>Registro para el usuario</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Nombre</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir el nombre">
+                            <input class="form-control" maxlength="100" required="" name="nombre"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Primer apellido</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir el primer apellido">
+                            <input class="form-control" maxlength="100" required="" name="apellido1" />
+                        </div>
+                    </div>  
+                    <div class="col-md-3">
+                        <label>Segundo apellido</label>
+                        <input class="form-control" maxlength="100" name="apellido2"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Email</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir un email">
+                            <input class="form-control" type="email" maxlength="50" required="" name="email"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Contraseña</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir una contraseña">
+                            <input type="password" class="form-control" maxlength="50" required="" name="password" id="password"/>
+                            <span class="eye"  onclick="mostrarPassword()">
+                                <i id="hide1" class="fas fa-eye fa-lg p-2"style="display:none"></i>
+                                <i id="hide2" class="fas fa-eye-slash fa-lg p-2" ></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Repetir contraseña</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe repetir la contraseña">
+                            <input type="password" class="form-control" maxlength="50" required="" id="confirm-password"/>
+                            <span class="eye" onclick="mostrarPassword2()">
+                                <i id="hide3" class="fas fa-eye fa-lg p-2" style="display:none"></i>
+                                <i id="hide4" class="fas fa-eye-slash fa-lg p-2" ></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <label>Consentimiento Expreso para el Tratamiento de Datos de Carácter Personal</label>
+                        <textarea rows="10" readonly="" class="text-secondary bg-white form-control" th:text="texto_legal">
+                        </textarea>
+                    </div>
+                    <div class="col-12">
+                        <input type="checkbox" required=""/><label>He leído y acepto las condiciones</label>
+                        <div class="invalid-feedback">
+                            Debes aceptar las condiciones.
+                        </div>                            
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-5">Enviar datos</button> 
+            </form> 
+        </div>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+

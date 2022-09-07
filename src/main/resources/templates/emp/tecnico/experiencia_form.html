@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <h3>Experiencia</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated">   
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{idParticipante}" />
+
+            <div class="row">  
+
+                <div class="col-md-4 col-sm-12">
+                    <label>Empresa</label>
+                    <input class="form-control" th:field="*{empresa}"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Puesto </label>
+                    <input type="text" class="form-control" th:field="*{puesto}"/>    
+                </div>    
+                <div class="col-md-4 col-sm-6">
+                    <label>Año Inicio </label> 
+                    <input type="number" class="form-control" th:field="*{anyoInicio}"/>    
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Año fin </label> 
+                    <input type="number" class="form-control" th:field="*{anyoFin}"/>    
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Verificado </label> 
+                    <select class="form-control" th:field="*{verificado}">
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>                             
+            </div>
+            <button type="submit" class="btn btn-primary mt-3" >Guardar</button>
+        </form>
+    </body>
+</html>

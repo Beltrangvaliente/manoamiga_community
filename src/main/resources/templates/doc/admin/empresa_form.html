@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <h3>Formulario Empresa</h3>
+        <form action="guardar" method="post" th:object="${registro}">
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="row">
+                <div class="col-6">
+                    <label>Nombre</label>
+                    <input class="form-control" th:field="*{nombre}" maxlength="200" />
+                </div>
+
+                <div class="col-6">
+                    <label>Dirección</label>
+                    <input class="form-control" th:field="*{direccion}" maxlength="200" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <label>NIF</label>
+                    <input class="form-control" th:field="*{nif}" maxlength="200" />
+                </div>
+
+                <div class="col-6">
+                    <label>Código Postal</label>
+                    <input class="form-control" th:field="*{codigoPostal}" maxlength="200"/>
+                </div>       
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <label>Web Empresa</label>
+                    <input class="form-control" th:field="*{webEmpresa}" maxlength="200"/>
+                </div>
+
+            </div>    
+            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+
+
+
+        </form>
+    </body>    
+</html>

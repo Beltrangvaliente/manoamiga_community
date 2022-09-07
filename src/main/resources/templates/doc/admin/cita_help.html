@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="enConstruccion"></div>
+
+        <div class="float-right">
+            <a href="list">Volver</a> 
+        </div>
+        <h3>AYUDA DE CITAS</h3>
+        <div class="row">
+            <div class="col-6"> 
+                <img class="w-100" src="/img/admin/help_citalist.png"/>
+            </div>
+            <div class="col-6">
+                <p>
+                    Este formulario te permite visualizar tus citas personales que estan guardados en nuestra base de datos:
+                </p>
+                <ul>
+                    <li>Id, referido al numero de identificador</li>
+                    <li>Fecha de la Cita</li>
+                    <li>Centro de Atención</li>
+                    <li>Estado de cita </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <p>
+                    Lo primero que debes es llenar este formulario te permite solicitar la cita que deseas rellenando tus datos personales que estan guardados en nuestra base de datos:
+                </p>
+                <ul>
+                    <li>Nombre</li>
+                    <li>Apellidos</li>
+                    <li>Centro de Atención</li>
+                    <li>Fecha de la Cita </li>
+                    <li>Hora de la Cita </li>
+                </ul>
+
+            </div>
+            <div class="col-6"> 
+                <img class="w-200" src="/img/admin/help_citaform.png"/> 
+            </div>
+        </div>
+    </body>
+</html>

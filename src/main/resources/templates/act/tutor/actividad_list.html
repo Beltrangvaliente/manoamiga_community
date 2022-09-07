@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/tutor/layouts/layout::layout( ~{::body} )">
+    <body>
+               
+        <h3>Actividad</h3>
+
+              
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="nombre_actividad">Nombre de la actividad</th>
+                    <th data-field="mail" >Email</th>
+                    <th data-field="responsable_actividad" >Responsable</th>
+                    <th data-field="lugar_actividad" >Lugar</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones">Apuntar</th>
+                </tr>   
+            </thead>    
+        </table> 
+        
+    </body>
+</html>

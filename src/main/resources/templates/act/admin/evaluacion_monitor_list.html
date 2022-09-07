@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>        
+        <h3>Evaluación de los Monitores</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nueva Evaluación</a>
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="idBeneficiario">Beneficiario</th>
+                    <th data-field="idMonitor">Monitor</th>
+                    <th data-field="valoracion">Valoración</th>
+                    <th data-field="comentario">Comentario</th>
+                    <th data-field="fechaComentario" data-formatter="tecnara.formatFecha">Fecha del Comentario</th>
+                   <th data-field="id" data-formatter="tecnara.tablaBotones">Editar</th>
+                </tr>   
+            </thead>    
+        </table> 
+        <div class="text-right">
+        <a href="help">Ir a la ayuda</a>
+        </div>
+    </body>
+</html> 

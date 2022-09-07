@@ -1,0 +1,36 @@
+{
+    "nombre": "Juan",
+    "apellidos": "Ruiz",
+    "domicilios": [
+        {
+            "direccion": {
+                "tipoCalle": "avenida",
+                "nombre": "Compromiso Caspe"
+            },
+            "numero": 3,
+            "ciudad": "Zaragoza"
+        },
+        {
+            "direccion": {
+                "tipoCalle": "avenida",
+                "nombre": "San Jose"
+            },
+            "numero": 2,
+            "ciudad": "Zaragoza"
+        }      
+    ],
+    "coches": [
+        {
+            "marca": "Audi",
+            "modelo": "A3"
+        }, 
+        {
+            "marca": "Ford",
+            "modelo": "Mondeo"
+        }, 
+        {
+            "marca": "Skoda",
+            "modelo": "Fabia"
+        }
+    ]
+}

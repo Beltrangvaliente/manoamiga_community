@@ -1,0 +1,15 @@
+Buenos días
+
+Dándole vueltas a algunos aspectos de la app, quería exponerlos para ver si los podéis tener en cuenta.
+
+Nos gustaría que, de alguna manera, los trabajadores de la fundación pudieran acceder, a través de un enlace, a la información que se publica en el panel principal. Es decir, que, en cualquier momento, desde un teléfono, tablet u ordenador, pudieran ver vía web todos los acontecimientos/información publicados en la aplicación.
+
+Otro aspecto que nos gustaría tener en cuenta, es la posición y visualización de los contenidos. Debido a que todavía desconocemos cómo va a ser la remodelación de la zona donde van a estar ubicados los monitores, nos gustaría que existiera la posibilidad de elegir la visualización de la app. Es decir, que tanto si colocamos los monitores en horizontal o vertical, toda la información se muestre de forma óptima.
+
+También nos surge la duda, si en vez de dos monitores se coloca uno de mayor dimensión ¿Existiría la opción de dividir una única pantalla en dos zonas?
+
+En definitiva, estas dudas surgen porque no sabemos si se colocará uno monitor o dos, en horizontal o vertical, por ello solicitamos, en la medida de lo posible, la mayor versatilidad posible.
+
+Una última cuestión. Te mando una imagen de cómo muestran la agenda mensual en Caixaforum (aunque es en soporte papel). Nos gusta bastante ese “aspecto”. ¿Existe la posibilidad de poder intercalar alguna imagen entre los eventos? Creo que tal y como lo habéis diseñado hasta ahora igual es complicado. En Caixaforum he analizado que incluyen imagen en los espacios dónde no existe un acontecimiento. La imagen está relacionada con el evento de al lado.
+
+Gracias por todo y vamos hablando todas las cuestiones que puedan surgir.

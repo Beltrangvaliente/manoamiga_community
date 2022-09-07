@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="indice"></div>        
+        <div class="container">
+            <h3> Dias Sin Registro </h3>
+           
+
+          
+            <div class="row mt-3 mb-3">
+                <div class="col-12">
+
+                    <table class="table table-striped mt-3" 
+                           data-show-export="true"   
+                           data-export-data-type="all"
+                           data-export-types="['excel','pdf','doc']"
+                           data-title="Horario trabajado"
+                           data-toggle="table" 
+                           data-mobile-responsive="true" 
+                           data-url="listado_dias_pendientes_data" 
+                           data-pagination="true"
+                           data-side-pagination="server" 
+                           data-query-params="tecnara.filtroTabla"> 
+                        <thead>
+                            <tr>
+                                <th data-field="nombre" data sortable="true" >Nombre</th>  
+                                <th data-field="apellido1" data sortable="true" >Apellido1</th> 
+                                <th data-field="apellido2" data sortable="true" >Apellido2</th> 
+                                <th data-field="fecha" data-formatter="tecnara.formatFecha" data sortable="true" >Fecha</th>
+                                
+     
+                                
+                                
+                            </tr>  
+                        </thead>
+                    </table> 
+                </div>
+            </div>
+        </div>
+    </body>
+</html> 
+
+                                
+                               
+                               
+

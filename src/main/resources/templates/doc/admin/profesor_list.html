@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>
+        <h3>Profesores</h3>
+        <button data-toggle='formbox' class="btn btn-primary btn-sm mb-3">Nuevo Registro</button>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label class="sr-only">Busqueda por nombre</label>
+                <input type="text" class="form-control" name="buscador" id="buscador" placeholder="Introduce nombre de profesor" onkeypress="tecnara.introRefrescarTablas()" autocomplete="off">
+            </div>
+            <div class="col-md-6">
+                <script>
+                    tecnara.refrescarTablas = function () {
+                        $("table[data-toggle='table']").bootstrapTable('refresh');
+                    }
+                </script>
+                <button type="button" class="btn btn-secondary " onclick="tecnara.refrescarTablas()"><i class="fas fa-search"></i></button>
+            </div>
+
+
+        </div>
+
+        <script>
+            tecnara.filtroTabla = function (params) {
+                params.filtro = $("*[name='buscador']").val();
+                return params;
+            }
+        </script>
+        <table class="table table-striped" 
+               data-toggle="table" 
+               data-url="list_data"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-query-params="tecnara.filtroTabla"
+               >
+            <thead>
+                <tr>
+                    <th data-field="usuario" >Usuario</th>
+                    <th data-field="nombreProf">Nombre</th>
+                    <th data-field="apellido1Prof">Primer apellido</th>
+                    <th data-field="apellido2Prof">Segundo apellido</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones"></th>
+                </tr>
+            </thead>
+        </table>
+        <div class="text-right">
+            <a href="help"> 
+                Ir a la ayuda</a>
+        </div>
+    </body>
+</html>

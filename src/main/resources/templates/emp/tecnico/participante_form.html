@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <div class="container">
+            <h3>Datos Personales</h3>
+            <form action="guardar"  method="post" th:object="${registro}">
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>Nombre</label>
+                        <input class="form-control" th:field="*{nombre}" maxlength="200" data-toggle="obligatorio" />
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label>Primer Apellido</label>
+                        <input class="form-control" th:field="*{apellido1}" maxlength="200" data-toggle="obligatorio" />
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label>Segundo Apellido</label>
+                        <input class="form-control" th:field="*{apellido2}" maxlength="200" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Teléfono</label>
+                        <input class="form-control" th:field="*{telefono}" maxlength="200" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>E-mail</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Introducir email">
+                            <input class="form-control" th:field="*{email}" maxlength="200" required/>
+                        </div>
+                    </div>       
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <label>Fecha Darde</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir una fecha">
+                            <input name="fecha_Darde" type="date"  class="form-control" th:field="*{fechaDarde}" required/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1">
+                        <label>Contactado</label>
+                        <select class="form-control" th:field="*{contactado}">
+                            <option value="No">No</option> 
+                            <option value="Si">Sí</option>
+
+                        </select>
+                    </div>
+
+                </div>
+                <div class="row">   
+                    <div class="col-12">
+                        <label>Observaciones</label>
+                        <textarea class="form-control" placeholder="Indique las observaciones que crea pertinentes..." rows="5" th:field="*{observaciones}"/></textarea>
+                    </div>
+                </div>  
+
+                <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+
+                <script>
+                    tecnara.filtroIdParticipante = function (params) {
+                        params.idParticipante = $("#id").val();
+                        return params;
+                    }
+                </script>
+
+                <script>
+
+
+                    tecnara.rechazarDocumentoSubidoVerificacion = function (id) {
+                        bootbox.confirm({
+                            message: "¿Desea rechazar los documentos subidos?",
+                            callback: function (res) {
+                                if (res) {
+                                    document.location = "rechazar?id=" + id;
+                                }
+                            }
+                        });
+                    }
+                    tecnara.aceptarORechazarExperiencia = function (id, row, index) {
+
+                        if (row['verificado'] == 'si') {
+                            return "<a onclick='tecnara.ejecutarAjax(this)' data-url='rechazar_experiencia?id=" + id + "' class='text-success'><i class='fas fa-check-circle fa-2x'></i></a>";
+                        } else {
+                            return "<a onclick='tecnara.ejecutarAjax(this)' data-url='aceptar_experiencia?id=" + id + "' class='text-danger'><i class='fas fa-times-circle fa-2x'></i></a>";
+                        }
+
+                    }
+
+
+
+                    tecnara.aceptarORechazarFormacionPrevia = function (id, row, index) {
+                        if (row['verificado'] == 'si') {
+                            return "<a onclick='tecnara.ejecutarAjax(this)' data-url='rechazar_formacion_previa?id=" + id + "' class='text-success'><i class='fas fa-check-circle fa-2x'></i></a>";
+                        } else {
+                            return "<a onclick='tecnara.ejecutarAjax(this)' data-url='aceptar_formacion_previa?id=" + id + "' class='text-danger'><i class='fas fa-times-circle fa-2x'></i></a>";
+                        }
+                    }
+
+                    tablaBotonesAceptarRechazar = function (id, row, index) {
+                        return "<button type='button' class='' onclick='tecnara.bootboxEnConstruccion()' >Aceptar</button> " +
+                                "<button type='button' class='btn btn-danger btn-sm' onclick='tecnara.bootboxEnConstruccion()'>Rechazar</button> ";
+                    }
+
+                    tablaBotonesVerificadoSiOcultar = function (id, row, index) {
+                        return  "<button type='button' class='btn btn-success btn-sm' onclick ='tecnara.ocultarVerificado()' >Si Verificado</button> " +
+                                "<button type='button' class='btn btn-danger btn-sm'  onclick  ='tecnara.borrarRegistroSinMenu(this, " + row["id"] + ")'> Borrar </button> ";
+                    }
+
+                    tablaBotonesSinMenu = function (id, row, index) {
+                        return "<button type='button' class='btn btn-success btn-sm' onclick='tecnara.abrirFormularioEditarSinMenu(this, " + row["id"] + ")' > Editar </button> " +
+                                "<button type='button' class='btn btn-danger btn-sm' onclick='tecnara.borrarRegistroSinMenu(this, " + row["id"] + ")'> Borrar </button> ";
+                    }
+                    tablaBotonesEditarSinMenu = function (id, row, index) {
+                        return "<button type='button' class='btn btn-success btn-sm' onclick='tecnara.abrirFormularioEditarSinMenu(this, " + row["id"] + ")' > Editar </button> ";
+                    }
+
+
+                    formatFecha = function (id, row, index) {
+                        if (id != null && id.length >= 10) {
+                            return id.substring(8, 10) + "/" + id.substring(5, 7) + "/" + id.substring(0, 4);
+                        } else {
+                            return id;
+                        }
+
+                    }
+
+                    tecnara.descargarDocumento = function (id, row, index) {
+                        if (id == null) {
+                            return "";
+                        }
+                        return "<div class='text-center'><a type='button' href='../fichero/descargar?id=" + id + "' > <i class='fas fa-file-download fa-2x'></i> </a></div>";
+                    }
+
+                </script>
+
+
+                <div class="row">
+                    <div class="col-12 col-md-12 col-sm-6">
+
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item" > 
+                                <a class="nav-link active" data-toggle="tab" href="#divExperiencia">
+                                    Experiencia
+                                </a> 
+                            </li>
+                            <li class="nav-item" > 
+                                <a class="nav-link" data-toggle="tab" href="#divFormacionPrevia">
+                                    Formación Previa
+                                </a> 
+                            </li>
+                            <li class="nav-item" > 
+                                <a class="nav-link" data-toggle="tab" href="#divFormacionParticipante">
+                                    Formación Participante
+                                </a> 
+                            </li>
+
+                            <li class="nav-item" > 
+                                <a class="nav-link" data-toggle="tab" href="#divIntereses">
+                                    Intereses
+                                </a> 
+                            </li>
+
+                            <li class="nav-item" > 
+                                <a class="nav-link" data-toggle="tab" href="#divContratos">
+                                    Contratos laborales
+                                </a> 
+                            </li>                            
+                            <li class="nav-item" > 
+                                <a class="nav-link" data-toggle="tab" href="#divDocumentacion">
+                                    Documentación
+                                </a> 
+                            </li>                            
+
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tab-content">
+                            <div id="divExperiencia" class="tab-pane fade show active" >
+                                <button type="button" data-toggle="formbox" data-url="../experiencia/form" class="btn btn-primary">Asignar experiencia</button>
+                                <table class="table table-striped" data-toggle="table" 
+                                       data-url="list_data_experiencia"
+                                       data-pagination="true"
+                                       data-side-pagination="server"
+                                       data-query-params="tecnara.filtroIdParticipante"
+                                       data-locale="es-ES"
+                                       data-controller="../experiencia" data-mobile-responsive="true">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="empresa" >Empresa</th>
+                                            <th data-field="puesto" >Puesto</th>
+                                            <th data-field="anyo_inicio" >Año de Inicio</th>
+                                            <th data-field="anyo_fin" >Año de Fin</th>
+                                            <th data-field="id"  data-formatter="tecnara.aceptarORechazarExperiencia">Verificado</th>
+                                            <th data-field="id" data-formatter="tecnara.tablaBotonesVerificadoSiOcultar">Acciones</th>
+                                        </tr>   
+                                    </thead>    
+                                </table>
+                            </div>
+
+                            <div id="divFormacionPrevia" class="tab-pane fade" >
+
+                                <button type="button" data-toggle="formbox" data-url="../formacion_previa/form" class="btn btn-primary">Asignar formación previa</button>
+                                <script>
+                                </script>                              
+                                <table class="table table-striped" data-toggle="table" 
+                                       data-url="list_data_formacion_previa"
+                                       data-pagination="true"
+                                       data-side-pagination="server"
+                                       data-query-params="tecnara.filtroIdParticipante"
+                                       data-locale="es-ES"
+                                       data-controller="../formacion_previa" data-mobile-responsive="true">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="nombre"  >Nombre</th>
+                                            <th data-field="centro"  >Centro</th>
+                                            <th data-field="anyo"  >Año</th>
+                                            <th data-field="id"  data-formatter="tecnara.aceptarORechazarFormacionPrevia">Verificado</th>
+                                            <th data-field="id" data-formatter="tecnara.tablaBotonesVerificadoSiOcultar">Acciones</th>
+
+                                        </tr>   
+                                    </thead>    
+                                </table>
+                            </div>
+
+                            <div id="divFormacionParticipante" class="tab-pane fade" >
+                                <button type="button" data-toggle="formbox" data-url="../formacion_participante/form" class="btn btn-primary">Asignar Formacion Participante</button>
+                                <script>
+                                </script>                              
+                                <table class="table table-striped" data-toggle="table" 
+                                       data-url="list_data_formacion_participante"
+                                       data-pagination="true"
+                                       data-side-pagination="server"
+                                       data-query-params="tecnara.filtroIdParticipante"
+                                       data-locale="es-ES"
+                                       data-controller="../formacion_participante" data-mobile-responsive="true">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="nombre"  >Nombre</th>
+                                            <th data-field="estado"  >Estado del Curso</th>
+                                            <th data-field="estado_alumno"  >Estado Alumnos</th>
+                                            <th data-field="evaluacion"  >Evaluacion</th>
+                                            <th data-field="id_fichero" data-formatter="tecnara.descargarDocumento">Descargar</th>
+                                            <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+
+
+                                        </tr>   
+                                    </thead>    
+                                </table>
+                            </div>
+
+                            <div id="divIntereses" class="tab-pane fade" >
+                                <button type="button" data-toggle="formbox" data-url="../interes/form" class="btn btn-primary">Asignar intereses</button>
+
+                                <table class="table table-striped" data-toggle="table" 
+                                       data-url="list_data_intereses"
+                                       data-pagination="true"
+                                       data-side-pagination="server"
+                                       data-query-params="tecnara.filtroIdParticipante"
+                                       data-locale="es-ES"
+                                       data-controller="../interes" 
+                                       data-mobile-responsive="true">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="texto"  >Texto</th>
+                                            <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+
+                                        </tr>   
+                                    </thead>    
+                                </table>
+                            </div>
+                            <div id="divContratos" class="tab-pane fade" >
+                                <button type="button" data-toggle="formbox" data-url="../contrato/form" class="btn btn-primary">Dar de alta contrato laboral</button>
+                                <table class="table table-striped" 
+                                       data-toggle="table" 
+                                       data-url="list_data_contratos"
+                                       data-pagination="true"
+                                       data-side-pagination="server"
+                                       data-query-params="tecnara.filtroIdParticipante"
+                                       data-controller="../contrato">
+
+                                    <thead>
+                                        <tr>
+
+                                            <th data-field="nombre" >Empresa</th>
+                                            <th data-field="puesto" >Puesto</th>
+                                            <th data-field="fecha_inicio" data-formatter="tecnara.formatFecha" >Fecha inicio</th>
+                                            <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+
+                                        </tr>   
+                                    </thead>    
+                                </table> 
+                            </div>
+
+                            <div id="divDocumentacion" class="tab-pane fade" >
+                                <button type="button" data-toggle="formbox" data-url="../documento_participante/form" class="btn btn-primary">Subir un Documento</button>
+                                <table class="table table-striped" 
+                                       data-toggle="table" 
+                                       data-url="list_data_documentos_participante"
+                                       data-pagination="true"
+                                       data-side-pagination="server"
+                                       data-query-params="tecnara.filtroIdParticipante"
+                                       data-controller="../documento_participante">
+
+                                    <thead>
+                                        <tr>
+
+                                            <th data-field="nombreDocumento" >Nombre Documento</th>
+                                            <th data-field="fechaSubido" data-formatter="tecnara.formatFecha" >Fecha de Subida</th>
+                                            <th data-field="idFichero" data-formatter="tecnara.descargarDocumento">Descargar</th>
+                                            <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+
+                                        </tr>   
+                                    </thead>    
+                                </table> 
+
+                            </div>                            
+                        </div>                           
+                    </div>          
+                </div>   
+            </form>
+        </div>                           
+    </body>
+</html>

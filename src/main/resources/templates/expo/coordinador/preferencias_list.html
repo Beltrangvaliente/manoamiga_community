@@ -1,0 +1,41 @@
+ 
+<htmlxmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="indice"></div>        
+        <h3>Lista de Preferencias</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nuevo</a>
+        <div class="row mt-3">
+            <div class="col-4">
+                <input class="form-control" name="filtro" placeholder="Escribe un texto para buscar"/>
+            </div>
+            <div class="col-2">
+                <button onclick="tecnara.refrescarTablas()" class="btn btn-primary " ><i class="fas fa-search"></i> Filtrar</button>
+            </div>              
+        </div>
+        <script>
+            tecnara.filtroTabla = function (params) {
+                params.filtro = $("*[name='filtro']").val();
+                return params;
+            }
+        </script>
+
+        <table class="table table-striped" data-toggle="table" 
+               data-mobile-responsive="true" 
+               data-url="list_data" 
+               data-pagination="true" 
+               data-side-pagination="server" 
+               data-query-params="tecnara.filtroTabla">
+            <thead>
+                <tr>
+                    <th data-field="clave" >Clave</th>
+                    <th data-field="valor"  >Valor</th>
+                    <th data-field="tipo" >Tipo</th>
+                    <th data-field="perfil" >Perfil</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones">Acciones</th>
+                </tr>   
+            </thead>    
+        </table> 
+
+    </body>
+</html>

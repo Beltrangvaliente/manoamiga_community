@@ -1,0 +1,67 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <h3 class="mb-3">Subir Documentos</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="mb-4 was-validated">
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="row">
+                <div class="col-md-6 col-12 mt-4">
+                    <label for="idAlumno">Id del Alumno</label>
+                    <input type="number" class="form-control" data-toggle="buscador" data-url="../alumno/buscador" th:field="*{idAlumno}" required=""/>
+                </div>
+                <div class="col-md-6 col-12 mt-4">
+                    <label for="idDocumentoRequerido">Documento Requerido</label>
+                    <input class="form-control" data-toggle="buscador" data-url="../documento_solicitado/buscador" data-params="idAlumno" th:field="*{idDocumentoSolicitado}" required=""/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-12 mt-4">
+                    <label for="tipoDocumento">Tipo de Documento</label>
+                    <input class="form-control" placeholder="¿Qué tipo de documento es?" th:field="*{tipoDocumento}"  />
+                </div>
+                <div class="col-md-6 col-12 mt-4">
+                    <label>Nombre del Fichero</label>
+                    <input class="form-control" placeholder="El nombre del fichero" th:field="*{nombreFichero}"  />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-12 mt-4">
+                    <label>Fecha de Subida</label>
+                    <input type="date" class="form-control"  th:field="*{fechaSubida}" />
+                </div>
+                <div class="col-md-6 col-12 mt-4">
+                    <label>Verificación</label>
+                    <select class="form-control"  th:field="*{verificacion}">
+                        <option value="">---</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Aceptado">Aceptado</option>
+                        <option value="Rechazado">Rechazado</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12 mt-4">
+                    <label>Observaciones</label>
+                    <textarea class="form-control" placeholder="Escribe las observaciones pertinentes" rows="5"  th:field="*{observaciones}"></textarea>
+                </div>                  
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-12 mt-4">
+                    <label>Subir fichero</label>
+                    <input type="file" class="form-control" th:field="*{fichero}" />
+                </div>     
+
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+
+
+        </form>
+
+      
+
+
+    </body>
+</html>

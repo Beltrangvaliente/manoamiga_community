@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/beneficiario/layouts/layout::layout( ~{::body} )">>
+    <body>
+
+        <script>
+            tecnara.tablaCaras = function (id, row, index) {
+                return "<a data-url='evaluar?valoracion=2&idMonitor=" + row['idMonitor'] + "&idSolicitudEvaluacionMonitor=" + row['id'] + "' onclick='tecnara.ejecutarAjax(this)'><i class='fas fa-angry fa-3x' style='color:#E20613'></i></a> " +
+                        "<a data-url='evaluar?valoracion=4&idMonitor=" + row['idMonitor'] + "&idSolicitudEvaluacionMonitor=" + row['id'] + "' onclick='tecnara.ejecutarAjax(this)'><i class='fas fa-frown fa-3x' style='color:#FF5733'></i></a> " +
+                        "<a data-url='evaluar?valoracion=6&idMonitor=" + row['idMonitor'] + "&idSolicitudEvaluacionMonitor=" + row['id'] + "' onclick='tecnara.ejecutarAjax(this)'><i class='fas fa-meh fa-3x'style='color:#F4D03F'></i></a> " +
+                        "<a data-url='evaluar?valoracion=8&idMonitor=" + row['idMonitor'] + "&idSolicitudEvaluacionMonitor=" + row['id'] + "' onclick='tecnara.ejecutarAjax(this)'><i class='fas fa-smile-beam fa-3x' style='color:#32CD32'></i></a> " +
+                        "<a data-url='evaluar?valoracion=10&idMonitor=" + row['idMonitor'] + "&idSolicitudEvaluacionMonitor=" + row['id'] + "' onclick='tecnara.ejecutarAjax(this)'><i class='fas fa-laugh-beam fa-3x' style='color:#008f39'></i></a> ";
+            }
+        </script>
+        <h3>Mi tablero</h3>
+        <div class="row">
+            <div class="col-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#today" data-toggle="tab">Actividad de hoy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#weekly" data-toggle="tab">Actividades semanales</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#progress" data-toggle="tab">Insignias</a>
+                    </li>
+                    <li class="nav-item" id="tabMonitors">
+                        <a class="nav-link" href="#monitors" data-toggle="tab">Danos tu opinión</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="today" class="tab-pane fade show active">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 mb-3" th:if="${hoy.size()==0}">
+                                No tienes actividades hoy
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 mb-3" th:each=" a: ${hoy}">
+                                <div class="card">
+                                    <div class="row no-gutters">
+                                        <div class="col-lg-4 col-md-2 d-none d-md-block">
+                                            <img class="img-fluid" src="https://images.pexels.com/photos/6591426/pexels-photo-6591426.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="...">
+                                        </div>
+                                        <div class="col-lg-4 col-md-2 d-md-none">
+                                            <img class="img-fluid img-fit" style="height: 100px" src="https://images.pexels.com/photos/6591426/pexels-photo-6591426.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="...">
+                                        </div>
+                                        <div class="col-lg-8 col-md-10 tarjeta">
+                                            <div class="card-body">
+                                                <h5 class="card-title" th:text="${a.get('nombre_actividad')}"></h5>
+
+                                                <p class="card-text" >
+                                                    <span th:text="${a.get('lugar_actividad')}"></span>
+                                                    <br>
+                                                    <span th:text="${a.get('fecha')}"></span>
+                                                    <br>
+                                                    <span th:text="${a.get('horario_inicio')}"></span><span>-</span>
+
+                                                    <span th:text="${a.get('horario_fin')}"></span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="weekly" class="tab-pane fade">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action" th:each=" s: ${semanal}">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1" th:text="${s.get('nombre_actividad')}">Tutoría</h5> 
+                                    <small th:text="${general.getDaysAgo(s.get('fecha'))}"></small>
+                                </div>
+                                <p><b><span th:text="${s.get('dia')}"></b></span> (<span th:text="${s.get('horario_inicio') + '-' + s.get('horario_fin') }"></span>)</p>
+                                <p class="mb-1" th:text="${s.get('lugar_actividad')}"></p>
+                                <span th:text="${general.formatDate(s.get('fecha'))}"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="monitors" class="tab-pane fade">
+                        <div class="list-group">
+                            <span href="#" class="list-group-item list-group-item-action">
+
+                                <table id="tbOpiniones" class="table table-striped" 
+                                       data-toggle="table" 
+                                       data-mobile-responsive="true" 
+                                       data-url="list_data_evaluacion_monitores"
+                                       data-pagination="true" 
+                                       data-side-pagination="server" 
+                                       
+                                       data-query-params="tecnara.filtroTabla"
+                                       data-controller="../evaluar">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="nombreActividad" >Actividad</th>
+                                            <th data-field="nombreMonitor" >Nombre Monitor</th>
+                                            <th data-field="apellidosMonitor">Apelllidos Monitor</th>
+                                            <th data-field="idSolicitudEvaluacionMonitor" data-formatter="tecnara.tablaCaras">Valorar</th>
+                                        </tr>
+                                    </thead>
+
+                                </table>
+
+                                <script>
+                                    $(document).ready(function(){
+                                        $("#tbOpiniones").on("load-success.bs.table", function(e, data){
+                                            if (Object.keys(data).length==0){
+                                            $(".nav a:first-child")[0].click();
+                                                $("#tabMonitors").addClass("d-none");
+                                            }else{
+                                                $("#tabMonitors").removeClass("d-none");
+                                            }
+                                        });
+                                    })
+                                </script>
+                                    
+                                
+
+                            </span>
+                        </div>
+                    </div>
+
+                    <div id="progress" class="tab-pane fade" >
+                        <div class="col-12 col-sm-6 col-md-6 mb-3" th:if="${evaluacion.size()==0}">
+                            Aún no tienes insignias
+                        </div>
+
+                        <div class="row mt-2" th:each=" e: ${evaluacion}" >
+                            <div class="col-md-4">
+                                <h5  th:text="${e.get('nombre_actividad')}">Centro de Mayores Juan</h5>
+                                <p th:text="${general.formatDate(e.get('fecha_de_evaluacion'))}"></p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==1}">
+                                <img src="/img/beneficiario/bronce1.png" style="height: 80px" alt="Bronce nivel 1"/>
+                                <p class="mt-2 text-monospace">Bronce nivel 1</p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==2}">
+                                <img src="/img/beneficiario/bronce2.png" style="height: 80px" alt="Bronce nivel 2"/>
+                                <p class="mt-2 text-monospace">Bronce nivel 2</p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==3}">
+                                <img src="/img/beneficiario/bronce3.png" style="height: 80px" alt="Bronce nivel 3"/>
+                                <p class="mt-2 text-monospace">Bronce nivel 3</p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==4}">
+                                <img src="/img/beneficiario/plata1.png" style="height: 80px" alt="Plata nivel 1"/>
+                                <p class="mt-2 text-monospace">Plata nivel 1</p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==5}">
+                                <img src="/img/beneficiario/plata2.png" style="height: 80px" alt="Plata nivel 2"/>
+                                <p class="mt-2 text-monospace">Plata nivel 2</p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==6}">
+                                <img src="/img/beneficiario/plata3.png" style="height: 80px" alt="Plata nivel 3"/>
+                                <p class="mt-2 text-monospace">Plata nivel 3</p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==7}">
+                                <img src="/img/beneficiario/oro1.png" style="height: 80px" alt="Oro nivel 1"/>
+                                <p class="mt-2 text-monospace">Oro nivel 1</p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==8}">
+                                <img src="/img/beneficiario/oro2.png" style="height: 80px" alt="Oro nivel 2"/>
+                                <p class="mt-2 text-monospace">Oro nivel 2</p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==9}">
+                                <img src="/img/beneficiario/oro3.png" style="height: 80px" alt="Oro nivel 3"/>
+                                <p class="mt-2 text-monospace">Oro nivel 3</p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==10}">
+                                <img src="/img/beneficiario/platino1.png" style="height: 80px" alt="Platino nivel 1"/>
+                                <p class="mt-2 text-monospace">Platino nivel 1</p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==11}">
+                                <img src="/img/beneficiario/platino2.png" style="height: 80px" alt="Platino nivel 2"/>
+                                <p class="mt-2 text-monospace">Platino nivel 2</p>
+                            </div>
+
+                            <div class="col-md-2" th:if="${e.get('puntuacion')==12}">
+                                <img src="/img/beneficiario/platino3.png" style="height: 80px" alt="Platino nivel 3"/>
+                                <p class="mt-2 text-monospace">Platino nivel 3</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

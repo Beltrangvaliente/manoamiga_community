@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/public/layouts/layout::layout( ~{::body} )">
+    <head>
+        <style>
+            .eye{
+                position: absolute;
+            }
+            #hide1{
+                display:none;
+            }
+            #hide3{
+                display:none;
+
+            }
+
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            function validar_clave(e) {
+                var caract_invalido = " ";
+                var caract_longitud = 8;
+                var cla1 = $('#password').val();
+                var cla2 = $('#confirm-password').val();
+                if (cla1 == '' || cla2 == '') {
+                    alert('Debes introducir tu clave en los dos campos.');
+                    //document.registro
+                    e.preventDefault();
+                    return false;
+                }
+                if (cla1.length < caract_longitud) {
+                    alert('Tu clave debe constar de ' + caract_longitud + ' carácteres.');
+                    //document.registro
+                    e.preventDefault();
+                    return false;
+                }
+                if (cla1.indexOf(caract_invalido) > -1) {
+                    alert("Las claves no pueden contener espacios");
+                    //document.registro
+                    e.preventDefault();
+                    return false;
+                } else {
+                    if (cla1 != cla2) {
+                        alert("Las claves introducidas no son iguales");
+                        //document.registro
+                        e.preventDefault();
+                        return false;
+                    } else {
+                        //$('#register-form').trigger('submit');
+                        return true;
+                    }
+                }
+            }
+
+            $(function () {
+
+                $('#login-form-link').click(function (e) {
+                    $("#login-form").delay(100).fadeIn(100);
+                    $("#register-form").fadeOut(100);
+                    $('#register-form-link').removeClass('active');
+                    $(this).addClass('active');
+                    e.preventDefault();
+                });
+                $('#register-form-link').click(function (e) {
+                    $("#register-form").delay(100).fadeIn(100);
+                    $("#login-form").fadeOut(100);
+                    $('#login-form-link').removeClass('active');
+                    $(this).addClass('active');
+                    e.preventDefault();
+                });
+
+                $('#register-form').submit(function (e) {
+                    validar_clave(e);
+                });
+            });
+            function mostrarPassword() {
+                var x = document.getElementById("password");
+                var y = document.getElementById("hide1");
+                var z = document.getElementById("hide2");
+                if (x.type === 'password') {
+                    x.type = "text";
+                    y.style.display = "block";
+                    z.style.display = "none";
+                } else {
+                    x.type = "password";
+                    y.style.display = "none";
+                    z.style.display = "block";
+                }
+            }
+            ;
+            function mostrarPassword2() {
+                var x = document.getElementById("confirm-password");
+                var y = document.getElementById("hide3");
+                var z = document.getElementById("hide4");
+                if (x.type === 'password') {
+                    x.type = "text";
+                    y.style.display = "block";
+                    z.style.display = "none";
+                } else {
+                    x.type = "password";
+                    y.style.display = "none";
+                    z.style.display = "block";
+                }
+            }
+            ;
+            $(document).ready(function () {
+                $("form").on("submit", function () {
+                    //data-memory --> setCoockie("nombre", valo);
+                })
+            })
+        </script>
+
+
+        <div class="container">
+            <form  class="was-validated" name="registro" action="guardar" id="register-form" method="post" role="form" th:object="${registro}">
+                <div>
+                    <h3>Registro para el Usuario</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <label>Nombre</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir el nombre">
+                            <input data-memory="1" name="nombre" class="form-control" maxlength="200" required=""/>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <label>Apellido 1</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir el apellido1">
+                            <input data-memory="1"  name="Apellido1" class="form-control" maxlength="200" required=""/>
+                        </div>
+                    </div>  
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <label>Apellido 2</label>
+                        <input data-memory="1" name="apellido2" class="form-control" maxlength="200" />
+                    </div>  
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <label>Email</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir un email" data-icon="fas fa-at">
+                            <input data-memory="1" type="email" name="email" class="form-control" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <label>Registrar</label>
+                        <div  data-invalid-text="Debe registrase" >
+
+                            <select data-memory="1" class="form-control" name="tipoUsuario">
+                                <option value="tutor">Padre/Madre/Tutor</option>
+                                <option value="monitor">Monitor</option>
+                                <option value="beneficiario">Beneficiario</option>
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <label>Contraseña</label>
+                        <div data-toggle="obligatorio" data-invalid-text="Debe introducir una contraseña" data-icon="fas fa-at">
+                            <input type="password" name="passwordreg" id="password" class="form-control" maxlength="200" required/>
+                            <span class="eye"  onclick="mostrarPassword()">
+                                <i id="hide1" class="fas fa-eye fa-lg p-2" style="display:none"></i>
+                                <i id="hide2" class="fas fa-eye-slash fa-lg p-2" ></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <label>Repetir Contraseña</label>
+                        <div class="input-group">
+                            <input type="password" name="confirm-passwordreg"  id="confirm-password" class="form-control" maxlength="200" required/>
+                            <span class="eye" onclick="mostrarPassword2()">
+                                <i id="hide3" class="fas fa-eye fa-lg p-2" style="display:none"></i>
+                                <i id="hide4" class="fas fa-eye-slash fa-lg p-2" ></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <label>Consentimiento expreso para el tratamiento de datos de carácter personal:</label>
+                        <textarea rows="10" readonly="" class="text-secondary bg-white form-control">En relación con los datos personales facilitados por su parte, le informamos que el responsable del tratamiento es la Entidad XXXXX, cuyos datos identificativos están publicados en el aviso legal de la página web.
+
+La finalidad principal para la que recabamos sus datos es contactar con usted de acuerdo con los datos de contacto incorporados por su parte, para tramitar la solicitud de información que ha realizado. Dichos datos serán objeto de tratamiento para gestionar su petición y poder contactarle, estando legitimado dicho contacto en base a este consentimiento.
+
+Como titular de sus datos personales, le asisten los derechos de acceso, rectificación, supresión y derecho al olvido, oposición, limitación del tratamiento y portabilidad, que podrá ejercitar acreditando su identidad, mediante una comunicación escrita a XXXX, a través de su dirección de correo electrónico: XXXX y/o de la dirección postal de la Entidad.
+
+La información adicional y completa sobre la protección de sus datos personales, está publicada en el apartado política de privacidad de la página web.</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <input type="checkbox" required /><label>&nbsp; He leido y acepto las condiciones.</label> 
+                        <div class="invalid-feedback">
+                            Debes aceptar las condiciones.
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <input type="checkbox" required /><label>&nbsp; Soy mayor de 16 años o soy tutor legal de los datos introducidos.</label>
+                        <div class="invalid-feedback">
+                            Debes aceptar las condiciones.
+                        </div>  
+                    </div>  
+                </div>
+                <div>
+                    <button type="submit" name="btninicio" id="register-submit" class="btn btn-primary mt-5" value="registrar"  onclick="tecnara.mostrarAnimacion">Registrar usuario</button>
+                    <script>
+                        
+                        document.getElementById("register-submit").onclick = function() {tecnara.mostrarAnimacion($("body"))};
+                        /*$(document).ready(function(){
+                            
+                            tecnara.mostrarAnimacion($("body"));
+                        
+                        });*/
+    
+  
+                    </script>
+                </div>
+            </form> 
+        </div>
+    </body>
+</html>

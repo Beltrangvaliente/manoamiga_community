@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="indice"></div>
+        <h3>Verificación de documentos</h3>
+
+        <script>
+            tecnara.descargarDocumento = function (id, row, index) {
+                if (row['numero_documentos']==0){
+                    return "";
+                }
+                return "<div class='text-center'><a type='button' href='descargar?id=" + id + "' > <i class='fas fa-file-download fa-2x'></i> </a></div>";
+            }
+        </script>
+        
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <input class="form-control" name="nombre" placeholder="Introduce el nombre del alumno"/>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-secondary " onclick="tecnara.refrescarTablas()"><i class="fas fa-search"></i></button>
+                </div>
+                
+            
+            </div>
+            
+        </form>
+        <script>
+            tecnara.filtroNombre = function (params) {
+                params.filtro = $("input[name='nombre']").val();
+                return params;
+            }
+             tecnara.rechazarDocumentoSubidoVerificacion = function (id) {
+                bootbox.confirm({
+                    message: "¿Desea rechazar los documentos subidos?",
+                    callback: function (res) {
+                        if (res){
+                            document.location="rechazar?id=" + id;
+                        }
+                    }
+                });
+            },            
+            
+            tecnara.aceptarORechazar=function(id){
+                return "<a  href='aceptar?id=" + id + "' class='text-success'><i class='fas fa-check-circle fa-2x'></i></a>"    +
+                       "<a  href='rechazar?id=" + id + "' class='text-danger'><i class='fas fa-times-circle fa-2x'></i></a>";
+            }
+        </script>
+
+        <table class="table-striped" data-toggle="table" data-url="list_data"
+               data-pagination="true" data-side-pagination="server"
+               data-query-params="tecnara.filtroNombre">
+            <thead>
+                <tr>
+                    <th data-field="alumno" >Alumno</th>
+                    <th data-field="documento">Documento</th>
+                    <th data-field="fechaDeSubida" data-formatter="tecnara.formatFecha">Fecha de subida</th>
+                    <th data-field="numero_documentos">Ficheros</th>
+                    <th data-field="id" data-width="20px" data-formatter="tecnara.descargarDocumento">Descargar</th>
+                    <th data-field="id" data-formatter="tecnara.aceptarORechazar" data-width="300">Acciones</th>
+                </tr>
+            </thead>
+        </table>
+        <div class="text-right">
+            <a href="help">
+                Ir a la ayuda</a>
+        </div>
+    </body>
+</html>

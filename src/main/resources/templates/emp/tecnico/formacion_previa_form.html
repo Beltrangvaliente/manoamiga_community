@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+
+        <div data-toggle="indice"></div>
+        <h3>Formación Previa</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated">
+
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{idParticipante}" />
+            <div class="row">
+
+                <div class="col-12">
+                    <label>Nombre del curso recibido</label>
+                    <input class="form-control" th:field="*{nombre}"/>
+                </div>
+
+                <div class="col-12">
+                    <label>Centro que impartió la formación</label>
+                    <input class="form-control" th:field="*{centro}"/>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <label>Año del curso</label>
+                    <input type="number" class="form-control" th:field="*{anyo}"  /> 
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <label>Verificado</label>
+                    <select class="form-control" th:field="*{verificado}">
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-5" >Guardar</button>
+
+        </form>
+    </body>
+</html>

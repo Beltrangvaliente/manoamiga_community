@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="indice"></div>        
+        <div class="container">
+            <h3>Registro Horario Laboral</h3>
+            <a href="form" class="btn btn-primary btn-sm">Nuevo</a>
+            <a class="ml-5" href="#" onclick="tecnara.ocultar('formulario')" data-memory="2">Ver filtros</a>
+
+            <form id="formulario" class="d-none mt-3"  >  
+                <div class="row">
+                    <div class="col-md-4 col-6">
+                        <input data-memory="2" class="form-control" name="filtro" placeholder="Introduce un texto para buscar"/>
+                    </div>
+                    <div class="col-md-2 col-6">
+                        <button type="button" class="btn btn-primary btn-block" 
+                                onclick="tecnara.refrescarTablas()"><i class="fas fa-search"></i>  Filtrar</button>
+                    </div> 
+                </div>
+                </br>
+            </form>
+
+            <script>
+                tecnara.filtroTabla = function (params) {
+                    params.filtro = $("*[name='filtro']").val();
+                    return params;
+                }
+                     
+       
+            </script>
+            <div class="row mt-3 mb-3">
+                <div class="col-12">
+
+                    <table class="table table-striped mt-3" 
+                           data-show-export="true"   
+                           data-export-data-type="all"
+                           data-export-types="['excel','pdf','doc']"
+                           data-title="Horario trabajado"
+                           data-toggle="table" 
+                           data-mobile-responsive="true" 
+                           data-url="list_data" 
+                           data-pagination="true"
+                           data-side-pagination="server" 
+                           data-query-params="tecnara.filtroTabla"> 
+                        <thead>
+                            <tr>
+                                <th data-field="nombre" data sortable="true" >Nombre</th>  
+                                <th data-field="fecha" data-formatter="tecnara.formatFecha" data sortable="true" >Fecha</th>
+                                <th data-field="hora_inicio" data sortable="true" >Hora Inicio</th>
+                                <th data-field="hora_fin" data sortable="true"  >Hora Fin</th>
+                                <th data-field="horas"  data sortable="true"  >Horas Trabajadas</th>
+                                <th data-field="tipo_registro" data sortable="true"  >Tipo de Registro</th>
+                                <th data-field="modo_fichaje" data sortable="true"  >Tipo de Fichaje</th>
+                                <th data-field="id" data-formatter="tecnara.tablaBotones"></th>
+     
+                                
+                                
+                            </tr>  
+                        </thead>
+                    </table> 
+                </div>
+            </div>
+        </div>
+    </body>
+</html> 
+
+                                
+                               
+                               

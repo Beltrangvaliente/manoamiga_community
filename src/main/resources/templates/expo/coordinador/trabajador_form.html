@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+
+        <body>
+            <div data-toggle="volver" th:if="${sinmenu!=true}"></div> 
+            <h3>Formulario de trabajadores</h3>
+            <form action="guardar" method="post" th:object="${registro}">
+                <input type="hidden" th:field="*{id}" />
+                <div class="container">
+                    <div class="row">
+                        <div>
+                            <input class="form-control" th:field="*{id}" type="hidden"/>
+                        </div>
+                        <div class="col-md-5">
+                            <label>Nombre del Trabajador</label>
+                            <input class="form-control" th:field="*{nombreTrabajador}" placeholder="Introduzca el nombre"/> 
+                            <input type="hidden" th:field="*{idArea}" />
+                        </div>
+                        <div class="col-md-2">
+                            <label>Estado</label>
+                            <select class="form-control" th:field="*{estado}" data-memory="2">
+                                <option value="Activo">Activo</option>
+                                <option value="No activo">No activo</option>
+                            </select> 
+                        </div> 
+                        <div class="col-md-5">
+                            <label>Area</label>
+                            <input class="form-control" data-toggle="buscador" data-url="../area/buscador" th:field="*{idArea}" placeholder="Introduzca el area"/>    
+                        </div>                           
+                        <div class="col-md-6">
+                            <label>Usuario</label>
+                            <input class="form-control" data-toggle="buscador" data-url="buscador_trabajador" data-params="idUsuario" th:field="*{idUsuario}" placeholder="Introduzca el nombre"/>    
+                        </div>                 
+                        <div class="col-md-6 col-sm-6 ">
+                            <label class="d-block">&nbsp;</label>
+                            <input type="hidden" id="rol" value="ROLE_EMP_Trabajador"/>
+                            <button type="button" data-toggle="formbox" data-return="idUsuario" data-params="rol" data-url="../usuario/form" class="btn btn-primary"><i class="fas fa-plus"></i> Crear nuevo usuario</button>
+                        </div>
+
+
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Guardar</button>    
+                </div>
+
+            </form>
+        </body>
+    </html>

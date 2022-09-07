@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:fragment="plantilla()" >
+            <div th:id="${'noticia_' + n.id}">
+                <div id="grid" class="pantalla-completa pantalla-vertical" th:style="${'position: relative;background-color:' + n.plantilla.colorFondoGeneral}">
+                    <div id='img1' style="position:absolute;left:0%;top:0%;width:32%;height:32%"><img class="p-1" th:if='${n.idImagen1!=null && n.plantilla.numeroImagenes>=1}' th:style="${'width:100%;height: 100%;object-fit:' + n.imagenFit1}" th:src='@{/expo/public/imagen/descargar(id=${n.idImagen1})}'/></div>
+                    <div id='img2' style="position:absolute;left:0%;top:0%;width:32%;height:32%"><img class="p-1" th:if='${n.idImagen2!=null && n.plantilla.numeroImagenes>=2}' th:style="${'width:100%;height: 100%;object-fit:' + n.imagenFit2}" th:src='@{/expo/public/imagen/descargar(id=${n.idImagen2})}'/></div>
+                    <div id='img3' style="position:absolute;left:0%;top:0%;width:32%;height:32%"><img class="p-1" th:if='${n.idImagen3!=null && n.plantilla.numeroImagenes>=3}' th:style="${'width:100%;height: 100%;object-fit:' + n.imagenFit3}" th:src='@{/expo/public/imagen/descargar(id=${n.idImagen3})}'/></div>
+                    <div id='text1' style="position:absolute;left:0%;top:0%;width:32%;height:32%"><p th:if="${n.plantilla.numeroTextos>=1}" class="p-1" th:style="${'font-family:'+ n.plantilla.texto1LetraFamilia + '; font-size:' + n.plantilla.texto1LetraTamanyo +'; color:' + n.plantilla.texto1LetraColor + ';text-align:center'}">[(${n.contenido1})]</p></div>
+                    <div id='text2' style="position:absolute;left:0%;top:0%;width:32%;height:32%"><p th:if="${n.plantilla.numeroTextos>=2}" class="p-1" th:style="${'font-family:'+ n.plantilla.texto2LetraFamilia + '; font-size:' + n.plantilla.texto2LetraTamanyo +'; color:' + n.plantilla.texto2LetraColor + ';text-align:center'}">[(${n.contenido2})]</p></div>
+                    <div id='text3' style="position:absolute;left:0%;top:0%;width:32%;height:32%"><p th:if="${n.plantilla.numeroTextos>=3}" class="p-1" th:style="${'font-family:'+ n.plantilla.texto3LetraFamilia + '; font-size:' + n.plantilla.texto3LetraTamanyo +'; color:' + n.plantilla.texto3LetraColor + ';text-align:center'}">[(${n.contenido3})]</p></div>
+                </div>  
+                <input type="hidden" id='colorFondoGeneral' th:value="${n.plantilla.colorFondoGeneral}" />
+                <input type="hidden" id='img1ColIni' th:value="${n.plantilla.img1ColIni}" />
+                <input type="hidden" id='img1ColFin' th:value="${n.plantilla.img1ColFin}" />
+                <input type="hidden" id='img1FilIni' th:value="${n.plantilla.img1FilIni}" />
+                <input type="hidden" id='img1FilFin' th:value="${n.plantilla.img1FilFin}" />
+                <input type="hidden" id='img2ColIni' th:value="${n.plantilla.img2ColIni}" />
+                <input type="hidden" id='img2ColFin' th:value="${n.plantilla.img2ColFin}" />
+                <input type="hidden" id='img2FilIni' th:value="${n.plantilla.img2FilIni}" />
+                <input type="hidden" id='img2FilFin' th:value="${n.plantilla.img2FilFin}" />
+                <input type="hidden" id='img3ColIni' th:value="${n.plantilla.img3ColIni}" />
+                <input type="hidden" id='img3ColFin' th:value="${n.plantilla.img3ColFin}" />
+                <input type="hidden" id='img3FilIni' th:value="${n.plantilla.img3FilIni}" />
+                <input type="hidden" id='img3FilFin' th:value="${n.plantilla.img3FilFin}" />
+                <input type="hidden" id='texto1ColIni' th:value="${n.plantilla.texto1ColIni}"/>
+                <input type="hidden" id='texto1ColFin' th:value="${n.plantilla.texto1ColFin}"/>
+                <input type="hidden" id='texto1FilIni' th:value="${n.plantilla.texto1FilIni}"/>
+                <input type="hidden" id='texto1FilFin' th:value="${n.plantilla.texto1FilFin}"/>
+                <input type="hidden" id='texto1ColorFondo' th:value="${n.plantilla.texto1ColorFondo}"/>
+                <input type="hidden" id='texto2ColIni' th:value="${n.plantilla.texto2ColIni}"/>
+                <input type="hidden" id='texto2ColFin' th:value="${n.plantilla.texto2ColFin}"/>
+                <input type="hidden" id='texto2FilIni' th:value="${n.plantilla.texto2FilIni}"/>
+                <input type="hidden" id='texto2FilFin' th:value="${n.plantilla.texto2FilFin}"/>
+                <input type="hidden" id='texto2ColorFondo' th:value="${n.plantilla.texto2ColorFondo}"/>
+                <input type="hidden" id='texto3ColIni' th:value="${n.plantilla.texto3ColIni}"/>
+                <input type="hidden" id='texto3ColFin' th:value="${n.plantilla.texto3ColFin}"/>
+                <input type="hidden" id='texto3FilIni' th:value="${n.plantilla.texto3FilIni}"/>
+                <input type="hidden" id='texto3FilFin' th:value="${n.plantilla.texto3FilFin}"/>
+                <input type="hidden" id='texto3ColorFondo' th:value="${n.plantilla.texto3ColorFondo}"/>
+                <input type="hidden" id='texto1LetraColor' th:value="${n.plantilla.texto1LetraColor}"/>
+                <input type="hidden" id='texto1LetraFamilia' th:value="${n.plantilla.texto1LetraFamilia}"/>
+                <input type="hidden" id='texto1LetraTamanyo' th:value="${n.plantilla.texto1LetraTamanyo}"/>
+                <input type="hidden" id='texto2LetraColor' th:value="${n.plantilla.texto2LetraColor}"/>
+                <input type="hidden" id='texto2LetraFamilia' th:value="${n.plantilla.texto2LetraFamilia}"/>
+                <input type="hidden" id='texto2LetraTamanyo' th:value="${n.plantilla.texto2LetraTamanyo}"/>
+                <input type="hidden" id='texto3LetraColor' th:value="${n.plantilla.texto3LetraColor}"/>
+                <input type="hidden" id='texto3LetraFamilia' th:value="${n.plantilla.texto3LetraFamilia}"/>
+                <input type="hidden" id='texto3LetraTamanyo' th:value="${n.plantilla.texto3LetraTamanyo}"/>
+            </div>
+            <script>
+                tecnara.rango = function (idNoticia, id) {
+                    if ($("#" + idNoticia + " #" + id).val() < 1) {
+                        $("#" + idNoticia + " #" + id).val(1);
+                    }
+                    if ($("#" + idNoticia + " #" + id).val() > 6) {
+                        $("#" + idNoticia + " #" + id).val(6);
+                    }
+                }
+                tecnara.crearPlantilla = function (idNoticia) {
+                    for (var n = 1; n <= 3; n++) {
+                        var selector="#noticia_" + idNoticia+" #img" + n;
+                        if ($(selector + "ColIni").val() == "") {
+                            $(selector).attr("style", "display:none");
+                        } else {
+                            tecnara.rango("img" + n);
+                            $(selector).attr("style", "position:absolute;left:" + Math.round((parseInt($(selector + "ColIni").val()) - 1) * 100 / 6.0) + "%;" +
+                                    "top:" + Math.round((parseInt($(selector + "FilIni").val()) - 1) * 100 / 6.0) + "%;" +
+                                    "width:" + Math.round((parseInt($(selector + "ColFin").val()) - parseInt($(selector + "ColIni").val()) + 1) * 100 / 6.0) + "%;" +
+                                    "height:" + Math.round((parseInt($(selector + "FilFin").val()) - parseInt($(selector + "FilIni").val()) + 1) * 100 / 6.0) + "%");
+                        }
+                    }
+                    for (var n = 1; n <= 3; n++) {
+                        var selector="#noticia_" + idNoticia+" #text" + n;
+                        var selector2="#noticia_" + idNoticia+" #texto" + n;
+                        if ($(selector + "ColIni").val() == "") {
+                            $(selector).attr("style", "display:none");
+                        } else {
+                            tecnara.rango("text" + n);
+                            $(selector).attr("style",
+                                    "font-family:" + $(selector2 + "LetraFamilia").val() + ";color:" + $(selector2 + "LetraColor").val() + ";font-size:" + $(selector2 + "LetraTamanyo").val() + "px;" +
+                                    "position:absolute;left:" + Math.round((parseInt($(selector2 + "ColIni").val()) - 1) * 100 / 6.0) + "%;" +
+                                    "background-color:" + $("#texto" + n + "ColorFondo").val() + ";" +
+                                    "top:" + Math.round((parseInt($(selector2 + "FilIni").val()) - 1) * 100 / 6.0) + "%;" +
+                                    "width:" + Math.round((parseInt($(selector2 + "ColFin").val()) - parseInt($(selector2 + "ColIni").val()) + 1) * 100 / 6.0) + "%;" +
+                                    "height:" + Math.round((parseInt($(selector2 + "FilFin").val()) - parseInt($(selector2 + "FilIni").val()) + 1) * 100 / 6.0) + "%" + "; overflow:hidden; ");
+
+                        }
+                    }
+                }
+
+            </script>
+            <script th:inline="javascript">
+            /*<![CDATA[*/
+                $(document).ready(function () {
+                    tecnara.crearPlantilla( /*[[${n.id}]]*/ );
+                    if (document.body.clientWidth > 1500) {
+                        $(".pantalla-completa").removeClass("pantalla-vertical");
+                        $(".pantalla-completa").addClass("pantalla-horizontal");
+                    }
+                })                
+            /*]]>*/
+            </script>            
+
+
+        </div>
+    </body>
+</html>

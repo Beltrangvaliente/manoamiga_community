@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/monitor/layouts/layout::layout( ~{::body} )"> 
+    <body>
+        <script>
+            tecnara.filtroIdActividad = function (params) {
+                params.idActividad = $("#id").val();
+                return params;
+            }
+        </script>
+        <div data-toggle="volver"></div>
+        <h3>Formulario de Actividades</h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="row">
+                <div class="col-2 col-md-2 col-sm-6">    
+                    <label>Tipo de Actividad</label> 
+                    <select class="form-control" th:field="*{tipoActividad}">
+                        <option value="Formativa">Formativa</option>
+                        <option value="Voluntariado">Voluntariado</option>
+                        <option value="Recreativa">Recreativa</option>
+                    </select>                    
+                </div>
+
+                <div class="col-12 col-md-8 col-sm-4">    
+                    <label>Nombre de Actividad</label> 
+                    <input class="form-control" th:field="*{nombreActividad}"/>
+                </div> 
+                <div class="col-2 col-md-2 col-sm-6">
+                    <label>Plazas de la Actividad</label> 
+                    <input min="0" type="number" class="form-control" th:field="*{plazaActividad}"/>
+                </div>
+                <div class="col-3 col-md-4 col-sm-6">
+                    <label>Lugar de Actividad</label> 
+                    <input class="form-control" th:field="*{lugarActividad}"/>
+                </div>
+                <div class="col-7 col-md-4 col-sm-3">    
+                    <label>Responsable de Actividad</label> 
+                    <input class="form-control" th:field="*{responsableActividad}"/>
+                </div>
+                 
+                   <div class="col-md-4 col-sm-6">
+                   <label>Email  </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">
+                                <i class="fas fa-at"></i>
+                            </span>
+                        </div>                    
+                        <input type="email" class="form-control" th:field="*{mail}" required="" onfocusout="tecnara.comprobarFormulario()"/>
+                        <div class="invalid-feedback">
+                            Debes introducir un email
+                        </div>                        
+                    </div>                       
+                </div> 
+                <div class="col-12 col-md-12 col-sm-12">
+                    <label>Dirección</label> 
+                    <input class="form-control" th:field="*{direccion}"/>
+                </div>   
+                <div class="col-12 col-md-6 col-sm-6">
+                    <label>Observación</label> 
+                    <input class="form-control" th:field="*{observacion}"/>
+                </div>
+             
+                <div class="col-12 col-md-6 col-sm-3">
+                    <label>Publicar</label>
+                    <select class="form-control" th:field="*{publicar}">
+                        <option value="si">si</option>  
+                        <option value="no">no</option> 
+                    </select>
+
+
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm mt-3 mb-3">Guardar</button>
+
+            <div class="row">
+                <div class="col-12 col-md-12 col-sm-6">
+
+
+                    <!-- *************** TABS ***************  -->
+
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" > 
+                            <a class="nav-link active" data-toggle="tab" href="#divHorario">
+                                Horario
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divMonitor">
+                                Monitor
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divParticipacionesBeneficiario">
+                                Beneficiarios
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divFaltasAsistencia">
+                                Faltas de asistencia
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divEvaluacionesBeneficiarios">
+                                Evaluaciones
+                            </a> 
+                        </li>    
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divSolicitudesEvaluacion">
+                                Solicitudes de evaluación
+                            </a> 
+                        </li> 
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-content">
+                        <div id="divHorario" class="tab-pane fade show active" >
+                            <button type="button" data-toggle="formbox" data-url="../horario/form" class="btn btn-primary">Asignar horario</button>
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_horario"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdActividad"
+                                   data-locale="es-ES"
+                                   data-controller="../horario" data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="horarioTexto" data-formatter= tecnara.formatHorario>Horario</th>
+                                        <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Acciones</th>
+                                        <th data-field="id" data-formatter="tecnara.clonarActividad">Duplicar Actividad</th>
+                                    </tr>   
+                                </thead>    
+                            </table>
+                        </div>
+                        <script>
+
+                            tecnara.botonesPropietario = function (id, row, index) {
+                                if (row['propietarioDeActividad'] == 'Si') {
+                                    return "";
+                                } else {
+                                    return "<div class='text-nowarp'>" +
+                                            "<button class='btn btn-success btn-sm' onclick='tecnara.abrirFormularioEditar(this, " + row["id"] + ")' > Editar </button> " +
+                                            "<button class='btn btn-danger btn-sm' data-url='../participacion_monitor/borrar?id=" + row["id"]  + "' onclick='tecnara.ejecutarAjax()'> Borrar </button> " +
+                                            "</div>";
+                                }
+                            }
+                            
+                            
+                            tecnara.clonarActividad = function (value, row, index) {
+                                return "<button type='button' class='btn btn-success btn-sm' data-url='../horario/clonar?idHorario=" + value + "' onclick='tecnara.ejecutarAjax(this)' > Clonar </button> " 
+                            }   
+                            
+                        </script>
+                        <div id="divMonitor" class="tab-pane fade" >
+                            <button type="button" data-toggle="formbox" data-url="../participacion_monitor/form" class="btn btn-primary">Asignar Monitor</button>
+                            <script>
+                            </script>                              
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_monitor"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdActividad"
+                                   data-locale="es-ES"
+                                   data-controller="../participacion_monitor" data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="nombre">Nombre</th>
+                                        <th data-field="apellido1">Apellido 1</th>
+                                        <th data-field="apellido2">Apellido 2</th>
+                                        <th data-field="telefono">Teléfono</th>
+                                        <th data-field="correo">Correo</th>
+                                        <th data-field="id" data-formatter="tecnara.botonesPropietario">Editar</th>
+                                    </tr>   
+                                </thead>    
+                            </table>
+                        </div>
+                        <div id="divFaltasAsistencia" class="tab-pane fade" >
+                            <button type="button" data-toggle="formbox" data-url="../falta_asistencia/form" class="btn btn-primary">Apuntar falta de asistencia</button>
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_falta_asistencia"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdActividad"
+                                   data-locale="es-ES"
+                                   data-controller="../falta_asistencia" data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="beneficiario">Beneficiario</th>
+                                        <th data-field="persona">Persona</th>
+                                        <th data-field="motivo">Motivo</th>
+                                        <th data-field="observacion">Observación</th>
+                                        <th data-field="fechaFaltaAsistencia" data-formatter="tecnara.formatFecha">Fecha</th>
+                                        <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                                    </tr>   
+                                </thead>    
+                            </table>
+                        </div>
+                        <div id="divParticipacionesBeneficiario" class="tab-pane fade" >
+                            <button type="button" data-toggle="formbox" data-url="../participacion_beneficiario/form" class="btn btn-primary">Asignar beneficiarios</button>
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_beneficiario"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdActividad"
+                                   data-locale="es-ES"
+                                   data-controller="../participacion_beneficiario" data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="nombreBeneficiario"> Nombre Beneficiario</th>
+                                        <th data-field="apellidoBeneficiario">Apellidos Beneficiario</th>
+                                        <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                                    </tr>   
+                                </thead>    
+                            </table>
+                        </div>
+                        <div id="divSolicitudesEvaluacion" class="tab-pane fade" >
+                            <button type="button" data-toggle="formbox" data-url="../solicitud_evaluacion/form" class="btn btn-primary">Abrir período evaluación</button>
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_solicitudes_evaluaciones_monitores"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdActividad"
+                                   data-locale="es-ES"
+                                   data-controller="../solicitud_evaluacion" data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+
+                                        <th data-field="fechaInicio" data-formatter="tecnara.formatFecha">Fecha de Inicio</th>
+                                        <th data-field="fechaFin" data-formatter="tecnara.formatFecha">Fecha de Fin</th>
+                                        <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                                    </tr>   
+                                </thead>    
+                            </table>
+                        </div>
+                        <div id="divEvaluacionesBeneficiarios" class="tab-pane fade" >
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_evaluaciones_beneficiarios"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdActividad"
+                                   data-locale="es-ES"
+                                   data-controller="../evaluacion_beneficiario" data-mobile-responsive="true">
+                                <thead>
+                                    <tr>
+
+                                        <th data-field="nombre_beneficiario">Nombre Beneficiario</th>
+                                        <th data-field="apellidos_beneficiario">Apellidos Beneficiario</th>
+                                        <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                                    </tr>   
+                                </thead>    
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

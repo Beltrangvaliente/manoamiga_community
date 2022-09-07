@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}" ></div>
+        <h3>Formulario de Espacio</h3>
+      
+        <form action="guardar" method="post" th:object="${registro}">
+            <input type="hidden" th:field="*{id}" />   
+            
+            <div>
+                <label>Ubicación</label>
+                <input class="form-control" th:field="*{ubicacion}" placeholder="Introduzca la ubicación"/>
+               
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+          
+        </form>
+    </body>
+</html>

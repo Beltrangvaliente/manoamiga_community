@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+     <body>
+
+        <script>
+            tecnara.refrescar=function(obj){
+                $.ajax({
+                    url:"panel_refrescar",
+                    success: function(res){
+                        $("#estado_actual").html(res);
+                        $(".card:has(a[data-accion])").removeClass("bg-secondary");
+                        $("a[data-accion] i").removeClass("text-white");
+                        $("a[data-accion] h4").removeClass("text-white");
+                        
+                        $(".card:has(a[data-accion='" + res + "'])").addClass("bg-secondary");
+                        $("a[data-accion='" + res + "'] i").addClass("text-white");
+                        $("a[data-accion='" + res + "'] h4").addClass("text-white");
+                        
+                    }
+                })
+            }             
+            tecnara.fichar=function(obj){
+                var accion=$(obj).attr("data-accion");
+                $.ajax({
+                    url: "panel_fichar?accion=" + accion,
+                    success: function (res) {
+                        if (res == "ok") {
+                        } else {
+                            alert(res);
+                        }
+                        tecnara.refrescar();
+                    }
+                })
+            }
+            tecnara.finalizar = function (obj) {
+                $.ajax({
+                    url: "panel_finalizar",
+                    success: function (res) {
+                        if (res == "ok") {
+                        } else {
+                            alert(res);
+                        }
+                        tecnara.refrescar();
+                    }
+                })
+            }  
+            tecnara.refrescarMinuto = function(obj){
+                $.ajax({
+                    url: "tiempo_trabajado",
+                    success: function (res) {
+                        $("#tiempo").html(tecnara.formatTiempo(res));
+                        setTimeout( function(){
+                            tecnara.refrescarMinuto();
+                        }, 1000*60);
+                        if(res >= 8*60){
+                            $("#tiempo").addClass("text-danger");
+                        }
+                    }
+                })                
+            }
+ 
+            $(document).ready(function(){
+                tecnara.refrescar();
+                tecnara.refrescarMinuto();
+            })
+            
+        </script>
+
+        <div class="container indice">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-md-6 ms-2">
+                        <div class="card text-center fa-8x pt-2">
+                            <a onclick="tecnara.fichar(this)" data-accion="Presencial">
+                                <i class="fas fa-briefcase"></i>
+                                <h4 class="card-title text-nowrap">Presencial</h4>
+                            </a>
+                        </div>
+                    </div> 
+                    <div class="col-md-6 ">
+                        <div class="card text-center fa-8x pt-2 bg-primary">
+                            <a onclick="tecnara.finalizar(this)">
+                                <i class="fas fa-sign-out-alt text-white"></i>
+                                <h4 class="card-title text-white text-nowrap">Finalizar</h4>
+                            </a>
+                        </div>
+                    </div>                  
+                    <div class="col-md-4  ">
+                        <div class="card text-center fa-8x pt-2">
+                            <a onclick="tecnara.fichar(this)" data-accion="Desplazamiento">
+                                <i class="fas fa-car-side"></i>
+                                <h4 class="card-title text-nowrap">Desplazamiento</h4>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="card text-center fa-8x pt-2">
+                            <a onclick="tecnara.fichar(this)" data-accion="Teletrabajo">
+                                <i class="fas fa-headset"></i>
+                                <h4 class="card-title text-nowrap">Teletrabajo</h4>
+                            </a>
+                        </div>
+                    </div> 
+                     <div class="col-md-4 " th:if="${puedeRegistrarPermiso=='Si'}">
+                        <div class="card text-center fa-8x pt-2">
+                            <a onclick="tecnara.fichar(this)" data-accion="Permiso">
+                                <i class="fas fa-walking"></i>
+                                <h4 class="card-title text-nowrap">Permiso</h4>
+                            </a>
+                        </div>
+                    </div> 
+                <div class="col-md-4 ">
+                    <div class="card text-center fa-8x pt-2">
+                        <a onclick="tecnara.fichar(this)" data-accion="Otro centro">
+                            <i class="fas fa-street-view"></i>
+                            <h4 class="card-title">Otro centro</h4>
+                        </a>
+                    </div>
+                </div> 
+                </div>
+                
+                <div id="tiempo" class="text-monospace m-auto display-2"></div>
+                <h2 id="estado_actual" class="card-title mb-5"  style="text-align:center" >   Iniciar Jornada </h2>
+
+            </div>
+            
+        </div>
+    </body>
+</html>

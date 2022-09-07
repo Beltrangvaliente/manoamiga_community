@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="indice"></div>        
+        <div class="container">
+            <h3>Listado por trabajador</h3>
+            <a href="form" class="btn btn-primary btn-sm">Nuevo</a>
+            <a class="ml-5" href="#" onclick="tecnara.ocultar('formulario')" data-memory="2">Ver filtros</a>
+
+            <form id="formulario" class="d-none mt-3"  >  
+                <script>
+                    tecnara.refrescarTablas = function () {
+                        $("table[data-toggle='table']").bootstrapTable('refresh');
+                    }
+                    tecnara.rellenarActual = function(){
+                        $("input[name='fechaDesde']").val($("#mesActualInicio").val());
+                        $("input[name='fechaHasta']").val($("#mesActualFin").val());
+                        tecnara.refrescarTablas();
+                    }
+                    tecnara.rellenarAnterior = function(){
+                        $("input[name='fechaDesde']").val($("#mesAnteriorInicio").val());
+                        $("input[name='fechaHasta']").val($("#mesAnteriorFin").val());
+                        tecnara.refrescarTablas();
+                    }
+
+                </script>
+
+                
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <label>Tecnico</label>
+                        <input data-toggle="buscador" data-url="../tecnico/buscador" class="form-control"  name="idTecnico"/>
+                    </div>
+                       
+                    <div class="col-md-6">
+                        <label>Trabajador</label>
+                        <input data-toggle="buscador" data-url="../trabajador/buscador" class="form-control"  name="idTrabajador"/>
+                    </div>
+
+                    
+                </div>
+                
+                <div class="row">
+                    <input type="hidden" id="mesAnteriorInicio" th:value="${fechaAnteriorInicio}"/>
+                    <input type="hidden" id="mesAnteriorFin" th:value="${fechaAnteriorFin}"/>
+                    <input type="hidden" id="mesActualInicio" th:value="${fechaActualInicio}"/>
+                    <input type="hidden" id="mesActualFin" th:value="${fechaActualFin}"/>
+
+
+                    <div class="col-md-2">
+
+                        <label>Fecha desde</label>
+                        <input class="form-control" type="date" name="fechaDesde"/>
+                    </div>
+                    <div class="col-md-2"> 
+                        <label>Fecha hasta</label>
+                        <input class="form-control" type="date" name="fechaHasta"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label>&nbsp; </label>
+                        <button type="button" class="btn btn-primary btn-block" 
+                                onclick="tecnara.refrescarTablas()">Filtrar</button>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label>&nbsp; </label>
+                        <button type="button" class="btn btn-primary btn-block" 
+                                onclick="tecnara.rellenarActual()">Mes actual</button>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label>&nbsp; </label>
+                        <button type="button" class="btn btn-primary btn-block" 
+                                onclick="tecnara.rellenarAnterior()">Mes anterior</button>
+                    </div>
+
+                </div>
+            </form>
+
+            <script>
+                tecnara.filtroTabla = function (params) {
+                    params.fechaDesde = $("*[name='fechaDesde']").val();
+                    params.fechaHasta = $("*[name='fechaHasta']").val();
+                    params.idTrabajador = $("*[name='idTrabajador']").val();
+                    params.idTecnico = $("*[name='idTecnico']").val();
+
+                    return params;
+                }
+                tecnara.negrita= function (valor, row, idx){
+                    if (valor=='Total'){
+                        return "<b>" + valor + "</b>";
+                    }else{
+                        return  valor;
+                    }
+                }
+                tecnara.formatTiempoNegrita=function(valor, row, idx){
+                    valor = tecnara.formatTiempo(valor,row,idx);
+                    if (row['nombre'] =='Total'){
+                        return "<b>" + valor + "</b>";
+                    }else{
+                        return  valor;
+                    }
+                    
+                }
+            </script>
+            
+            
+            <div class="row mt-3 mb-3">
+                <div class="col-12">
+                    <table class="table table-striped mt-3" 
+                           data-show-export="true"   
+                           data-export-data-type="all"
+                           data-export-types="['excel','pdf','doc']"
+                           data-title="Listado por Fecha"
+                           data-toggle="table" 
+                           data-mobile-responsive="true" 
+                           data-url="list_data_por_fecha" 
+                           data-pagination="true"
+                           data-side-pagination="server" 
+                           data-query-params="tecnara.filtroTabla"> 
+                        <thead>
+                            <tr>
+
+
+                                <th data-formatter="tecnara.negrita" data-field="nombre"  >Nombre</th>  
+                                <th data-formatter="tecnara.formatTiempoNegrita" data-field="Horas"    >Horas Trabajadas</th>
+                                <th data-field="fecha"   >Fecha</th>
+                                <th data-field="hora_inicio"   >Entrada</th>
+                                <th data-field="hora_fin"   >Salida</th>
+
+
+                            </tr>  
+                        </thead>
+                    </table> 
+                </div>
+            </div>
+        </div>
+    </body>
+</html> 

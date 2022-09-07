@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <h3>Listado Documentos Requeridos</h3>
+        <a href="form" class="btn btn-primary btn-sm">Nuevo</a>
+        <table class="table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="tipoDeDocumento" >Tipo de documento</th>
+                    <th data-field="obligatorio">Campo</th>
+                    <th data-field="diasPlazo"  >Días de Plazo</th>
+                    <th data-field="descripcion" >Descripción</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones" data-width="200"></th>
+                </tr>
+            </thead>
+        </table>
+        <div class="text-right">
+            <a href="help">
+                Ir a la ayuda</a>
+        </div>
+    </body>
+</html>

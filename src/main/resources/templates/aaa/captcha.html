@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>How to Integrate Google “No CAPTCHA reCAPTCHA” on Your Website</title>
+        <!--js---español--->
+        <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
+    </head>
+    
+
+    <body>
+        <!--Dentro de nuestro formulario de registro, agregamos el widget reCAPTCHA que espera que 
+        el atributo data-sitekey contenga la clave del sitio .
+        El widget agregará el parámetro de solicitud g-recaptcha-response cuando se envíe-->
+        <form action="" method="post">
+
+            <label for="name">Name:</label>
+            <input name="name" required><br />
+
+            <label for="email">Email:</label>
+            <input name="email" type="email" required><br />
+
+            <div class="g-recaptcha" data-sitekey="6LcePAATAAAAAGPRWgx90814DTjgt5sXnNbV5WaW"></div>
+
+            <input type="submit" value="Submit" />
+
+        </form>
+
+        <!--js---español--->
+        <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
+           <script type="text/javascript">
+    $(function () {
+        $("#verify").click(function () {
+            var code = $("#code").val();
+            $.ajax({
+                type: 'GET',// tipo de método
+                url: '/verify?code=' + code,
+                success: function (result) {
+                    alert(result);
+                },
+                error: function () {
+                    alert("Solicitud fallida");
+                }
+            });
+        })
+    });
+</script> 
+
+    </body>
+</html>

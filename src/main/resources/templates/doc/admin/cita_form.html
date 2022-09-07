@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div> 
+        
+        <h3>Formulario de Citas</h3>
+        <form action="guardar" class="was-validated"   method="post" th:object="${registro}">
+            <input type="hidden" th:field="*{id}" />
+            <div class="row mt-3">
+                <div class="col-lg-6">
+                    <label>Alumno</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir el nombre del alumno">
+                        <input name="nombreAlumno" data-toggle="buscador" data-url="../alumno/buscador" class="form-control" th:field="*{idAlumno}" required/>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label>Centro de Atención</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir un centro">
+                        <input name="nombre"  data-toggle="buscador" data-url="../centro_atencion/buscador" class="form-control" th:field="*{idCentroDeAtencion}" required/>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label>Fecha de la Cita</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir una fecha">
+                        <input name="fecha_de_cita" type="date"  class="form-control" th:field="*{fechaDeCita}" required/>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    
+                    <label>Hora de la Cita</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir una hora">
+                        <input name="hora_de_cita" type="time"  class="form-control" th:field="*{horaDeCita}" required/>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <label>Tipo de Consulta</label>
+                    <select name="motivo_consulta" class="form-control" th:field="*{explicacionConsulta}">
+                        <option value="Formacion">Formación</option>
+                        <option value="Ayudas Economicas">Ayudas Económicas</option>
+                        <option value="Orientación">Orientación</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="usuario_form.html"></a>
+                    <label>Estado del Proceso</label>
+                    <select class="form-control" th:field="*{estado}">
+                        <option value="Aceptado">Aceptado</option>
+                        <option value="Pendiente">Pendiente</option>
+                        
+                        <option value="Rechazado">Rechazado</option>
+                    </select>
+                </div>
+                <div class="col-lg-6">
+                    <label>Código del Curso</label>
+                    <input data-toggle="buscador" data-url="../curso/buscador" class="form-control" th:field="*{idCurso}" />
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label>Motivo de Consulta</label>
+                    <textarea name="explicacion_consulta" class="form-control" rows="3"  th:field="*{motivoConsulta}"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+
+        </form>
+    </body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+    <body>
+        <div th:fragment="plantilla()">
+            <img class="fullscreen" style=" width: 100%;height: 100%;object-fit:contain" th:src=" @{/expo/public/imagen/descargar(id=${n.idImagen})}">
+            <script>
+                $(document).ready(function(){
+                    $(".fullscreen").css("width", $("#config_ancho").val()+"px")
+                                    .css("height", $("#config_alto").val()+"px");
+                })
+            </script>
+            
+        </div>
+    </body>
+</html>

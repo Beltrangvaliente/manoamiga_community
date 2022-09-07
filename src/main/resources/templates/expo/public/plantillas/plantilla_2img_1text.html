@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div th:fragment="plantilla()" >
+            <h1 th:text="${n.titulo}" style="text-align: center;">Título del sitio</h1>
+            <img th:src="@{/expo/public/imagen/descargar(id=${n.idImagen1})}" style="width:100%; height: 700px; object-fit: cover;"  />
+
+            <p>
+                [(${n.contenido1})]
+            </p>
+
+            <img th:src="@{/expo/public/imagen/descargar(id=${n.idImagen2})}" style="width:100%; object-fit: cover; height: 700px; "  />
+
+        </div>
+
+    </body>
+</html>

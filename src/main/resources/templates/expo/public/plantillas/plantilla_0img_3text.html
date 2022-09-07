@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            h1 {   text-align: center;
+            }
+
+
+
+        </style>
+
+    </head>
+    <body>
+
+
+        <div   th:fragment="plantilla()" >
+
+
+
+            <h1 style= "text-align:center"><b>Noticias de Actualidad</b></h1>
+
+
+
+            <h1> <b></b></h1>
+            <p >
+                [(${n.contenido1})]
+            </p>
+
+            <hr/>
+            <p  >
+                [(${n.contenido2})]
+            </p>
+
+            <hr/>
+            <p  >
+                [(${n.contenido3})]
+            </p>
+
+        </div>
+    </body>
+</html>

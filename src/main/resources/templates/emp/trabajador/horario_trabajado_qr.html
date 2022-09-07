@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/trabajador/layouts/layout::layout( ~{::body} )">
+    <body>
+        
+        <div data-toggle="indice"></div>    
+        <div class="text-center">
+             
+            <h2>Registro de Horario</h2>
+            <p class="text-info">
+                Escanea este código para iniciar jornada laboral
+            </p>
+            <div class="d-none" id="idTrabajador" th:text="${idTrabajador}"></div>
+            
+            
+            <div style="width:300px" class="bg-primary mx-auto" id="qrcode" align="center"></div>
+            <script type="text/javascript">
+                var qrcode = new QRCode(document.getElementById("qrcode"), {
+                        text: $("#idTrabajador").html(),
+                        width: "300",
+                        height: "300",
+                        colorDark : "#000000",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                });
+            </script>
+        </div>
+    </body>
+</html>

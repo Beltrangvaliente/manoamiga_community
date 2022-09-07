@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>Listado de Sectores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+       <script>
+                      
+            tecnara.tablaBotonesSinMenu = function (id, row, index) {
+               
+                if (row['idSector']==$('#idValidado').val()){
+                    return "<button type='button' class='btn btn-success btn-sm' onclick='tecnara.abrirFormularioEditarSinMenu(this, " + row["id"] + ")' > Editar </button> " +
+                            "<button type='button' class='btn btn-danger btn-sm' onclick='tecnara.borrarRegistroSinMenu(this, " + row["id"] + ")'> Borrar </button> ";
+                }else{
+                    return "";
+                }
+            }
+        </script>
+         <input type="hidden" id="idValidado" th:value="${general.idValidado}"/>
+        <div data-toggle="volver"></div>
+        
+        <h3>Sectores</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated">
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="row">
+                <div class="col-12">
+                    <label>Nombre del sector</label>
+                    <input class="form-control" th:field="*{nombre}"/>
+                    
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3" >Guardar</button>
+        </form>
+    </body>
+</html>

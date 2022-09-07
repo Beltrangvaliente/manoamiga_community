@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+    <body>
+        <div th:fragment="plantilla()">
+            <h2 class="text-center mb-3">Eventos del mes</h2>
+            <div class="p-4">
+                <div id="calendar"></div>
+            </div>
+           
+            <script th:inline="javascript">
+            /*<![CDATA[*/
+                tecnara.eventosMes=[
+                    /*[# th:each="m : ${mes}"]*/
+                        /*{
+                            title: /*[[${m.hora + ' ' + m.nombreActividad}]]*/,
+                           /* start: /*[[${m.fechaActividad}]]*/,
+                           /* color: /*[[${m.color}]]*/,
+                           /* textColor: /*[[${m.colorTexto}]]*/,
+                      /*  },                    
+                        /*[/]*/
+               /* ];
+            /*]]>*/
+            </script>            
+            
+
+            
+            
+            <script>
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    var calendarEl = document.getElementById('calendar');
+
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        locale: 'es',
+                        firstDay: 1,
+                        initialView: 'dayGridMonth',
+                        //selectable: true,
+                        height: "1900px",
+                        //eventClick: function (obj) {
+                        //    alert(obj);
+                        //},
+                        headerToolbar: {
+                            left: 'prev,next',
+                            center: 'title',
+                            right: 'today'
+                        },
+                        events: tecnara.eventosMes,
+                    });
+                    calendar.render();
+                });
+            </script>
+            
+        </div>
+    </body>
+</html>

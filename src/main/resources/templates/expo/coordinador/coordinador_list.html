@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+
+
+
+    <body>
+        <div data-toggle="indice"></div>  
+        <h3>Listado de Coordinadores</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nuevo</a>
+        
+
+        <table class="table table-striped" data-toggle="table" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="nombre">Nombre</th>
+                    <th data-field="apellido" >Apellido</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones" data-width="200"></th>
+                </tr>    
+            </thead>       
+        </table>           
+
+            
+    
+
+</body>   
+
+
+</html>        
+
+
+
+
+

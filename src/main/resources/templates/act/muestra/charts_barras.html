@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/muestra/layouts/layout::layout( ~{::body} )">
+    <body >
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <h3>Charts.js</h3>
+
+        <div class="w-50">
+            <canvas id="graficaBarras"></canvas>
+        </div>
+        
+        <button onclick="nm.cargarDatos()">Refrescar</button>
+        
+        <script>
+            var nmBarras = {
+                barras: {},
+                crearGraficaBarras: function () {
+                    nmBarras.barras = new Chart(document.getElementById('graficaBarras').getContext('2d'), {
+                        type: 'bar',
+                        data: {
+                            labels: [], //Se debe rellenar con Ajax
+                            datasets: [
+                                {
+                                    label: 'Mes anterior',
+                                    data: [], //Se debe rellenar con Ajax
+                                    backgroundColor: "#F80"
+                                },
+                                {
+                                    label: 'Mes actual',
+                                    data: [], //Se debe rellenar con Ajax
+                                    backgroundColor: "#F00"
+                                },
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                },
+                                title: {
+                                    display: true, //Debe estar a true para que se visualice.
+                                    text: 'Titulo superior' //Titulo superior
+                                }
+                            }
+                        },
+                    })
+                },
+                cargarDatosBarras: function () {
+                    $.ajax({
+                        url: "/data/list_ventas_comercial.json", 
+                        dataType: "json",
+                        success: function (respuesta) {
+                            //Limpieza de valores
+                            nmBarras.barras.data.labels = []
+                            nmBarras.barras.data.datasets[0].data = [];  //Si hay muchas series se puede hacer un for de 0 a length-1
+                            nmBarras.barras.data.datasets[1].data = [];
+
+                            respuesta.forEach(function (registro) {
+                                nmBarras.barras.data.labels.push(registro.comercial);
+                                nmBarras.barras.data.datasets[0].data.push(registro.mesAnterior);
+                                nmBarras.barras.data.datasets[1].data.push(registro.mesActual);
+                            });
+                            nmBarras.barras.update();
+
+                        }
+                    })
+                },
+                iniciarPaginaBarras: function () {
+                    nmBarras.crearGraficaBarras();
+                    nmBarras.cargarDatosBarras();
+                }
+            }
+            
+            $(document).ready(function(){
+                nmBarras.iniciarPaginaBarras();
+            })
+
+        </script>
+
+    </body>
+</html>

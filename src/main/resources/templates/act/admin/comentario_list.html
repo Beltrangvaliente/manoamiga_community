@@ -1,0 +1,21 @@
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body>       
+        <h3>Listado de Comentarios</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nuevo</a>
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="id">Id</th>
+                    <th data-field="texto">Texto</th>
+                    <th data-field="fechaComentario" data-formatter="tecnara.formatFecha">Fecha</th>
+                    <th data-field="horaComentario" >Hora</th>
+                    <th data-field="idBeneficiario">Id Beneficiario</th>
+                    <th data-field="idMonitor">Id Monitor</th>
+                    <th data-field="idTutor">Id Tutor</th>
+                    <th data-field="idProfesor">Id Profesor</th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

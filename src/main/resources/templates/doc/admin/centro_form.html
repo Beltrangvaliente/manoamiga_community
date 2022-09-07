@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body> 
+
+
+        <div class="container">
+            <div data-toggle="volver"></div>
+            <h3> Registro de Centro </h3>
+
+
+
+            <form action="guardar" method="post" th:object="${registro}" class="was-validated">
+                <input type="hidden" th:field="*{id}" />
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#divDC" aria-controls="direccion" aria-selected="true" >
+                                    Dirección del Centro
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#divCC" aria-controls="cursos" aria-selected="false">
+                                    Cursos del Centro
+                                </a>
+                            </li>
+                        </ul>
+                    </div> 
+                </div>
+
+                <div class="tab-content">
+                    <div id="divDC" class="tab-pane fade show active"> 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Nombre del Centro</label>
+                                <div data-toggle="obligatorio" data-invalid-text="Debe introducir el nombre del centro">
+                                    <input class="form-control" th:field="*{nombre}" maxlength="20" required/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Dirección del Centro</label>
+                                <input class="form-control" th:field="*{direccion}" />
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Código Postal</label>
+                                <input class="form-control" th:field="*{codigoPostal}" />
+                            </div> 
+                            <div class="col-md-3">
+                                <label>Teléfono del Centro</label>
+                                <div data-toggle="obligatorio" data-invalid-text="Debe introducir el teléfono del centro">
+                                    <input type="number" class="form-control" th:field="*{contactoTelefono}" required/>
+                                </div>
+                            </div>  
+                            <div class="col-md-3">
+                                <label>Correo del Centro</label>
+                                <input class="form-control" th:field="*{contactoMail}" />
+                            </div>    
+                            <div class="col-md-3">
+                                <label>Descripción del Centro</label>
+                                <input  class="form-control" th:field="*{descripcion}"/>
+                            </div>                
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Persona Contacto</label>
+                                <input class="form-control"  th:field="*{personaContacto}"/>
+                            </div> 
+                            <div class="col-md-3">
+                                <label>Horario Atención del Centro</label>
+                                <div data-toggle="obligatorio" data-invalid-text="Debe introducir el horario del centro">
+                                    <input class="form-control" th:field="*{horarioAtencion}" required/>
+                                </div>
+                            </div>     
+                            <div class="col-md-3">
+                                <label>Web</label>
+                                <input class="form-control" th:field="*{web}"/>
+                            </div> 
+                            <div class="col-md-3">
+                                <label>Localidad</label>
+                                <div data-toggle="obligatorio" data-invalid-text="Debe introducir la localidad del centro">
+                                    <input  class="form-control" th:field="*{localidad}" required/>
+                                </div>
+                            </div> 
+                        </div> 
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Doc.Identidad</label>
+                                <input class="form-control" th:field="*{nif}" />
+                            </div>   
+                            <div class="col-md-3">
+                                <label>Estado</label>
+                                <input class="form-control" th:field="*{estado}" />
+                            </div>   
+                            <div class="col-md-6">
+                                <label>URL Mapa Localización del Centro</label>
+                                <input  class="form-control" th:field="*{urlMapaLocalizacion}" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+                        </div>
+                    <div id="divCC" class="tab-pane fade" > 
+                        <table class="table table-striped" data-toggle="table" data-url="divCC">
+                            <thead>
+                                <tr>
+                                    <th data-field="referencia">Referencia</th>
+                                    <th data-field="nombreCurso" >Nombre del Curso</th>
+                                    <th data-field="modalidad">Modalidad</th>
+                                    <th data-field="numeroHoras">NºHrs</th>
+                                    <th data-field="horario">Horario</th>
+                                    <th data-field="fechaInicioYFin"  data-formatter="tecnara.formatFecha">Fecha Inicio/Fin</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div> 
+            </form>
+        </div>  
+
+
+
+
+
+    </body>
+</html>
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>Listado de Trabajadores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div data-toggle="indice"></div>  
+
+        <div class="container">
+            
+        <h3>Listado de Trabajadores</h3>
+        <a class="btn btn-primary btn-sm mb-4" href="form" >Nuevo</a>
+        <table class="table table-striped mt-3" data-toggle="table" data-url="list_data" data-controller="../trabajador" data-pagination="true" data-side-pagination="server" data-query-params="tecnara.filtroTabla">
+            <thead>
+                <tr>
+                    <th data-field="usuario">Usuario</th>
+                    <th data-field="nombreTrabajador" >Nombre Trabajador</th>
+                    <th data-field="estado" >Estado</th>
+                    <th data-field="area">Area</th>
+                    <th data-field="idUsuario" data-formatter="tecnara.tablaBotones" data-width="200"></th>
+                </tr>   
+            </thead>    
+        </table> 
+        
+        </div>
+
+    </body>
+</html>

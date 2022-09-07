@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            $(document).ready(function(){
+                var a=$("<div>");
+                var b=$("<div>");
+                var c=$("<div>").html("Prueba");
+                a.append(b);
+                b.append(c);
+                alert(a.html() + "");
+                
+            })
+        </script>
+    </body>
+</html>

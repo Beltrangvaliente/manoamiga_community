@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/trabajador/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div class="container indice">
+
+            <hr class="mb-6
+                "/>
+            <div class="row"> 
+                <div class="col-md-4 ">
+                    <div class="card text-center fa-8x">
+                        <a href="/emp/trabajador/horario_trabajado/qr">
+                            <i class="fas fa-qrcode"></i><br/>
+                            <h4 class="card-title">Código QR</h4>
+
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 ">
+                    <div class="card text-center fa-8x">
+                        <a href="/emp/trabajador/horario_trabajado/panel">
+                            <i class="fas fa-project-diagram"></i><br/>
+                            <h4 class="card-title">Registro de horario</h4>
+
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="card text-center fa-8x">
+                        <a href="/emp/trabajador/horario_trabajado/list">
+                            <i class="fas fa-user-circle"></i><br/>
+                            <h4 class="card-title">Listado de horas</h4>
+                        </a>
+                    </div>
+
+                </div>
+            </div> 
+
+        </body>
+</html>

@@ -1,0 +1,27 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
+    <body>
+        <div th:if="${sinmenu!=true}" data-toggle="volver"></div>
+        <h3>Subir Documento</h3>
+        <form action= "guardar" method="post" enctype="multipart/form-data" >
+           <div>
+                <div class="area">
+                    <h5>o selecciona una archivo</h5>
+                    
+                    <!-- th:field -- > id name value -->
+                    <input type="hidden" name="idDocumentoRequerido" th:value="${idDocumentoRequerido}"/>
+                    
+                    <input type="file" id="file" class="form-control" name="fichero"/>
+                </div>
+                <div id="preview"></div>
+            </div> 
+            
+        </form>
+        
+    </body>

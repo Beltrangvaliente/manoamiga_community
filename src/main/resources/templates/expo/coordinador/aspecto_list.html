@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>        
+        <div class="container">
+            <h3>Lista de Aspectos</h3>
+             <a class="btn btn-primary btn-sm" href="form" >Nuevo</a>
+            <div class="row mt-3 mb-3">
+                <div class="col-12">
+                    <script>
+                        tecnara.mostrarColores=function(value,row,index){
+                            return "<div class='row'>" + 
+                                   "<div class='offset-1 col-5 text-center' style='color:" + row['colorTexto'] + ";background-color:" + row['colorFondo'] + "'>Texto normal</div>" +
+                                   "<div class='col-5 text-center' style='color:" + row['colorTitulosLetra'] + ";background-color:" + row['colorTitulosFondo'] + "'>Título</div>";
+                                   "</div>"
+                        }
+                    </script>
+
+                    <table class="table table-striped mt-3" data-toggle="table" data-mobile-responsive="true" 
+                           data-url="list_data" 
+                           data-pagination="true"
+                           data-side-pagination="server" >
+                        <thead>
+                            <tr>
+                                <th data-field="nombre" data sortable="true">Nombre aspecto</th>
+                                <th data-field="tipoLetra" data sortable="true">Tipo de letra</th>
+                                <th data-field="colorTexto" data sortable="true" data-formatter="tecnara.mostrarColores"> Colores</th>
+                                <th data-field="idImagen" data-formatter="tecnara.tablaImagen" data sortable="true">Imagen</th>
+                                
+                                <th data-field="fechaInicio" data sortable="true" data-formatter="tecnara.formatFecha">Fecha inicio</th>
+                                <th data-field="fechaFin" data sortable="true" data-formatter="tecnara.formatFecha">Fecha fin</th>
+                                <th data-field="id" data-formatter="tecnara.tablaBotones">Acciones</th>
+                            </tr>  
+                        </thead>
+
+                    </table> 
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>

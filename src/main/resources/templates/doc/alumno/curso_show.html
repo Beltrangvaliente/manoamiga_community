@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <body>
+        <h3>Información del Curso</h3>
+        <script>
+            tecnara.filtroIdCurso = function (params) {
+                params.idCurso = $("#id").val();
+                return params;
+            }
+        </script>
+        <script>
+
+          tecnara.tablaBotonesSubirFichero = function (id, row, index) {
+            return "<button type='button' class='btn btn-success btn-sm' style='width:40%' onclick='tecnara.botonSubirFichero(" + row["id"] + ")' > Subir fichero </button> "
+          };
+            tecnara.tablaBotonesAbrirForm= function (id, row, index) {
+                return "<button type='button' class='btn btn-success btn-sm' onclick='tecnara.abrirFormularioEditarSinMenu(this, " + row["id"] + ")' > Subir Fichero </button> " ;
+            }          
+        </script> 
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <form th:object="${registro}">
+            <input type="hidden" class="form-control" th:field="*{id}" readonly="readonly"/>
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <label>Nombre del Curso</label>
+                    <input class="form-control" th:field="*{nombreCurso}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Referencia</label>
+                    <input class="form-control" th:field="*{referencia}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Modalidad</label>
+                    <input class="form-control" th:field="*{modalidad}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Localidad</label>
+                    <input class="form-control" th:field="*{localidad}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Numero de Horas</label> 
+                    <input class="form-control" th:field="*{numeroHoras}" readonly="readonly"/>
+                </div>  
+                <div class="col-md-4 col-sm-6">
+                    <label>Fecha Inicio</label>
+                    <input type="date" class="form-control" th:field="*{fechaInicio}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Fecha Fin</label>
+                    <input type="date" class="form-control" th:field="*{fechaFin}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Horario</label>
+                    <input class="form-control" th:field="*{horario}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Numero de Alumnos </label>
+                    <input class="form-control" th:field="*{numeroAlumnos}" readonly="readonly"/>    
+                </div>  
+                <div class="col-md-4 col-sm-6">
+                    <label>Fecha Limite Preinscripcion</label>
+                    <input type="date" class="form-control" th:field="*{fechaLimiteInscripcion}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Precio</label>
+                    <input class="form-control" th:field="*{precio}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Descripción</label>
+                    <input class="form-control" th:field="*{descripcion}" readonly="readonly"/>
+                </div>
+                
+                <div class="container"> 
+                    <table class="table table-striped" data-toggle="table" 
+                           data-url="list_data_documentos_requeridos"
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-controller="../documento_subido"
+                           data-query-params="tecnara.filtroIdCurso">
+                        <thead>
+                            <tr>
+                                <th data-field="tipo_de_documento" >Tipo Documento</th>
+                                <th data-field="dias_plazo" >Dias Plazo</th>
+                                <th data-field="obligatorio" >Obligatorio</th>
+                                <th data-field="id" data-formatter="tecnara.tablaBotonesAbrirForm" data-width="300"></th>
+                             </tr>   
+                        </thead>    
+                    </table>
+                </div>
+            </div>
+        </form>
+</html>

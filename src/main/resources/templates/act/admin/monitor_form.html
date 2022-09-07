@@ -1,0 +1,187 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver"></div>
+        <h3><b>Formulario de Monitores</b></h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated"> 
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col-3">
+                    <label for="validationDefault01">Nombre</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir el nombre">
+                        <input name="nombre" id="validationDefault01" class="form-control" th:field="*{nombre}" required/>
+                    </div>
+                </div>   
+                <div class="col-md-3 col-sm-6">
+                    <label for="validationDefault02">Apellido 1</label> 
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir el primer apellido">
+                        <input  name="apellido1" id="validationDefault02" class="form-control" th:field="*{apellido1}" required=""/>
+                    </div>
+                </div> 
+                <div class="col-md-3 col-sm-6">
+                    <label>Apellido 2</label> 
+                    <input  name="apellido2" class="form-control" th:field="*{apellido2}"/>
+                </div> <br/> 
+                <div class="col-md-3 col-sm-6">
+                    <label>Teléfono</label> 
+                    <input  name="telefono" class="form-control" th:field="*{telefono}"/>
+                </div> 
+                <div class="col-md-3 col-sm-6">
+                    <label>Usuario</label> 
+                    <input data-toggle="buscador" data-params="idUsuario" data-url="buscador_monitor"  class="form-control" th:field="*{idUsuario}"/>
+                </div> 
+                <div class="col-md-3 col-sm-6 ">
+                    <label class="d-block">&nbsp;</label>
+                    <input type="hidden" id="rol" value="ROLE_ACT_Monitor"/>
+                    <button type="button" data-toggle="formbox" data-return="idUsuario" data-params="rol" data-url="../usuario/form" class="btn btn-primary"><i class="fas fa-plus"></i> Crear usuario nuevo</button>
+                </div>
+
+            </div>      
+            <button type="submit" class="btn btn-primary mt-3 mb-3 ">Guardar</button><br/>
+        </form>
+        <script>
+
+            tecnara.filtroIdMonitor = function (params) {
+                params.idMonitor = $("#id").val();
+
+                return params;
+
+            };
+
+        </script>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- *************** TABS ***************  -->
+                <ul class="nav nav-tabs">
+                    <li class="nav-item" > 
+                        <a class="nav-link active" data-toggle="tab" href="#divActividades">
+                            Actividades
+                        </a> 
+                    </li>
+                    <li class="nav-item" > 
+                        <a class="nav-link" data-toggle="tab" href="#divConsultaEvaluacionMonitor">
+                            Evaluación de beneficiarios
+                        </a> 
+                    </li>
+                    <li class="nav-item" > 
+                        <a class="nav-link" data-toggle="tab" href="#divConsultaEvaluacionBeneficiarios">
+                            Consultar Comentarios 
+                        </a> 
+                    </li>
+                    <li class="nav-item" > 
+                        <a class="nav-link" data-toggle="tab" href="#divMemoria">
+                            Consultar Memoria
+                        </a> 
+                    </li>
+                    <li class="nav-item" > 
+                        <a class="nav-link" data-toggle="tab" href="#divValoraciones">
+                            Valoraciones al Monitor
+                        </a> 
+                    </li>
+
+                </ul>
+                <div class="tab-content">
+                    <!-- *************** Actividades ***************  -->
+                    <div id="divActividades" class="tab-pane fade show active" > 
+                        <table class="table table-striped" data-toggle="table" 
+                               data-url="list_data_actividad"
+                               data-pagination="true"
+                               data-side-pagination="server"
+                               data-query-params="tecnara.filtroIdMonitor"
+                               data-locale="es-ES"
+                               data-controller="../actividad"
+                               data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="nombreActividad">Nombre de Actividad</th>
+                                    <th data-field="fechaInicio" data-formatter="tecnara.formatFecha">Fecha Inicio </th>
+
+                                </tr>   
+                            </thead>    
+                        </table>
+
+                    </div> 
+                    <!-- *************** Consultar Evaluación ***************  -->
+                    <div id="divConsultaEvaluacionMonitor" class="tab-pane fade" >                           
+                        <table class="table table-striped" data-toggle="table" 
+                               data-url="list_data_evaluacion"
+                               data-pagination="true"
+                               data-side-pagination="server"
+                               data-query-params="tecnara.filtroIdMonitor"
+                               data-locale="es-ES"
+                               data-controller="../evaluacion"
+                               data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="nombre">Beneficiario</th>
+                                    <th data-field="puntuacion">Valoración </th>
+                                    <th data-field="fechaDeEvaluacion" data-formatter="tecnara.formatFecha">Fecha  </th>
+
+                                </tr>   
+                            </thead>    
+                        </table>
+                    </div>     
+                    <!-- *************** Consultar Comentarios ***************  -->
+                    <div id="divConsultaEvaluacionBeneficiarios" class="tab-pane fade" > 
+                        <table class="table table-striped" data-toggle="table" 
+                               data-url="list_data_comentario"
+                               data-pagination="true"
+                               data-side-pagination="server"
+                               data-query-params="tecnara.filtroIdMonitor"
+                               data-locale="es-ES"
+                               data-controller="../comentario"
+                               data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="nombre">Beneficiario</th>
+                                    <th data-field="comentarios">Comentario </th>
+                                    <th data-field="fechaDeEvaluacion" data-formatter="tecnara.formatFecha">Fecha</th>
+                                </tr>   
+                            </thead>    
+                        </table>
+                    </div> 
+                    <!-- *************** Consultar Memoria ***************  -->
+                    <div id="divMemoria" class="tab-pane fade" > 
+                        <table class="table table-striped" data-toggle="table" 
+                               data-url="list_data_memoria"
+                               data-pagination="true"
+                               data-side-pagination="server"
+                               data-query-params="tecnara.filtroIdMonitor"
+                               data-locale="es-ES"
+                               data-controller="../memoria"
+                               data-mobile-responsive="true">
+
+                            <thead>
+                                <tr>
+                                    <th data-field="nombre">Beneficiario</th>
+                                    <th data-field="comentarios">Comentarios </th>
+                                    <th data-field="fechaComentario" data-formatter="tecnara.formatFecha">Fecha Comentario</th> 
+                                </tr>   
+                            </thead>                              
+                        </table>                    
+                    </div>
+                    <!-- *************** Consultar Evaluación del Monitor ***************  -->
+                    <div id="divValoraciones" class="tab-pane fade" >                           
+                        <table class="table table-striped" data-toggle="table"
+                               data-url="list_data_valoracion"
+                               data-pagination="true"
+                               data-side-pagination="server"
+                               data-query-params="tecnara.filtroIdMonitor"
+                               data-locale="es-ES"
+                               data-mobile-responsive="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="nombreActividad">Actividad</th>
+                                    <th data-field="beneficiario">Beneficiario</th>
+                                    <th data-field="valoracion">Valoración </th>
+                                    <th data-field="fechaComentario" data-formatter="tecnara.formatFecha">Fecha  </th>
+
+                                </tr>   
+                            </thead>    
+                        </table>
+                    </div>                         
+                </div> 
+            </div> 
+        </div>  
+    </body>
+</html>

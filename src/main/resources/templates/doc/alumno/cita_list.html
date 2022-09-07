@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <body>
+        <script>
+            tecnara.filtroIdAlumno = function (params) {
+                params.idAlumno = $("#id").val();
+                return params;
+            }
+        </script>
+        <div data-toggle="indice"></div>        
+        <div class="container">
+            <h3>Gestiona tus citas</h3>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div id="calendar"></div>
+                </div>
+                <div class="col-sm-4 border-left">
+                    <a class="btn btn-primary btn-sm" href="form">Solicitar nueva cita</a>                    
+                    <h4>Citas próximas</h4>
+                    <table class="table table-striped" data-toggle="table"
+                           data-url="list_data_calendario" 
+                           data-pagination="true"
+                           data-side-pagination="server"
+                           data-query-params="tecnara.filtroIdAlumno"
+                           data-mobile-responsive="true"
+                           data-controller="../cita">                         
+                        <thead>
+                            <tr>
+                                <th data-field="fechaDeCita" data-formatter="tecnara.formatFecha" >Fecha</th>
+                                <th data-field="horaDeCita" >Hora</th>
+                                <th data-field="nombre">Centro</th>
+                                <th data-field="id" data-formatter="tecnara.anularCita">Anular cita</th>
+                                
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <script>
+                  
+          
+            
+            document.addEventListener('DOMContentLoaded', function () {
+                var calendarEl = document.getElementById('calendar');
+                calendar = new FullCalendar.Calendar(calendarEl, {
+                    locale: 'es',
+                    initialView: 'dayGridMonth',
+                    selectable: true,
+                    eventClick: function (obj) {
+                        alert(obj);
+                    },
+                    headerToolbar: {
+                        left: 'prev,next',
+                        center: 'title',
+                        right: 'today'
+                    },
+                    events: tecnara.eventosMes
+                });
+                calendar.render();
+            });
+        </script>
+        
+        
+        <script>
+            tecnara.anularCita=function(id, row, index){
+                return "<div class='text-nowarp'>"+
+                       "<button class='btn btn-success btn-sm' data-url='anular?id=" + row["id"] + "' onclick='tecnara.ejecutarAjaxConfirmar(this,\"¿Desea anular la cita?\")'>Anular cita</button>" +
+                      "</div>";
+            }
+            
+        </script>
+
+    </body>
+</html>

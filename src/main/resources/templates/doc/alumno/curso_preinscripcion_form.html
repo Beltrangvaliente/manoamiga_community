@@ -1,0 +1,125 @@
+         <!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+    </head>
+    <body>
+        <h3>Preinscripción del Curso</h3>
+        
+        
+        <script>
+            tecnara.filtroIdCurso = function (params) {
+                params.idCurso = $("#id").val();
+                return params;
+            }
+        </script>
+        <div class="mr-5 text-right">
+            <a href="/doc/public/curso/list">Volver a Cursos</a>
+        </div>
+        
+
+        <form th:object="${registro}">
+            <input type="hidden" class="form-control" th:field="*{id}" readonly="readonly"/>
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <label>Nombre del Curso</label>
+
+                    <input class="form-control" th:field="*{nombreCurso}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Numero de Alumnos </label>
+
+                    <input class="form-control" th:field="*{numeroAlumnos}" readonly="readonly"/>    
+                </div>  
+
+                <div class="col-md-4 col-sm-6">
+                    <label>Numero de Horas</label> 
+                    <input class="form-control" th:field="*{numeroHoras}" readonly="readonly"/>
+                </div>  
+                <div class="col-md-4 col-sm-6">
+                    <label>Descripción</label>
+                    <input class="form-control" th:field="*{descripcion}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Modalidad</label>
+                    <input class="form-control" th:field="*{modalidad}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Localidad</label>
+                    <input class="form-control" th:field="*{localidad}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Referencia</label>
+                    <input class="form-control" th:field="*{referencia}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Horario</label>
+                    <input class="form-control" th:field="*{horario}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Precio</label>
+                    <input class="form-control" th:field="*{precio}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Fecha Inicio</label>
+                    <input type="date" class="form-control" th:field="*{fechaInicio}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Fecha Fin</label>
+                    <input type="date" class="form-control" th:field="*{fechaFin}" readonly="readonly"/>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <label>Fecha Limite Preinscripcion</label>
+                    <input type="date" class="form-control" th:field="*{fechaLimiteInscripcion}" readonly="readonly"/>
+                </div>
+            </div> 
+            
+            <a th:if="${inscrito=='no'}" th:href="@{preinscripcion_registrar(idCurso=${registro.id})}" class="btn btn-primary mt-4" > Solicitar Curso</a> 
+            <h4 class='mt-4 text-bold' th:if="${inscrito=='si'}">Ya está incrito en este curso</h4>
+            
+        </form>
+
+        
+                
+        <br/>
+    
+    
+       
+        <h3>Documentos Requeridos </h3>
+          <script>
+            tecnara.filtroIdCurso = function (params) {
+                params.idCurso = $("#id").val();
+                return params;
+            }
+        </script>
+        
+        <table class="table table-striped mt-3" data-toggle="table" data-mobile-responsive="true" 
+               data-url="list_data_documentos_requeridos" 
+               data-pagination="true"
+               data-side-pagination="server"
+               data-query-params="tecnara.filtroIdCurso"
+               data-controller="../curso">
+            <thead>
+                <tr>
+                    <th data-field="tipo_de_documento" data sortable="true">Tipo de Documento</th>
+                    <th data-field="obligatorio" data sortable="true">Obligatorio</th>
+                    <th data-field="dias_plazo" data sortable="true"> Dias de Plazo</th>
+                    <th data-field="fecha_actualizacion" data sortable="true" data-formatter="tecnara.formatFecha" >Fecha de Acualizacion</th>
+                    <th data-field="descripcion" data sortable="true">Descripcion</th>
+                </tr>    
+            </thead>
+        </table>      
+
+
+
+
+
+    </body>
+</html>

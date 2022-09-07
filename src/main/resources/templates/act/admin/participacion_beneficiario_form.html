@@ -1,0 +1,25 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <body> 
+        <h3>Beneficiarios en Actividades</h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col-12">
+                    <label>Beneficiarios</label>
+                    <input data-toggle="buscador" data-url="../beneficiario/buscador" class="form-control" th:field="*{idBeneficiario}"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">   
+                    <label>Actividades</label>
+                    <input data-toggle="buscador" data-url="../actividad/buscador" class="form-control" th:field="*{idActividad}"/>
+                </div>     
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+        </form>    
+
+    </body>
+</html>

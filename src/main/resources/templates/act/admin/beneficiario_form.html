@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <script>
+            tecnara.filtroIdBeneficiario = function (params) {
+                params.idBeneficiario = $("#id").val();
+                return params;
+            }
+        </script>  
+        <div data-toggle="volver"></div>
+        <h3>Formulario del Beneficiario</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated" >    
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{idTutor}"/>
+
+
+            <div class="row">
+                <div class="col-md-4 mt-3">
+                    <label>Nombre del Beneficiario</label>
+
+                    <div data-toggle="obligatorio" data-invalid-text="Por favor, escribe el nombre.">
+                        <input type="text" class="form-control" th:field="*{nombre}" required>
+                    </div>
+
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label>Primer Apellido </label>
+                    <div data-toggle="obligatorio" data-invalid-text="Por favor, escribe el primer apellido.">
+                        <input type="text" class="form-control" th:field="*{apellido1}" required>
+                    </div>
+
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label>Segundo Apellido</label>
+                    <input type="text" class="form-control" th:field="*{apellido2}">
+
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 ">
+                    <label>Documento</label>
+                    <input type="text" class="form-control" th:field="*{documento}" placeholder="DNI, NIE o Pasaporte">
+                </div>
+                <div class="col-md-3">
+                    <label>Teléfono</label>
+                    <input type="tel" class="form-control" th:field="*{telefono}">
+                </div>
+                
+                <div class="col-md-3 ocultable">
+                    <label>Usuario</label>
+                    <input data-toggle="buscador" data-url="buscador_beneficiario"  class="form-control" th:field="*{idUsuario}"/>
+                </div>
+                <div class="col-md-3 ocultable">
+                    <label class="d-block">&nbsp;</label>
+                    <input type="hidden" id="rol" value="ROLE_ACT_Beneficiario"/>
+                    <button type="button" data-toggle="formbox" data-return="idUsuario" data-params="rol" data-url="../usuario/form" class="btn btn-primary"><i class="fas fa-plus"></i> Crear usuario nuevo</button>
+                </div>
+                
+                
+                <div class="col-3">
+                    <label>Tutor</label>
+                    <input data-toggle="buscador" data-url="../tutor/buscador"  class="form-control" th:field="*{idTutor}">
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary mt-3 mb-5">Guardar</button>            
+            <div class="row">
+                <div class="col-12">
+                    <!-- *************** TABS ***************  -->
+
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" > 
+                            <a class="nav-link active" data-toggle="tab" href="#divComentarios">
+                                Comentarios
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divEvaluaciones">
+                                Evaluaciones
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divFaltas">
+                                Faltas de Asistencia
+                            </a> 
+                        </li>                        
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divMemoria">
+                                Memoria
+                            </a> 
+                        </li>   
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divClases">
+                                Clases Formativas
+                            </a> 
+                        </li>    
+
+                    </ul>
+                    <div class="tab-content">
+                        <div id="divComentarios" class="tab-pane fade show active" >
+                            <table class="table table-striped" data-toggle="table" data-url="list_data_comentario"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdBeneficiario"
+                                   data-locale="es-ES"
+                                   data-controller="../comentario">
+                                <thead>
+                                    <tr>
+                                        <th data-field="persona" >Persona</th>
+                                        <th data-field="texto" >Comentario</th>
+                                        <th data-field="fechaComentario" data-formatter="tecnara.formatFecha">Fecha</th>
+                                        <th data-field="horaComentario" data-formatter="tecnara.formatFecha">Hora</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="divEvaluaciones" class="tab-pane fade" >
+                            <table class="table table-striped" data-toggle="table" data-url="list_data_evaben"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdBeneficiario"
+                                   data-locale="es-ES"
+                                   data-controller="../evaben">
+                                <thead>
+                                    <tr>
+                                        <th data-field="evaluador" >Evaluador</th>
+                                        <th data-field="puntuacion" >Puntuación</th>
+                                        <th data-field="fechaDeEvaluacion" data-formatter="tecnara.formatFecha">Fecha</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="divFaltas" class="tab-pane fade" >
+                            <table class="table table-striped" data-toggle="table" data-url="list_data_falta"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdBeneficiario"
+                                   data-locale="es-ES"
+                                   data-controller="../falta">
+                                <thead>
+                                    <tr>
+                                        <th data-field="evaluador" >Evaluador</th>
+                                        <th data-field="actividad" >Actividad</th>
+                                        <th data-field="observacion" >Comentario</th>
+                                        <th data-field="fechaFaltaAsistencia" data-formatter="tecnara.formatFecha">Fecha</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="divMemoria" class="tab-pane fade" >
+                            <table class="table table-striped" data-toggle="table" data-url="list_data_memoria"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdBeneficiario"
+                                   data-locale="es-ES"
+                                   data-controller="../memoria">
+                                <thead>
+                                    <tr>
+                                        <th data-field="monitor"> Monitor</th>
+                                        <th data-field="comentarios">Comentarios</th>
+                                        <th data-field="fechaComentario" data-formatter="tecnara.formatFecha">Fecha</th>
+
+                                    </tr>   
+                                </thead>    
+                            </table>
+                        </div>
+                        <div id="divClases" class="tab-pane fade" >
+                            <table class="table table-striped" data-toggle="table" data-url="list_data_clase"
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdBeneficiario"
+                                   data-locale="es-ES"
+                                   data-controller="../clase">
+                                <thead>
+                                    <tr>
+                                        <th data-field="profesor"> Profesor</th>
+                                        <th data-field="asignatura">Asignatura</th>
+                                    </tr>   
+                                </thead>    
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        </form>    
+        <script>
+            $(document).ready(function(){
+                if ($("#bbVentana ").html()!=null){
+                    $(".ocultable").addClass("d-none");
+                }
+            })
+        </script>
+    </body>
+</html>
+

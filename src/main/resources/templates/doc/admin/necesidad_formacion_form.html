@@ -1,0 +1,25 @@
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <h3 class="mt-5">Necesidades de Formación</h3>
+        <form action="guardar" method="post" th:object="${registro}">
+            <input type="hidden" th:field="*{id}" />
+            
+            <div class="row">
+                <div class="col-md-7">
+                    <label>Necesidad</label>
+                    <input class="form-control" th:field="*{nombre}" maxlength="80" />
+                </div>
+                <div class="col-md-3">
+                    <label>Idioma</label>
+                    <input class="form-control" th:field="*{idioma}" maxlength="25" />
+                </div>
+                <div class="col-md-2">
+                    <label>Edad</label>
+                    <input class="form-control" th:field="*{edad}" maxlength="30" />
+                </div>           
+            </div>
+            <button type="submit" class="btn btn-primary mt-5"> <i class="fas fa-save"></i> Guardar</button>
+        </form>
+    </body>
+</html>

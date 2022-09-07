@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+
+
+
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <h3>Formulario de Participante</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated">
+            <input type="hidden" th:field="*{id}" />
+            <div class="row">
+                <div class="col-12">
+                    <label>Participante</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir el participante">
+                        <input class="form-control" data-toggle="buscador" data-url="../participante/buscador"  th:field="*{idParticipante}" required=""/>
+
+                    </div>
+                </div>   
+                <div class="col-12">
+                    <label>Proyecto</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir el proyecto">
+                        <input class="form-control" th:field="*{idProyecto}" required=""/>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <label>Fecha de alta</label>
+                    <input type="date" class="form-control" th:field="*{fechaAlta}" data-default="hoy" /> 
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-5" >Guardar</button>
+        </form>
+    </body>
+</html>
+

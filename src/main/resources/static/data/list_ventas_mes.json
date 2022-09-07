@@ -1,0 +1,6 @@
+[
+    {"id":1, "mes": "Enero", "ventas": 22000, "compras": 21000},
+    {"id":2, "mes": "Febrero", "ventas": 27000, "compras": 26000},
+    {"id":3, "mes": "Marzo", "ventas": 13000, "compras": 21000},
+    {"id":4, "mes": "Abril", "ventas": 42000, "compras": 34000}
+]

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        
+        <h3>Documentos Subidos</h3>
+        <button data-toggle='formboxsinmenu' class="btn btn-primary btn-sm">Nuevo Registro</button>
+        <p>
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="tipoDocumento" >Tipo de Documento</th>
+                    <th data-field="nombreFichero">Nombre del Documento</th>
+                    <th data-field="verificacion">Estado</th>
+                    <th data-field="observaciones">Observaciones</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu" data-width="200"></th>
+                </tr>
+            </thead> 
+        </table>
+        <div class="text-right">
+            <a href="help"> 
+                Ir a la ayuda</a>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>        
+        <h3>Listado del tutores</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nuevo</a>
+        <small class="ml-4" th:if="${nuevos>0}">Hay nuevos tutores: <a href='../usuario/list'><b>Pulsa aquí para aceptarlos o rechazarlos</b></a> </small>
+        <div class="row mt-3">
+            <div class="col-4">
+                <input class="form-control" name="filtro" placeholder="Escribe un texto para buscar" data-memory="2"/>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-primary " ><i class="fas fa-search"></i>  Filtrar</button>
+            </div>              
+        </div>        
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="usuario">Usuario</th>
+                    <th data-field="nombre">Nombre</th>
+                    <th data-field="apellido">Apellido</th>
+                    <th data-field="telefono">Teléfono</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones">Editar</th>
+                </tr>   
+            </thead>    
+        </table> 
+    </body>
+</html>

@@ -1,0 +1,167 @@
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/coordinador/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}" ></div>
+        <h3>Formulario Aspectos</h3>
+        <form action="guardar" method="post" th:object="${registro}" enctype="multipart/form-data">    
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col-md-6 col-sm-6">   
+                    <label>Nombre</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">
+                                <i class="fas fa-asterisk"></i>   
+                            </span>
+                        </div>
+                        <input class="form-control" th:field="*{nombre}" required ="" />
+                        <div class="invalid-feedback">
+                            Debes introducir un nombre para el Aspecto
+                        </div>
+                    </div>
+                </div>     
+                <div class="col-md-2 col-sm-6">
+                    <label> Tipo de letra</label> 
+                    <select class="form-control"  th:field="*{tipoLetra}" onchange="tecnara.selectFont('tipoLetra')" data-memory="2">
+
+                        <option style="font-family:ABeeZee" value="ABeeZee" >ABeeZee</option>
+                        <option style="font-family:Arvo" value="Arvo" >Arvo</option>
+                        <option style="font-family:Bitter" value="Bitter" >Bitter</option>
+                        <option style="font-family:Fredoka" value="Fredoka" >Fredoka</option>
+                        <option style="font-family:Josefin Sans" value="Josefin Sans" >Josefin Sans</option>
+                        <option style="font-family:Lora" value="Lora" >Lora</option>
+                        <option style="font-family:Poppins" value="Poppins" >Poppins</option>
+                        <option style="font-family:Sarabun" value="Sarabun" >Sarabun</option>
+                        <option style="font-family:Spectral" value="Spectral" >Spectral</option>
+                        <option style="font-family:Ubuntu" value="Ubuntu" >Ubuntu</option>
+                    </select>
+                </div> 
+                <div class="col-md-2 col-sm-6">
+                    <label>Fecha de inicio </label> 
+                    <input type="date" class="form-control" th:field="*{fechaInicio}"/>
+                </div> 
+                <div class="col-md-2 col-sm-6">
+                    <label>Fecha de fin </label> 
+                    <input type="date" class="form-control" th:field="*{fechaFin}"/>
+                </div> 
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class=" col-sm-6">
+                            <label> Color de texto</label> 
+                            <input type="color" class="form-control" th:field="*{colorTexto}"/>
+                        </div> 
+                        <div class=" col-sm-6">
+                            <label> Color de fondo</label> 
+                            <input  type="color" class="form-control" th:field="*{colorFondo}" />
+                        </div> 
+                        <div class="col-sm-6">
+                            <label> Color de texto (Titulos)</label> 
+                            <input type="color" class="form-control" th:field="*{colorTitulosLetra}"/>
+                        </div> 
+                        <div class="col-sm-6">
+                            <label> Color de fondo (Titulos)</label> 
+                            <input  type="color" class="form-control" th:field="*{colorTitulosFondo}" />
+                        </div>                 
+                    </div>                 
+                    <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-12 mt-3">  
+                            <input type="hidden" name="img" id="img"/>
+                            <div id="div_idImagen" >
+
+                                <h4 class='text-right'> <b>Marca de agua</b> - Arrastra y suelta imágenes 
+                                    <a class='ml-5 h6 text-nowarp' th:if="${registro.idImagen!=null}" onclick="quitarImagen('idImagen')"> - <i class="fas fa-trash-alt"></i> Quitar imagen</a></h4>
+
+                                <img th:if="${registro.idImagen!=null}" id="imagen" style="width:100%; height: 500px" class="border shadow img-thumbnail" th:src="@{/expo/coordinador/imagen/descargar(id=${registro.idImagen})}"/>
+                                <img th:if="${registro.idImagen==null}" id="imagen" style="width:100%; height: 500px" class="border shadow img-thumbnail" src="/img/draw_and_drop_image.png" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">  
+                            <div class="area d-inline">
+                                <h4>o Selecciona una imagen:</h4> 
+                                <input type="hidden" th:field="*{idImagen}"/>
+                                <input type="file" id="file" class="form-control" name="imagen"/>
+                            </div>
+                        </div>
+                    </div>             
+                </div>
+            </div>
+
+        </form>
+        <script>
+
+
+            $(document).ready(function () {
+                tecnara.selectFont("tipoLetra");
+
+            });
+
+
+        </script>
+        <script>
+            function quitarImagen(nombre) {
+                $("#" + nombre).val("");
+                $("#div_" + nombre).addClass("d-none");
+            }
+        </script>       
+        <script>
+
+            let files;
+
+            document.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                document.classList.add("active");
+                document.textContent = "Suelta para subir los archivos";
+            });
+
+            document.addEventListener("drop", (e) => {
+                e.preventDefault();
+                files = e.dataTransfer.files;
+
+                showFiles(files);
+                document.classList.remove("active");
+                document.textContent = "Arrastra y suelta imágenes"
+            });
+
+            function showFiles(files) {
+                if (files.length == undefined) {
+                    processFile(files);
+                } else {
+                    for (const file of files) {
+                        processFile(file);
+                    }
+                }
+            }
+
+            function processFile(file) {
+                const docType = file.type;
+                const validExtensions = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+
+                if (validExtensions.includes(docType)) {
+
+                    const fileReader = new FileReader();
+                    const id = `file-${Math.random().toString(32).substring(7)}`;
+
+                    fileReader.addEventListener('load', e => {
+                        const fileUrl = fileReader.result;
+                        $("#imagen").attr('src', fileUrl);
+                        $("#img").val(fileUrl);
+                    });
+
+                    fileReader.readAsDataURL(file);
+                    uploadFile(file, id);
+                } else {
+                    alert("No es un archivo válido");
+                }
+            }
+        </script>
+
+    </body>
+</html>

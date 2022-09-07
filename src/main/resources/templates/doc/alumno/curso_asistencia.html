@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>    
+        <div class="text-center">
+             
+            <h3>Asistencia de clase</h3>
+            <p class="text-info">
+                Escanea este código para registrar la validación de clase.
+            </p>
+            <div class="d-none" id="idAlumno" th:text="${idAlumno}"></div>
+            
+            
+            <div style="width:300px" class="bg-primary mx-auto" id="qrcode" align="center"></div>
+            <script type="text/javascript">
+                var qrcode = new QRCode(document.getElementById("qrcode"), {
+                        text: $("#idAlumno").html(),
+                        width: "300",
+                        height: "300",
+                        colorDark : "#000000",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                });
+            </script>
+        </div>
+    </body>
+</html>

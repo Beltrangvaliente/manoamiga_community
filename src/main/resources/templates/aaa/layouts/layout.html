@@ -1,0 +1,12 @@
+<span th:fragment="layout()" id='general-info' th:error='${error}' th:confirmacion='${confirmacion}'>
+    <script th:if='${error}'>
+        $(document).ready(function(){
+            bootbox.alert($("#general-info").attr("error"));
+        })
+    </script>
+    <script th:if='${confirmacion}'>
+        $(document).ready(function(){
+            bootbox.alert($("#general-info").attr("confirmacion"));
+        })
+    </script>
+</span> 

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html th:fragment="layout(htmlbody)">
+    <head> 
+
+        <title>Sistema de gestión formativa - Mano Amiga - Administración</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js" integrity="sha512-RdSPYh1WA6BF0RhpisYJVYkOyTzK4HwofJ3Q7ivt/jkpW6Vc8AurL1R+4AUcvn9IwEKAPm/fk7qFZW3OuiUDeg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+        <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.10.3/tinymce.min.js" integrity="sha512-ykwx/3dGct2v2AKqqaDCHLt1QFVzdcpad7P5LfgpqY8PJCRqAqOeD4Bj63TKnSQy4Yok/6QiCHiSV/kPdxB7AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" th:href="${'/temas/main_all.css'}"/>
+        <link rel="stylesheet" th:href="${'/temas/' + general.theme + '/main.css'}"/>
+        <script src="/js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF/jspdf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.20.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.20.0/extensions/export/bootstrap-table-export.min.js" integrity="sha512-dT1n8OoNpUmjsqNkx9juxD6kziqkJuG1Ofbh42aZs1RAcwrR+U3DPKHnlgqQyVZwnPU36Wdio00uuw7jFnxF/A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Arvo&family=Bitter&family=Fredoka&family=Josefin+Sans&family=Lora&family=Poppins:wght@300&family=Sarabun:wght@300&family=Spectral:wght@300&family=Ubuntu&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.12.0/css/bootstrap-tour.css" integrity="sha512-k0XYpyAS0ktvoOnp8InzAZm15/dYemXkB93kb/y84EwWMYu4YN0feGXwKLK37qKoF1oaPAZnooxJgtm4sjqA1Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="/temas/bootstrap-tour-standalone.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.12.0/js/bootstrap-tour.js" integrity="sha512-2J1oe/iXZZroN8TQl1kbLBqBGp2zyulBVw9IXnFb/Iun6YppB6qncJB0xjkYjsMr+KdiYs5Fs787pjSaeW43Mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tour/0.12.0/js/bootstrap-tour-standalone.js" integrity="sha512-/wP19kxPz0T+haB/7K1tSMfZcZYEgE5ng90xWcKMICZkbP2Vkx7IDg0IgZX8QmzmLjhQd66cjE1KcAE+Nu3NqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  
+
+        <style>
+            .semitransparente:hover{
+                background-color: #FFCE1B33;
+            }
+            .bg-semitransparente{
+                background-color: #FFCE1B33;
+                font-weight: bold;
+            }
+            .aclarar{
+                opacity: 0.3;
+            }
+            .pantalla-horizontal{
+                width: 1920px;
+                height: 1080px;
+            }
+            .pantalla-vertical{
+                width: 1080px;
+                height: 1920px;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <span th:replace="aaa/layouts/layout::layout()"></span>
+
+        <nav class="navbar navbar-expand-lg"> 
+            <a class="navbar-brand" href="/">
+                <img th:src="${'/temas/' + general.theme +  '/logo.png'}"/>    
+            </a>
+
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>  
+            </button>
+
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" > Información</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/expo/coordinador/evento/list">Eventos</a>
+                            <a class="dropdown-item" href="/expo/coordinador/noticia/list">Noticias</a>
+                            <a class="dropdown-item" href="/expo/coordinador/servicio/list">Servicios</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" >  Personal</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/expo/coordinador/coordinador/list">Coordinadores</a>
+                            <a class="dropdown-item" href="/expo/coordinador/trabajador/list">Trabajadores</a>
+                            <a class="dropdown-item" href="/expo/coordinador/usuario/list">Usuarios</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" >  Configuración</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/expo/coordinador/area/list">Áreas</a>
+                            <a class="dropdown-item" href="/expo/coordinador/espacio/list">Espacios</a>
+                            <a class="dropdown-item" href="/expo/coordinador/aspecto/list">Aspectos</a>
+                            <a class="dropdown-item" href="/expo/coordinador/imagen_decorativa/list">Imágenes Decorativas</a>
+                            <a class="dropdown-item" href="/expo/coordinador/plantilla/list">Plantilla</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/expo/coordinador/preferencia/list">Preferencias</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Salir <i class="fas fa-sign-out-alt"></i></a>
+                    </li>
+                    <li th:if="${general.username!=''}" class="nav-item">
+                        <span class="text-secondary" th:text="${'(' + general.username + ')'}"/>
+                    </li>                    
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+            <th:block th:include="${htmlbody}"/>
+        </div>           
+
+    </body>
+</html>
+
+
+
+
+
+

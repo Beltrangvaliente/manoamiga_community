@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <div data-toggle="enConstruccion"></div>
+        
+        <div class="float-right">
+        <a href="list"> 
+            Volver
+        </a>
+        </div>
+        <h3>Ayuda documentos subidos</h3>
+        <div class="row">
+            <div class="col-md-8">
+
+                <img src="/img/admin/help_documento_subido_list.JPG" class="img-fluid" alt="alt"/>
+            </div>
+            <div class="col-md-4">
+                <p>Tabla para revisar que documentos hay subidos.</p>
+                <ul>
+                    <li><b>Tipo de documento:</b> Aquí es donde se vera cual es la documentación usada.</li>
+                    <li><b>Nombre del documento:</b> El nombre del dueño del documento.</li>
+                    <li><b>Verificación:</b> Consta de tres estados; Pendiente, Aceptado y Rechazado.</li>
+                    <li><b>Observación:</b> Cualquier observación pertinente</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-4">
+                <p>Tabla para revisar que documentos hay subidos.</p>
+                <ul>
+                    <li><b>Tipo de documento:</b> Aquí es donde se vera cual es la documentación usada.</li>
+                    <li><b>Nombre del fichero:</b> El nombre del dueño del documento.</li>
+                    <li><b>Fecha de subida:</b> Aquí se pone la fecha en la que se subió el documento.</li>
+                    <li><b>Verificación:</b> Consta de tres estados; Pendiente, Aceptado y Rechazado.</li>
+                    <li><b>Observación:</b> Cualquier observación pertinente.</li>
+                    <li><b>Subir fichero:</b> En este campo podremos subir el fichero pertinente.</li>
+                </ul>
+            </div>
+            <div class="col-md-8">
+
+                <img src="/img/admin/help_documento_subido_form.JPG" class="img-fluid" alt="alt"/>
+            </div>
+        </div>
+
+    </body>
+</html>

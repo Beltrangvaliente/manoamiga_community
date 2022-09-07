@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            h1 {   text-align: center;
+            }
+
+
+
+        </style>
+
+    </head>
+    <body>
+
+
+        <div   th:fragment="plantilla()" >
+
+            <h1 style= "text-align:center";><b>Noticias de Actualidad</b></h1>
+
+            <img style="height:1150px" src="https://lacaridad.org/wp-content/uploads/2019/05/IMG-20190522-WA0007.jpg"/>              
+
+
+            <div class="row">
+                <div class="col-4">
+                    <p>
+                        [(${n.contenido1})]
+                    </p>
+                </div>
+                <div class="col-4" style="background-color: #EEE">
+                    <p>
+                        [(${n.contenido2})]
+                    </p>
+                </div>
+                <div class="col-4">
+                    <p>
+                        [(${n.contenido3})]
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

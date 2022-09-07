@@ -1,0 +1,38 @@
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/monitor/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <h3>Comentarios</h3>
+        <div class="row mb-5">
+            <div class="col-md-6 col-sm-6">
+                <label><b>Beneficiario:</b></label> 
+
+                <span th:text="${beneficiario.nombre + ' ' + beneficiario.apellido1 + ' ' +beneficiario.apellido2}"/>
+                      
+            </div> 
+            <div class="col-md-6 col-sm-6">
+                <label><b>Tutor:</b></label> 
+                <span th:text="${tutor.nombre + ' ' + tutor.apellido}"/>
+                
+            </div> 
+            <div class="col-md-6 col-sm-6">
+                <label><b>Fecha:</b></label> 
+                <span th:text="${comentario.fechaComentario}"/>
+            </div> 
+            <div class="col-md-6 col-sm-6">
+                <label><b>Hora:</b></label> 
+                <span th:text="${comentario.horaComentario}"/>
+            </div>    
+            <div class="col-md-12">   
+                <hr/>
+            </div>
+            <div class="col-md-12">   
+                <h5>Comentario:</h5>
+                <span th:text="${comentario.texto}"  /> 
+
+            </div>     
+        </div>
+        <a class="btn btn-primary" th:href="@{marcar_leido(idComentario=${comentario.id})}" onclick="bootbox.hideAll()">Marcar como leido</a>
+        <a class="btn btn-outline-dark" th:href="@{../beneficiario/form(id=${beneficiario.id})}">Ir a ficha del beneficiario</a>
+    </body>
+</html>

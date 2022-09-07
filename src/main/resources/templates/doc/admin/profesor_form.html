@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+
+    <body>
+
+        <div data-toggle="volver"></div>
+        <h3 class="mb-3">Dar de alta a profesores</h3> 
+        
+        
+        <form action="guardar" method="post" th:object="${registro}" class="mb-4 was-validated">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col-md-4 mt-3">
+                    <label for="nombre"> Nombre</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir un nombre">
+                        <input type="text" class="form-control" placeholder="Introduce nombre" th:field="*{nombreProf}" required>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label for="primerapellido"> Primer apellido</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir el primer apellido">
+                        <input type="text" class="form-control" placeholder="Introduce el primer apellido" th:field="*{apellido1Prof}" required>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label for="segundoapellido"> Segundo apellido</label>
+                    <input type="text" class="form-control" placeholder="Introduce el segundo apellido" th:field="*{apellido2Prof}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mt-3">
+                    <label>Usuario</label>
+                    <input data-toggle="buscador" data-url="../usuario/buscador" class="form-control" th:field="*{idUsuario}"/>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+
+
+        </form>
+
+    </body>
+</html>

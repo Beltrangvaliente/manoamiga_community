@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <h3>FORMULARIO DE CITAS</h3>
+
+        <script>
+            tecnara.visibleRefrescar = function () {
+                if ($("#horaDeCita option").length == 0) {
+                    $(".ocultable").addClass("d-none");
+                    if ($("#idCentroDeAtencion").val()>0){
+                        $(".mensaje").removeClass("d-none");
+                    }
+                    
+                } else {
+                    $(".ocultable").removeClass("d-none");
+                    $(".mensaje").addClass("d-none");
+                }
+            }
+
+
+            tecnara.cargarFechas = function () {
+                $.ajax({
+                    url: 'list_data_fecha_disponible',
+                    data: {
+                        idCentroDeAtencion: $('#idCentroDeAtencion').val()
+                    },
+                    dataType: "json",
+                    success: function (data, textStatus, jqXHR) {
+                        $("#fechaDeCita").html("");
+                        data.forEach(function (fila) {
+                            var opt = $("<option>").attr("value", fila.fechaDeCita).html(fila.fechaDeCita);
+
+                            $("#fechaDeCita").append(opt);
+                        });
+                        tecnara.cargarHoras();
+                    }
+                })
+            }
+            tecnara.cargarHoras = function () {
+                $.ajax({
+                    url: 'list_data_hora_disponible',
+                    data: {
+                        idCentroDeAtencion: $('#idCentroDeAtencion').val(),
+                        fecha: $('#fechaDeCita').val()
+
+                    },
+                    dataType: "json",
+                    success: function (data, textStatus, jqXHR) {
+                        $("#horaDeCita").html("");
+                        data.forEach(function (fila2) {
+                            var opt2 = $("<option>").attr("value", fila2.hora_de_cita).html(fila2.hora_de_cita);
+
+                            $("#horaDeCita").append(opt2);
+                        });
+                        tecnara.visibleRefrescar();
+                    }
+                })
+            }
+
+            $(document).ready(function () {
+                tecnara.cargarFechas();
+                tecnara.cargarHoras();
+                tecnara.visibleRefrescar();
+            });
+        </script>
+
+        <form action="guardar" method="post" th:object="${registro}">
+            <input type="hidden" th:field="*{id}" />
+            <div class="row">
+
+                <div class="col-md-4 col-sm-6">
+                    <label>Seleccione un centro de atención</label>
+                    <input type="number" onchange="tecnara.cargarFechas()"  data-toggle="buscador" data-url="../centro_atencion/buscador" class="form-control" th:field="*{idCentroDeAtencion}"/> 
+
+                </div>
+                <div class="col-md-2 col-6 ocultable">
+                    <label>Fecha</label>
+                    <select type="date" name="fechaDeCita" onchange="tecnara.cargarHoras()" class="form-control" th:field="*{fechaDeCita}">
+                    </select>
+
+                </div>
+                <div class="col-md-2 col-6 ocultable">
+                    <label>Hora</label>
+
+                    <select type="time" name="horaDeCita" class="form-control" th:field="*{horaDeCita}">
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 ocultable">
+                    <label>Motivo de Consulta</label>
+                    <textarea name="motivoConsulta" class="form-control" rows="3"  th:field="*{motivoConsulta}"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-5 ocultable">Guardar</button>
+
+            <h4 class="mensaje mt-3 d-none">No hay disponibilidad</h4>
+        </form>
+    </body>
+
+</html>

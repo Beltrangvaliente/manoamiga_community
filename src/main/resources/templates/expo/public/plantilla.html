@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html th:replace="expo/public/layouts/layout::layout( ~{::body} )">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <div th:fragment="plantillaNoticias()">
+            <div th:if="${n.idPlantilla!=null}" th:insert="expo/public/plantillas/plantilla_personalizada::plantilla()"></div>
+            <div th:if="${n.idPlantilla==null && n.idImagen1==null && !n.contenido1.equals('') && n.contenido2.equals('')}" th:insert="expo/public/plantillas/plantilla_0img_1text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null && n.idImagen1==null && n.contenido2!='' && n.contenido3==''}" th:insert="expo/public/plantillas/plantilla_0img_2text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null && n.idImagen1==null && n.contenido3!=''}" th:insert="expo/public/plantillas/plantilla_0img_3text::plantilla()"></div>  
+            <div th:if="${n.idPlantilla==null && n.idImagen1!=null && n.idImagen2==null && n.contenido1==''}" th:insert="expo/public/plantillas/plantilla_1img_0text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null && n.idImagen1!=null && n.idImagen2==null && n.contenido1!='' && n.contenido2==''}" th:insert="expo/public/plantillas/plantilla_1img_1text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null && n.idImagen1!=null && n.idImagen2==null && n.contenido2!='' && n.contenido3==''}"  th:insert="expo/public/plantillas/plantilla_1img_2text::plantilla()"></div>
+            <div th:if="${n.idPlantilla==null && n.idImagen1!=null && n.idImagen2==null && n.contenido3!=''}"  th:insert="expo/public/plantillas/plantilla_1img_3text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null && n.idImagen2!=null && n.idImagen3==null && n.contenido1==''}" th:insert="expo/public/plantillas/plantilla_2img_0text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null && n.idImagen2!=null && n.idImagen3==null && n.contenido1!='' && n.contenido2==''}" th:insert="expo/public/plantillas/plantilla_2img_1text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null && n.idImagen2!=null && n.idImagen3==null && n.contenido2!='' && n.contenido3==''}"  th:insert="expo/public/plantillas/plantilla_2img_2text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null && n.idImagen2!=null && n.idImagen3==null && n.contenido3!=''}"  th:insert="expo/public/plantillas/plantilla_2img_3text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null &&  n.idImagen3!=null && n.contenido1==''}" th:insert="expo/public/plantillas/plantilla_3img_0text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null &&  n.idImagen3!=null && n.contenido1!='' && n.contenido2==''}"  th:insert="expo/public/plantillas/plantilla_3img_1text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null &&  n.idImagen3!=null && n.contenido2!='' && n.contenido3==''}" th:insert="expo/public/plantillas/plantilla_3img_2text::plantilla()"></div> 
+            <div th:if="${n.idPlantilla==null &&  n.idImagen3!=null && n.contenido3!=''}" th:insert="expo/public/plantillas/plantilla_3img_3text::plantilla()"></div> 
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/public/layouts/layout::layout( ~{::body} )">
+   
+    <body>
+       <div class="container">
+            <h3>Usuario Activado</h3>
+            <p>
+               Tu usuario ${usuario} está activado.
+            </p>
+            <a href='${dominio}/act/public/usuario/login' class="btn btn-success btn-lg mb-4" >Entrar como Usuario</a><br/>
+        </div>
+    </body>
+</html>

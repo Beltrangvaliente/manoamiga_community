@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="expo/public/layouts/layout::layout( ~{::body} )">
+    <body> 
+        <input type="hidden" id="config_ancho" th:value="${config_ancho}"/>
+        <input type="hidden" id="config_alto" th:value="${config_alto}"/>
+        
+        <script>
+            $(document).ready(function(){
+                setTimeout(function (){
+                    location.reload(true);
+                }, 50000);            
+                $("body").css("width", $("#config_ancho").val())
+                         .css("height", $("#config_alto").val());            
+
+            });
+            var carrusel_size=0;
+            var carrusel_pos=0;
+            tecnara.pasarSlide=function(){
+                carrusel_pos=(carrusel_pos+1)%carrusel_size;
+                $("*[data-toggle='carrusel'] .carrusel-item").fadeOut(500);
+                setTimeout(function(){
+                    $("*[data-toggle='carrusel'] .carrusel-item:nth-child(" + (carrusel_pos+1) + ")").fadeIn(500);    
+                },500);
+                setTimeout(function(){
+                    tecnara.pasarSlide();
+                },20000);
+            }
+            $(document).ready(function(){
+                $("*[data-toggle='carrusel'] .carrusel-item").hide();
+                carrusel_size=$("*[data-toggle='carrusel'] .carrusel-item").length;
+                carrusel_pos=-1;
+                tecnara.pasarSlide();
+                //tecnara.crearPlantilla();
+            });
+            $(document).ready(function(){
+                $("html").on("keypress", function(){
+                    carrusel_pos=(carrusel_pos+1)%carrusel_size;
+                    $("*[data-toggle='carrusel'] .carrusel-item").fadeOut(500);
+                    setTimeout(function(){
+                        $("*[data-toggle='carrusel'] .carrusel-item:nth-child(" + (carrusel_pos+1) + ")").fadeIn(500);    
+                    },500);                   
+                })
+            })            
+        </script>
+        <div id="carouselExampleSlidesOnly" data-interval="10000" data-toggle="carrusel">
+            <div class="carrusel-inner">
+                <!--th:classappend="${i==0?'active':''}"-->
+                 <div  class="carrusel-item" th:each=" n: ${servicios}"> 
+                    <div th:replace="expo/public/servicios/servicio::plantilla()"></div> 
+                </div>   
+                <div th:each="n,i : ${noticias}" class="carrusel-item" th:classappend="${i.index==0?'active':''}"> 
+                    <div th:replace="expo/public/plantilla::plantillaNoticias()"></div> 
+                </div>
+            </div>
+        </div>        
+    </body>
+</html>

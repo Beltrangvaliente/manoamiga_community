@@ -1,0 +1,69 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>        
+        <div class="row mt-5"></div>
+        <div class="container">
+            <h3> Subir documento  <span th:text="${documento}"/> </h3>
+            
+            <script>
+                tecnara.nuevaLinea=function(){
+                    var div1= $("<div>").addClass("row");
+                    var div2= $("<div>").addClass("col-md-4").html("Subir documento:");
+                    var div3= $("<div>").addClass("col-md-4");
+                    var inp1= $("<input>").attr("name","fichero").attr("type","file");
+                    var div4= $("<div>").addClass("col-md-4");
+                    var a= $("<a>").attr("onclick","quitarLinea(this)").html("-");
+                    div1.append(div2);
+                    div1.append(div3);
+                    div3.append(inp1);
+                    div4.append(a);
+                };
+                tecnara.quitarLinea=function(obj){
+                    $(obj).parent().html("");
+                };
+            </script>
+            
+            <form action="guardar">
+                <a class="btn btn-primary" onclick="nuevaLinea()">+</a>
+                <div id="listaFicheros">
+                    <div class="row">
+                        <div class="col-md-4"> 
+                            Subir documento:
+                        </div>
+                        <div class="col-md-4"> 
+                            <input name="fichero" type="file"/>
+                        </div>
+                        <div class="col-md-4"> 
+                            <a onclick="quitarLinea()">-</a>
+                        </div>
+                            
+                        
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Subir ficheros</button>
+            </form>
+            
+            
+            <div class="row">
+                <div class="col-4"> 
+                    <div class="card">
+                        <div class="card-header">
+                            <b>Ver documentos</b>
+                        </div>
+                        <div class="card-body">
+                            <b>Tipo de documento :</b> <br/>
+                            <b>Obligatorio:</b> <br/>
+                            <b>Días de plazo:</b> <br/>
+
+
+                        </div>
+                        <div class="card-footer text-center d-flex justify-content-between">
+                            <button class="btn btn-info"> <i class="fas fa-info-circle"></i> Subir documento</button>
+                            <button class="btn btn-danger"> <i class="fas fa-minus-circle"></i> Hacer fotos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

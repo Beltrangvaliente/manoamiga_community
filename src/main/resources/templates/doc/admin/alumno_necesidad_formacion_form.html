@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <h3>Necesidades de Formación</h3>
+        <form action="guardar" method="post" th:object="${registro}">
+            <input type="hidden" th:field="*{id}" />
+            
+            <div class="row">
+                <div class="col-12">
+                    <label>Alumno</label>
+                    <input class="form-control" data-toggle="buscador" data-url="../alumno/buscador" th:field="*{idAlumno}" maxlength="80" />
+                </div>
+                <div class="col-12">
+                    <label>Necesidad</label>
+                    <input class="form-control" data-toggle="buscador" data-url="../necesidad_formacion/buscador" th:field="*{idNecesidadFormacion}" maxlength="25" />
+                </div>
+                           
+            </div>
+            <button type="submit" class="btn btn-primary mt-5"> <i class="fas fa-save"></i> Guardar</button>
+        </form>
+    </body>
+</html>

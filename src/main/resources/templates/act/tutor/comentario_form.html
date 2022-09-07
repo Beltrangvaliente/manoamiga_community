@@ -1,0 +1,30 @@
+
+<html xmlns:th="http://www.thymeleaf.org"h:replace="act/tutor/layouts/layout::layout( ~{::body} )">
+    <body>
+        <h3>Comentario</h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="row">
+                <div class="col-12">
+                    <label>Beneficiario</label>
+                    <input data-toggle="buscador" data-url="../beneficiario/buscador" class="form-control" th:field="*{idBeneficiario}"/>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-12">   
+                    <label>Texto</label>
+                    <textarea rows="10" class="form-control" th:field="*{texto}"></textarea>
+                </div>     
+            </div>
+            <p>
+                La información aquí publicada será visible por los monitores.
+            </p>
+            <button type="submit" class="btn btn-primary">Guardar</button><br/>
+            <a onclick="cerrar()"></a>
+        </form>
+
+    </body>
+</html>

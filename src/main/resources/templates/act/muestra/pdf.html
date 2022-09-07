@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/muestra/layouts/layout::layout( ~{::body} )">
+
+    <body>
+
+        http://localhost:8080/muestra/test?c=pruebaJorge
+
+        <p>Esto no sale</p>
+        <p>Esto no sale</p>
+        <p>Esto no sale</p>
+        <p>Esto no sale</p>
+        <p>Esto no sale</p>
+
+        <div class="p-1" id="informacionImprimir">
+            <h3>Información a imprimir</h3>
+            <div id="qr" style="width: 300px; height: 300px" ></div>
+
+            <p>bla bla bla bla bla blabla bla blabla bla blabla bla bla</p>
+            <p>bla bla bla bla bla blabla bla blabla bla blabla bla bla</p>
+            <p>bla bla bla bla bla blabla bla blabla bla blabla bla bla</p>
+            <p>bla bla bla bla bla blabla bla blabla bla blabla bla bla</p>
+            <p>bla bla bla bla bla blabla bla blabla bla blabla bla bla</p>
+
+            <p>bla bla bla bla bla blabla bla blabla bla blabla bla bla</p>
+
+        </div>
+
+        <button onclick="nm.qr()"> QR </button>
+        <button onclick="nm.pdf()"> PDF </button>
+
+        <script>
+            var nm = {
+                qr: function () {
+                    $("#qr").html("");
+                    new QRCode(document.getElementById("qr"),
+                            {
+                                text: "http://google.es",
+                                width: 300,
+                                height: 300,
+                            });
+                },
+                pdf: function () {
+                    var element = document.getElementById('informacionImprimir');
+                    html2pdf(element);
+
+                }
+            }
+
+        </script>
+
+
+    </body>
+</html>

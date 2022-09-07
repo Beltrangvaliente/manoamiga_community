@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+
+-->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+
+     <body>
+
+        <div data-toggle="volver" th:if="${sinmenu!=true}"></div>
+        <h3>Formulario de Documentos Formaciones</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{idFormacion}" />
+            <div class="row">
+                <div class="col-12">
+                    <label>Nombre Documento</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Introducir el nombre del documento">
+                        <input class="form-control" th:field="*{nombreDocumento}" required=""/>
+
+                    </div>
+                </div>   
+               
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <label>Fecha subido</label>
+                    <input type="date" class="form-control" th:field="*{fechaSubido}" data-default="hoy" /> 
+                </div>
+                
+                
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <input type="hidden" th:field="*{idFichero}"/>
+                    <input type="file" name="fichero"/>
+                </div>
+                
+            </div>
+           <button type="submit" class="btn btn-primary mt-5" >Guardar</button>
+        </form>
+    </body>
+</html>
+
+

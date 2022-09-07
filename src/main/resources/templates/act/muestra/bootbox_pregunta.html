@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/muestra/layouts/layout::layout( ~{::body} )">
+    <body>
+        <button onclick="nmConfirm.mostrarConfirm()">Pulsar para mostrar</button>
+        <script>
+            var nmConfirm={
+                mostrarConfirm:function(){
+                    bootbox.confirm({
+                        message: "Desea cambiar el color del fondo",
+                        callback: function (result) {
+                            if (result){
+                                $("body").addClass("bg-dark").addClass("text-white");    
+                            }
+                        }
+                    })
+                }
+            }
+        </script>
+        
+    </body>
+</html>
+

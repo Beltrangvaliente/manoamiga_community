@@ -1,0 +1,85 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/monitor/layouts/layout::layout( ~{::body} )">
+    <body>
+        <h3>Evaluación</h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Beneficiario</label>
+                    <input data-toggle="buscador" data-url="../beneficiario/buscador" class="form-control" th:field="*{idBeneficiario}"/>
+                </div> 
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Actividad</label>
+                    <input data-toggle="buscador" data-url="../actividad/buscador" data-params="idBeneficiario" class="form-control" th:field="*{idActividad}"/>
+                </div>
+                <div class="col-md-3">
+                    <label>Puntuación &nbsp;&nbsp;&nbsp;&nbsp; <label style='position:absolute;top:-5px' id='divInsignia'></label></label>
+                    <select class='form-control' th:field="*{puntuacion}" onchange="tecnara.refrescarInsignia(this)">
+                        <option value=''>0 - Sin valoración</option>
+                        <option value='1'>1 - Bronce 1</option>
+                        <option value='2'>2 - Bronce 2</option>
+                        <option value='3'>3 - Bronce 3</option>
+                        <option value='4'>4 - Plata 1</option>
+                        <option value='5'>5 - Plata 2</option>
+                        <option value='6'>6 - Plata 3</option>
+                        <option value='7'>7 - Oro 1</option>
+                        <option value='8'>8 - Oro 2</option>
+                        <option value='9'>9 - Oro 3</option>
+                        <option value='10'>10 - Platino 1</option>
+                        <option value='11'>Matrícula - Platino 2</option>
+                        <option value='12'>Master - Platino 3</option>
+                    </select>
+                    <script>
+                        tecnara.refrescarInsignia=function(){
+                            var info=[];
+                            info[1]="bronce1";
+                            info[2]="bronce2";
+                            info[3]="bronce3";
+                            info[4]="plata1";
+                            info[5]="plata2";
+                            info[6]="plata3";
+                            info[7]="oro1";
+                            info[8]="oro2";
+                            info[9]="oro3";
+                            info[10]="platino1";
+                            info[11]="platino1";
+                            info[12]="platino1";
+                            $("#divInsignia").html("");
+                            var valor=$("#puntuacion").val();
+                            if (valor>=1 && valor<=12){
+                                $("#divInsignia").html("<img width='30px' src='/img/beneficiario/" + info[valor] + ".png'>");
+                            }
+                        }
+                        
+                        $(document).ready(function(){
+                            tecnara.refrescarInsignia();
+                        })
+                    </script>
+                    
+                </div>
+
+                <div class="col-md-3">
+                    <label>Fecha de Evaluación</label>
+                    <input type="date" data-default="hoy" class="form-control" th:field="*{fechaDeEvaluacion}"/>
+                </div>   
+            </div>  
+
+
+            <div class="row">
+
+                <div class="col-12">
+                    <label>Comentarios Adicionales</label>
+                    <textarea class="form-control" placeholder="Indique información que quiera ampliar..." rows="10" th:field="*{comentarios}"/></textarea>
+                </div>    
+            </div> 
+            </br>
+            <button type="submit" class="btn btn-primary mt-5">Guardar</button>
+        </form>    
+
+    </body>
+</html>

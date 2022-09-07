@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+    <body>
+        <h3>Profesor </h3>
+        <form action="guardar" method="post" th:object="${registro}">    
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="row">
+
+                <div class="col-6">
+                    <label>Usuario</label>
+                    <input class="form-control" th:field="*{idUsuario}"/>
+                </div>
+                <div class="col-6">
+                    <label>Curso</label>
+                    <input class="form-control" th:field="*{idCurso}"/>
+                </div>
+
+                <div class="col-6">
+                    <label>Horario</label> 
+                    <input type="time" class="form-control" th:field="*{horario}"/>
+                </div> 
+
+
+                <div class="col-6">
+                    <label>Asistencia</label>
+                    <input type="date" name="name">
+                </div>
+            </div>
+        </form>
+        <button type="submit" class="btn btn-primary mt-5"> <i class="fas fa-save"></i>  Guardar</button>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>        
+        <h3>Listado de Actividades</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nueva Actividad Continua</a>
+        <a class="btn btn-primary btn-sm" href="form" >Nueva Actividad Puntual</a>
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="nombre">Actividad</th>
+                    <th data-field="nombre">Continua</th>
+                    <th data-field="nombre">No continua</th>
+                    <th data-field="nombre">Día</th>
+                    <th data-field="nombre">Comienza a las</th>
+                    <th data-field="nombre">Finaliza a las</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotones">Acciones</th>
+                </tr>   
+            </thead>    
+        </table>
+    </body>
+</html>

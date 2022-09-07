@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="enConstruccion"></div>
+        
+        <div class="float-right">
+            <a href="list">Volver<a/>
+           
+                
+        </div>
+
+        <h3>Ayuda de empresa</h3>
+        <div class="row">
+            <div class="col-6">
+                <img class="w-100" src="/img/admin/help_empresa_list.png"> 
+
+            </div>
+            <div class="col-6">
+                <p>
+                    En el listado de empresa es posible buscar las empresas asociadas al proyecto.
+                    Para ver las empresas puedes darles al boton nuevo.
+                    las columnas que se ven son:
+                </p>
+
+                <ul>
+                    <li>Descripción: Información de las empresas</li>
+                    <li>  Estado:Pendiente de la empresa.</li> 
+                    <li> Personas de contacto en la empresa</li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <img class="w-100" src="/img/admin/help_empresa_form.png"> 
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

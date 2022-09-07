@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+        <script>
+            function quitarFichero(nombre) {
+                $("#" + nombre).val("");
+                $("#div_" + nombre).addClass("d-none");
+            }
+        </script>       
+        <div data-toggle="indice"></div>
+        <h3>Formación Participante</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}" />
+            <div class="row">       
+                <div class="col-12">
+                    <label>Formacion</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir una formación">
+                        <input class="form-control" data-url="../formacion/buscador" data-toggle="buscador" th:field="*{idFormacion}" required=""/>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label>Participante</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir un participante">
+                        <input class="form-control" data-url="../participante/buscador" data-toggle="buscador" th:field="*{idParticipante}" required=""/>
+                    </div>
+                </div>            
+                <div class="col-md-6 col-sm-8">
+                    <label>Estado</label>
+                    <select class="form-control" th:field="*{estado}">
+                        <option value="Candidato">Candidato</option>
+                        <option value="En espera">En espera</option>               
+                        <option value="Aceptado">Aceptado</option>                       
+                        <option value="Rechazado">Rechazado</option>                       
+                    </select>
+                </div>
+                <div class="col-md-6 col-sm-8">
+                    <label>Evaluación</label>
+                    <select class="form-control" th:field="*{evaluacion}">
+                        <option value="Apto">Apto</option>
+                        <option value="No Apto">No Apto</option>               
+                        <option value="Inacabado">Inacabado</option>                                             
+                    </select>
+                </div>
+
+                <div class="col-md-6 col-sm-8">  
+                    <label>Diploma</label>
+                    <input type="hidden" th:field="*{idFichero}"/>
+                    <input type="file" id="file" class="form-control" name="fichero"/>
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary mt-5" >Guardar</button>
+
+
+        </form>
+    </body>
+</html>

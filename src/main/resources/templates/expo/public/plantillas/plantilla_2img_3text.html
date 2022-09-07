@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html th:replace="expo/public/layouts/layout::layout( ~{::body} )">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div th:fragment="plantilla()" >
+            <div class="row">
+                <div class="col-12">
+                    <h1 align="center" th:text="${n.titulo}"></h1>
+
+                </div> 
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div >
+                        <img th:src="@{/expo/public/imagen/descargar(id=${n.idImagen1})}" style="height:800px"  />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div style="height: 800px;">
+                        <p > 
+                            [(${n.contenido1})]
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card" style="height: 800px;display: ">
+
+                        <p>
+                            [(${n.contenido2})]
+                        </p>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <img  th:src="@{/expo/public/imagen/descargar(id=${n.idImagen2})}"  style="height:800px"  />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                     <center>
+                        <p>
+                            [(${n.contenido3})]
+                        </p>
+                    </center>
+                </div>
+            </div>
+
+
+
+        </div>
+    </body>
+
+</html>

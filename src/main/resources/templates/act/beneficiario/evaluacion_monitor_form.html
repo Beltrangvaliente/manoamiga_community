@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h3>Valoración</h3>
+        <form id="formVotacion" action="guardar" method="post" th:object="${registro}">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col-md-4 col-sm-12">   
+                    <label>Nombre de Actividad</label> 
+                    <select class="form-control" th:field="*{nombreActividad}" onchange="tecnara.refrescarNombreActividad()">                      
+                </div>       
+                <div class="col-md-4 col-sm-6">   
+                    <label >Nombre Monitor<span class="d-none d-lg-inline"></span></label>
+                    <input class="form-control" th:field="*{nombreMonitor}"/>
+                </div>       
+                <div class="col-md-4 col-sm-6">   
+                    <label>Apellidos Monitor <span class="d-none d-lg-inline"></span></label>
+                    <input class="form-control" th:field="*{apellidosMonitor}" />
+                </div>       
+            </div>
+            <button type="submit" class="btn btn-primary mt-5">Votar</button>
+        </form>     
+    </body>
+</html>

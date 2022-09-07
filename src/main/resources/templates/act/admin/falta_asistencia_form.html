@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/admin/layouts/layout::layout( ~{::body} )">
+    <body>
+        <h3>Formulario faltas de asistencia</h3>
+        <form action="guardar" method="post" th:object="${registro}">
+            <input type="hidden" th:field="*{id}" />
+            <div class="container">
+                <div class="row">
+                    <div class="col-2">
+                        <label>Id Beneficiario</label>
+                        <input class="form-control" th:field="*{idBeneficiario}"/>
+                    </div>
+                    <div class="col-2">
+                        <label>Id Monitor</label>
+                        <input class="form-control" th:field="*{idMonitor}" />
+                    </div>
+                    <div class="col-2">
+                        <label>Id Profesor</label>
+                        <input class="form-control" th:field="*{idProfesor}" />
+                    </div>
+                    <div class="col-2">
+                        <label>Id Tutor</label>
+                        <input class="form-control" th:field="*{idTutor}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label>Motivo</label>
+                        <textarea class="form-control" placeholder="Indique los motivos que crea pertinentes..." rows="5" th:field="*{motivo}"/></textarea>
+                    </div>  
+                    <div class="col-6">
+                        <label>Observación</label>
+                        <textarea class="form-control" placeholder="Indique las observaciones que crea pertinentes..." rows="5" th:field="*{observacion}"/></textarea>
+                    </div>
+                </div>  
+                </br>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
+    </body>
+</html>

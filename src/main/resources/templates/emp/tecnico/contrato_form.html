@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+                 
+<html xmlns:th="http://www.thymeleaf.org" th:replace="emp/tecnico/layouts/layout::layout( ~{::body} )">
+    <body>
+        <h3>Formulario de contrato</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated">
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{idParticipante}" />
+            
+            
+            <div class="row">
+                <div class="col-12">
+                    <label>Empresa</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir una empresa">
+                        <input class="form-control" data-url="../empresa/buscador" data-toggle="buscador" th:field="*{idEmpresa}" required=""/>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label>Puesto</label>
+                    <div data-toggle="obligatorio" data-invalid-text="Debe introducir un puesto">
+                        <input class="form-control" th:field="*{puesto}" required=""/>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <label>Fecha inicio</label>
+                    <input type="date" class="form-control" th:field="*{fechaInicio}" /> 
+                </div>
+                
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <label>Fecha fin</label>
+                    <input type="date" class="form-control" th:field="*{fechaFin}" /> 
+                </div>
+            
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <label>Tipo de Contrato</label>
+                    <select class="form-control" th:field="*{tipoContrato}">
+                        <option value="Indefinido">Indefinido</option>
+                        <option value="Temporal">Temporal</option>               
+                        <option value="Obra y servicios">Obra y servicios</option>                       
+                        <option value="Practicas">Practicas</option>               
+                        <option value="Otro">Otro</option>                 
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <label>Mediación</label>
+                    <select class="form-control" th:field="*{mediacion}">
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>   
+                    </select>
+                </div>
+            
+            
+            </div>
+       
+
+            
+
+
+
+        <button type="submit" class="btn btn-primary mt-5" >Guardar</button>
+
+    </form>
+</body>
+</html>
+

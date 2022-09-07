@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/monitor/layouts/layout::layout( ~{::body} )">
+    <body>
+        <div data-toggle="indice"></div>        
+        <h3>Notificaciones de padres/madres/tutores</h3>
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="nombreCompletoBeneficiario" >Beneficiario</th>
+                    <th data-field="nombreCompletoTutor" >Tutor</th>
+                    <th data-field="fechaComentario" data-formatter="tecnara.formatFecha" >Fecha</th>
+                    <th data-field="horaComentario" >Hora</th>
+                    <th data-field="leido" >Leido</th>
+                    <th data-field="id" data-formatter="tecnara.tablaBotonMostrar">Mostrar</th>
+              
+                </tr>
+            </thead>
+        </table>
+                
+    </body>
+</html>

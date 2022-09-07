@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="act/tutor/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <script>
+            tecnara.filtroIdBeneficiario = function (params) {
+                params.idBeneficiario = $("#id").val();
+                return params;
+            }
+
+            tecnara.tablaBotonesSinMenu = function (id, row, index) {
+
+                if (row['idTutor'] == $('#idValidado').val()) {
+                    return "<button type='button' class='btn btn-success btn-sm' onclick='tecnara.abrirFormularioEditarSinMenu(this, " + row["id"] + ")' > Editar </button> " +
+                            "<button type='button' class='btn btn-danger btn-sm' onclick='tecnara.borrarRegistroSinMenu(this, " + row["id"] + ")'> Borrar </button> ";
+                } else {
+                    return "";
+                }
+            }
+
+            tecnara.iconoLeido = function (valor, row, index) {
+                if (valor != null && valor.toLowerCase() == "si") {
+                    return  "<i class='fas fa-envelope-open'></i>";
+                } else {
+
+                    return "<i class='fas fa-envelope'></i>";
+                }
+            }
+
+            tecnara.ponerNegrita = function () {
+                $("tr:has(.fa-envelope)").addClass("font-weight-bold");
+                $("tr:has(.fa-envelope-open)").removeClass("font-weight-bold");
+            }
+
+            $(document).ready(function () {
+                $("table").on("load-success.bs.table", function () {
+                    tecnara.ponerNegrita();
+                });
+            });
+
+        </script>    
+
+        <input type="hidden" id="idValidado" th:value="${general.idValidado}"/>
+        <div data-toggle="volver"></div>
+
+        <h3>Formulario Beneficiario</h3>
+        <form action="guardar" method="post" th:object="${registro}" class="was-validated" >    
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{idTutor}"/>
+            <div class="row">
+                <div class="col-md-4 mt-3">
+                    <label>Nombre</label>
+                    <input readonly="readonly" type="text" class="form-control" th:field="*{nombre}" />
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label>Primer Apellido</label>
+                    <input readonly="readonly" type="text" class="form-control" th:field="*{apellido1}" />
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label>Segundo Apellido</label>
+                    <input readonly="readonly" type="text" class="form-control" th:field="*{apellido2}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mt-3">
+                    <label>Documento </label>
+                    <input readonly="readonly" type="text" class="form-control" th:field="*{documento}" placeholder="DNI, NIE o Pasaporte"/>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <label>Teléfono</label>
+                    <input readonly="readonly" type="tel" class="form-control" th:field="*{telefono}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+
+
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" > 
+                            <a class="nav-link active" data-toggle="tab" href="#divComentarios">
+
+                                Comentarios
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divEvaluaciones">
+                                Evaluaciones
+                            </a> 
+                        </li>
+                        <li class="nav-item" > 
+                            <a class="nav-link" data-toggle="tab" href="#divFaltas">
+                                Faltas de asistencia
+                            </a> 
+                        </li>                        
+                    </ul>
+                    <div class="tab-content">
+                        <div id="divComentarios" class="tab-pane fade show active" >
+
+                            <button data-toggle="formbox" data-url="/act/tutor/comentario/form" class="btn btn-primary">Enviar comentario a los monitores</button>
+                            <button type="button" th:data-url="@{/act/tutor/beneficiario/marcar_leido_comentario(idBeneficiario=${registro.id})}" onclick="tecnara.ejecutarAjax(this)" class="btn btn-primary">Marcar como leidos</button>
+
+                            <table class="table table-striped" data-toggle="table" data-url="list_data_comentario"
+                                   data-pagination="true"
+                                   data-mobile-responsive="true" 
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdBeneficiario"
+                                   data-locale="es-Es"
+                                   data-controller="../comentario"
+                                   onRefresh="tecnara.ponerNegrita()">                    
+
+                                <thead>
+                                    <tr>
+                                        <th data-field="persona" >Persona</th>
+                                        <th data-field="texto" >Comentario</th>
+                                        <th data-field="fechaComentario"  data-formatter="tecnara.formatFecha">Fecha</th>
+                                        <th data-field="horaComentario" >Hora</th>
+                                        <th data-field="id" data-formatter="tecnara.tablaBotonesSinMenu">Editar</th>
+                                        <th data-field="leidoPorTutor" data-formatter="tecnara.iconoLeido">Leído</th>
+
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="divEvaluaciones" class="tab-pane fade" >
+
+                            <button type="button" th:data-url="@{/act/tutor/beneficiario/marcar_leido_evaluacion(idBeneficiario=${registro.id})}" onclick="tecnara.ejecutarAjax(this)" class="btn btn-primary">Marcar como leidos</button>
+
+
+                            <table class="table table-striped" data-toggle="table" data-url="list_data_evaluacion"
+                                   data-pagination="true"
+                                   data-mobile-responsive="true" 
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdBeneficiario"
+                                   data-locale="es-Es"
+                                   data-controller="../evaluacion"
+                                   onRefresh="tecnara.ponerNegrita()">
+
+                                <thead>
+                                    <tr>
+                                        <th data-field="persona" >Persona</th>
+                                        <th data-field="puntuacion" >Valoración</th>
+                                        <th data-field="fechaDeEvaluacion"  data-formatter="tecnara.formatFecha" >Fecha</th>
+                                        <th data-field="leidoPorTutor" data-formatter="tecnara.iconoLeido" >Leido</th>
+
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="divFaltas" class="tab-pane fade" >
+
+                            <button type="button" th:data-url="@{/act/tutor/beneficiario/marcar_leido_falta_de_asistencia(idBeneficiario=${registro.id})}" onclick="tecnara.ejecutarAjax(this)" class="btn btn-primary">Marcar como leidos</button>
+
+
+                            <table class="table table-striped" data-toggle="table" 
+                                   data-url="list_data_falta_asistencia"
+                                   data-mobile-responsive="true" 
+                                   data-pagination="true"
+                                   data-side-pagination="server"
+                                   data-query-params="tecnara.filtroIdBeneficiario"
+                                   data-locale="es-Es"
+                                   data-controller="../falta_asistencia"
+                                   onRefresh="tecnara.ponerNegrita()">
+                                <thead>
+                                    <tr>
+                                        <th data-field="persona" >Persona</th>
+                                        <th data-field="observacion" >Comentario</th>
+                                        <th data-field="fechaFaltaAsistencia"  data-formatter="tecnara.formatFecha" >Fecha</th>
+                                        <th data-field="leidoPorTutor" data-formatter="tecnara.iconoLeido" >Leido</th>
+
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        </form>    
+    </body>
+</html>

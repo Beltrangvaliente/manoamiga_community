@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="doc/alumno/layouts/layout::layout( ~{::body} )">
+
+    <body>
+        <h3>Asitencia</h3>
+        <a class="btn btn-primary btn-sm" href="form" >Nuevo</a>
+        <table class="table table-striped" data-toggle="table" data-mobile-responsive="true" data-url="list_data">
+            <thead>
+                <tr>
+                    <th data-field="id" >Id</th>
+                    <th data-field="idUsuario">Usuario</th>
+                    <th data-field="idCurso" >Curso</th>
+                    <th data-field="Fecha"   data-formatter="tecnara.formatFecha">Fecha</th>
+                    <th data-field="hora" >Hora</th>
+
+                </tr>   
+            </thead>  
+        </table>
+    </body>
+</html>
